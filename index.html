@@ -139,10 +139,10 @@
   /* ============ marquee band ============ */
   .band{background:var(--white);border-block:1px solid var(--line);padding:34px 0;overflow:hidden}
   .band h2{font-size:12px;font-weight:700;letter-spacing:.14em;color:#a39a93;text-align:center;margin-bottom:24px}
-  .marquee{direction:ltr;display:flex;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
-  .marquee-track{display:flex;gap:18px;padding-inline-start:18px;flex-shrink:0;animation:scroll 30s linear infinite}
+  .marquee{direction:ltr;max-width:920px;margin:0 auto;overflow:hidden;padding:6px 0;mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+  .marquee-track{display:flex;gap:16px;width:max-content;padding:0 10px;--shift:-300px;animation:swing 14s ease-in-out infinite alternate}
   .marquee:hover .marquee-track{animation-play-state:paused}
-  @keyframes scroll{to{transform:translateX(-100%)}}
+  @keyframes swing{from{transform:translateX(0)}to{transform:translateX(var(--shift))}}
   .cert{direction:rtl;display:flex;align-items:center;gap:12px;padding:13px 22px;border-radius:14px;border:1px solid var(--line);background:var(--paper);white-space:nowrap;transition:.25s}
   .cert:hover{border-color:rgba(249,157,28,.5);box-shadow:var(--shadow);transform:translateY(-2px)}
   .cert .ci{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:rgba(46,157,92,.1);color:var(--green);flex-shrink:0}
@@ -150,11 +150,18 @@
   .cert small{font-size:10.5px;color:var(--slate);display:block}
 
   /* ============ stats ============ */
-  .stats{padding:64px 0;background:linear-gradient(180deg,var(--white),var(--paper))}
-  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center}
-  .stat b{font-family:'Sora';font-size:clamp(30px,4vw,46px);font-weight:800;color:var(--crimson);display:block;letter-spacing:-.02em;direction:ltr}
-  .stat b em{font-style:normal;color:var(--gold)}
-  .stat span{font-size:14px;color:var(--slate);font-weight:600}
+  .stats{padding:70px 0;background:linear-gradient(180deg,var(--white),var(--paper))}
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);background:var(--white);border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);overflow:hidden}
+  .stat{padding:36px 18px;text-align:center;position:relative;transition:background .3s}
+  .stat:hover{background:var(--paper)}
+  .stat + .stat::before{content:"";position:absolute;top:22%;bottom:22%;right:0;width:1px;background:var(--line)}
+  .stat .sic{width:44px;height:44px;margin:0 auto 16px;border-radius:13px;display:grid;place-items:center;background:rgba(193,2,48,.06);color:var(--crimson);border:1px solid rgba(193,2,48,.1)}
+  .stat:nth-child(2) .sic{background:rgba(249,157,28,.12);color:var(--gold-deep);border-color:rgba(249,157,28,.2)}
+  .stat:nth-child(3) .sic{background:rgba(46,157,92,.09);color:var(--green);border-color:rgba(46,157,92,.16)}
+  .stat:nth-child(4) .sic{background:rgba(21,17,15,.05);color:var(--ink);border-color:rgba(21,17,15,.1)}
+  .stat b{font-family:'Sora';font-size:clamp(28px,3.4vw,42px);font-weight:800;color:var(--ink);display:inline-flex;align-items:baseline;gap:3px;letter-spacing:-.02em;direction:ltr;line-height:1;white-space:nowrap}
+  .stat b em{font-style:normal;font-size:.58em;font-weight:800;color:var(--crimson);transform:translateY(-.35em)}
+  .stat .lbl{display:block;font-size:13.5px;color:var(--slate);font-weight:600;margin-top:10px}
 
   /* ============ section head ============ */
   .head{text-align:center;max-width:760px;margin:0 auto 58px}
@@ -247,13 +254,13 @@
   .xpl-item.active .xi{transform:scale(1.08)}
   .xpl-item .prog{position:absolute;bottom:0;right:0;height:2.5px;width:0;background:linear-gradient(90deg,var(--gold),var(--crimson));border-radius:2px;opacity:0}
   .xpl-item.active .prog{opacity:1}
-  .xpl-stage{position:relative;min-height:540px}
+  .xpl-stage{position:relative;min-height:600px}
   .xpl-panel{position:absolute;inset:0;background:var(--white);border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow-lg);overflow:hidden}
   .xpl-panel .tintbg{position:absolute;inset:0;background:radial-gradient(620px 420px at 18% -10%,var(--tint),transparent 65%);transition:.6s}
   .xpl-panel .ghostn{position:absolute;top:14px;left:26px;font-family:'Sora';font-weight:800;font-size:150px;line-height:1;color:var(--acc);opacity:.07;direction:ltr;user-select:none;letter-spacing:-.04em}
   .xpl-inner{position:relative;height:100%;display:flex;flex-direction:column;justify-content:center;padding:52px 54px;animation:xin .55s var(--ease)}
   @keyframes xin{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
-  .xheroic{position:relative;width:104px;height:104px;margin-bottom:30px}
+  .xheroic{position:relative;width:96px;height:96px;margin-bottom:24px}
   .xheroic .disc{position:absolute;inset:0;border-radius:28px;background:var(--tint);border:1px solid var(--line);display:grid;place-items:center;color:var(--acc);animation:xfloat 5s ease-in-out infinite;z-index:2;backdrop-filter:blur(4px)}
   @keyframes xfloat{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-9px) rotate(-2deg)}}
   .xheroic .ring{position:absolute;inset:-6px;border-radius:34px;border:1.5px solid var(--acc);opacity:.35;animation:xpulse 2.6s var(--ease) infinite}
@@ -268,12 +275,27 @@
   .xhl{display:flex;gap:12px;align-items:flex-start;margin-top:20px;padding:15px 18px;border-radius:15px;background:var(--paper);border:1px solid var(--line);max-width:560px}
   .xhl .hk{width:26px;height:26px;border-radius:50%;background:rgba(46,157,92,.12);color:var(--green);display:grid;place-items:center;flex-shrink:0;margin-top:1px}
   .xhl p{font-size:13.5px;font-weight:700;color:#3d3733;line-height:1.8}
-  .xfoot{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:34px;padding-top:22px;border-top:1px solid var(--line);max-width:560px}
+  .xfoot{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:24px;padding-top:18px;border-top:1px solid var(--line);max-width:560px}
   .xcount{font-family:'Sora';font-size:13px;font-weight:700;color:var(--slate);direction:ltr}
   .xcount b{color:var(--crimson);font-size:16px}
   .xnav{display:flex;gap:10px}
   .xbtn{width:44px;height:44px;border-radius:13px;border:1px solid var(--line);background:var(--white);cursor:pointer;display:grid;place-items:center;color:var(--ink);transition:.2s;font-family:inherit}
   .xbtn:hover{background:var(--crimson);border-color:var(--crimson);color:#fff;transform:translateY(-2px)}
+  /* metrics inside explorer panel */
+  .xmetrics{display:flex;gap:12px;margin-top:22px;max-width:560px}
+  .xm{flex:1;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:14px 10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;text-align:center;min-width:0}
+  .xm .xv{font-family:'Sora';font-weight:800;font-size:19px;direction:ltr;color:var(--ink);line-height:1;white-space:nowrap}
+  .xm .xv i{font-style:normal;font-size:11px;color:var(--green);font-weight:700}
+  .xm small{font-size:10.5px;font-weight:700;color:var(--slate);line-height:1.5}
+  .xring{position:relative;width:56px;height:56px}
+  .xring svg{width:100%;height:100%;transform:rotate(-90deg)}
+  .xring circle{fill:none;stroke-width:5.5}
+  .xring .bgc{stroke:var(--line)}
+  .xring .fgc{stroke:var(--acc);stroke-linecap:round;stroke-dasharray:151;stroke-dashoffset:151;transition:stroke-dashoffset 1.2s var(--ease) .25s}
+  .xring b{position:absolute;inset:0;display:grid;place-items:center;font-family:'Sora';font-size:12.5px;font-weight:800;direction:ltr;color:var(--ink)}
+  .xbars{display:flex;align-items:flex-end;gap:3.5px;height:36px}
+  .xbars i{width:6.5px;border-radius:3px;background:var(--acc);opacity:.9;height:4px;transition:height .8s var(--ease)}
+  .xbars i:last-child{background:var(--gold)}
   /* dark variant (vulnerability system) */
   .xpl-panel.darkp{background:linear-gradient(150deg,var(--crimson) 0%,var(--crimson-deep) 90%);border-color:var(--crimson-deep)}
   .xpl-panel.darkp .tintbg{background:radial-gradient(620px 420px at 18% -10%,rgba(249,157,28,.22),transparent 65%)}
@@ -290,6 +312,16 @@
   .xpl-panel.darkp .xbtn:hover{background:var(--gold);border-color:var(--gold);color:var(--ink)}
   .xpl-panel.darkp .xhl{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18)}
   .xpl-panel.darkp .xhl p{color:rgba(255,255,255,.92)}
+
+  .xpl-panel.darkp .xm{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18)}
+  .xpl-panel.darkp .xm .xv{color:#fff}
+  .xpl-panel.darkp .xm .xv i{color:#5ee49a}
+  .xpl-panel.darkp .xm small{color:rgba(255,255,255,.72)}
+  .xpl-panel.darkp .xring .bgc{stroke:rgba(255,255,255,.22)}
+  .xpl-panel.darkp .xring .fgc{stroke:var(--gold)}
+  .xpl-panel.darkp .xring b{color:#fff}
+  .xpl-panel.darkp .xbars i{background:rgba(255,255,255,.65)}
+  .xpl-panel.darkp .xbars i:last-child{background:var(--gold)}
 
   /* ============ steps + why ============ */
   .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;position:relative;margin-bottom:100px}
@@ -614,10 +646,26 @@
 <!-- ================= STATS ================= -->
 <div class="stats">
   <div class="wrap"><div class="stats-grid">
-    <div class="stat reveal"><b><span class="cnt" data-to="6000">0</span><em>+</em></b><span>إطار تنظيمي مدمج</span></div>
-    <div class="stat reveal d1"><b><span class="cnt" data-to="3500">0</span><em>+</em></b><span>ضابط رقابي جاهز</span></div>
-    <div class="stat reveal d2"><b><span class="cnt" data-to="360">0</span><em>°</em></b><span>رؤية إدارية متكاملة</span></div>
-    <div class="stat reveal d3"><b><span class="cnt" data-to="10">0</span></b><span>أنظمة متخصصة في منصة واحدة</span></div>
+    <div class="stat reveal">
+      <span class="sic"><svg width="19" height="19"><use href="#i-doc"/></svg></span>
+      <b><span class="cnt" data-to="6000">0</span><em>+</em></b>
+      <span class="lbl">إطار تنظيمي مدمج</span>
+    </div>
+    <div class="stat reveal d1">
+      <span class="sic"><svg width="19" height="19"><use href="#i-shield"/></svg></span>
+      <b><span class="cnt" data-to="3500">0</span><em>+</em></b>
+      <span class="lbl">ضابط رقابي جاهز</span>
+    </div>
+    <div class="stat reveal d2">
+      <span class="sic"><svg width="19" height="19"><use href="#i-radar"/></svg></span>
+      <b><span class="cnt" data-to="360">0</span><em>°</em></b>
+      <span class="lbl">رؤية إدارية متكاملة</span>
+    </div>
+    <div class="stat reveal d3">
+      <span class="sic"><svg width="19" height="19"><use href="#i-grid"/></svg></span>
+      <b><span class="cnt" data-to="10">0</span></b>
+      <span class="lbl">أنظمة متخصصة في منصة واحدة</span>
+    </div>
   </div></div>
 </div>
 
@@ -938,12 +986,17 @@ const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-mo
   setTimeout(() => fills.forEach(f => f.style.width = f.dataset.w), reduceMotion ? 0 : 1500);
 })();
 
-/* ---------- marquee: duplicate track ---------- */
+/* ---------- marquee: pendulum swing range ---------- */
 (function(){
   const t = document.getElementById("mq1");
-  const clone = t.cloneNode(true);
-  clone.setAttribute("aria-hidden", "true");
-  t.parentNode.appendChild(clone);
+  const box = t.parentElement;
+  const fit = () => {
+    const d = Math.max(0, t.scrollWidth - box.clientWidth);
+    t.style.setProperty("--shift", -d + "px");
+  };
+  window.addEventListener("resize", fit);
+  window.addEventListener("load", fit);
+  fit();
 })();
 
 /* ---------- 3D stage: mouse parallax ---------- */
@@ -985,16 +1038,16 @@ const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-mo
 /* ---------- systems explorer ---------- */
 (function(){
   const M = [
-    { icon:"i-shield", title:"الالتزام التنظيمي", desc:"إدارة دورة التوافق مع التشريعات الوطنية والدولية من نقطة واحدة، مع رؤية دقيقة لحالة كل ضابط.", hl:"متابعة وتحديث اللوائح التشريعية آلياً بمجرد صدورها رسمياً لضمان الجاهزية الدائمة.", tag:"أتمتة متقدمة", acc:"#2e9d5c", tint:"rgba(46,157,92,.11)" },
-    { icon:"i-target", title:"إدارة المخاطر (ERM)", desc:"تحديد وقياس المخاطر بوضوح عبر مصفوفات ديناميكية تربط كل خطر بأصوله وخطط معالجته.", hl:"التنبؤ بالمخاطر المحتملة واقتراح خطط التحييد والمعالجة استباقياً لدعم قرارك.", tag:"تحليل ذكي", acc:"#C10230", tint:"rgba(193,2,48,.08)" },
-    { icon:"i-merge", title:"إدارة المعاملات ومسارات العمل", desc:"تنظيم طلبات الاستثناءات وتوجيه المهام بين الموظفين عبر مسارات عمل مرنة توافق الهيكل الإداري لمنشأتك.", acc:"#7c3aed", tint:"rgba(124,58,237,.09)" },
-    { icon:"i-folder", title:"إدارة الملفات والوثائق", desc:"مستودع آمن لحفظ سياسات المنشأة وأدلة الامتثال، مع إدارة دقيقة لصلاحيات الوصول لكل مستخدم.", acc:"#e2790f", tint:"rgba(226,121,15,.11)" },
-    { icon:"i-audit", title:"المراجعة والتدقيق الداخلي", desc:"جدولة مهام التدقيق السنوية، وحفظ أوراق العمل إلكترونياً، وتتبع حل الملاحظات مع الأقسام المختلفة.", acc:"#0d9488", tint:"rgba(13,148,136,.1)" },
-    { icon:"i-building", title:"الحوكمة المؤسسية", desc:"توضيح الهيكل التنظيمي للمنشأة وتحديد مصفوفة الصلاحيات (DoA) لضمان سير العمل بانتظام.", acc:"#475569", tint:"rgba(71,85,105,.1)" },
-    { icon:"i-mega", title:"الحوادث والبلاغات", desc:"قنوات سرية وآمنة للموظفين لتقديم البلاغات، مع نظام يتيح للمسؤولين تتبع إجراءات التحقيق حتى الإغلاق.", acc:"#e11d48", tint:"rgba(225,29,72,.08)" },
-    { icon:"i-users", title:"حوكمة المجالس واللجان", desc:"تنظيم مواعيد الاجتماعات، إجراء التصويت، وكتابة واعتماد محاضر الاجتماعات عبر التوقيع الرقمي.", acc:"#4f46e5", tint:"rgba(79,70,229,.09)" },
-    { icon:"i-activity", title:"استمرارية الأعمال (BCM)", desc:"وضع خطط التعافي من الأزمات والكوارث وتحليل تأثير الأعمال لضمان عدم توقف الخدمات الأساسية.", acc:"#C77A05", tint:"rgba(249,157,28,.15)" },
-    { icon:"i-radar", title:"نظام تقييم واختبار الثغرات", desc:"نربط المنصة ببرامج فحص الثغرات العالمية لسحب تقارير الأمان الخاصة بك، ونصنفها تلقائياً داخل سجل المخاطر ليسهل عليك متابعة حلها.", tag:"ربط فني مباشر", dark:true, acc:"#F99D1C", tint:"rgba(249,157,28,.16)" }
+    { icon:"i-shield", pct:94, pl:"نسبة التوافق", kv:"114", kl:"ضابط مفعّل", tr:"▲ 2.4%", bars:[35,48,44,58,62,70,78,84,90,94], title:"الالتزام التنظيمي", desc:"إدارة دورة التوافق مع التشريعات الوطنية والدولية من نقطة واحدة، مع رؤية دقيقة لحالة كل ضابط.", hl:"متابعة وتحديث اللوائح التشريعية آلياً بمجرد صدورها رسمياً لضمان الجاهزية الدائمة.", tag:"أتمتة متقدمة", acc:"#2e9d5c", tint:"rgba(46,157,92,.11)" },
+    { icon:"i-target", pct:87, pl:"تغطية السجل", kv:"47", kl:"خطراً مُداراً", tr:"▼ 3 حرجة", bars:[30,42,38,55,60,52,66,74,80,87], title:"إدارة المخاطر (ERM)", desc:"تحديد وقياس المخاطر بوضوح عبر مصفوفات ديناميكية تربط كل خطر بأصوله وخطط معالجته.", hl:"التنبؤ بالمخاطر المحتملة واقتراح خطط التحييد والمعالجة استباقياً لدعم قرارك.", tag:"تحليل ذكي", acc:"#C10230", tint:"rgba(193,2,48,.08)" },
+    { icon:"i-merge", pct:91, pl:"طلبات ضمن SLA", kv:"1.4h", kl:"متوسط الإنجاز", tr:"▲ أسرع 22%", bars:[40,44,52,50,63,68,72,78,85,91], title:"إدارة المعاملات ومسارات العمل", desc:"تنظيم طلبات الاستثناءات وتوجيه المهام بين الموظفين عبر مسارات عمل مرنة توافق الهيكل الإداري لمنشأتك.", acc:"#7c3aed", tint:"rgba(124,58,237,.09)" },
+    { icon:"i-folder", pct:100, pl:"وثائق مصنفة", kv:"2,300+", kl:"وثيقة مؤمنة", tr:"▲ تشفير كامل", bars:[55,60,68,72,78,82,88,92,96,100], title:"إدارة الملفات والوثائق", desc:"مستودع آمن لحفظ سياسات المنشأة وأدلة الامتثال، مع إدارة دقيقة لصلاحيات الوصول لكل مستخدم.", acc:"#e2790f", tint:"rgba(226,121,15,.11)" },
+    { icon:"i-audit", pct:81, pl:"إنجاز خطة التدقيق", kv:"36", kl:"ملاحظة محلولة", tr:"▲ 6 هذا الشهر", bars:[25,32,40,46,52,58,64,70,76,81], title:"المراجعة والتدقيق الداخلي", desc:"جدولة مهام التدقيق السنوية، وحفظ أوراق العمل إلكترونياً، وتتبع حل الملاحظات مع الأقسام المختلفة.", acc:"#0d9488", tint:"rgba(13,148,136,.1)" },
+    { icon:"i-building", pct:96, pl:"تغطية الصلاحيات", kv:"5", kl:"مستويات اعتماد", tr:"▲ DoA فعّالة", bars:[50,58,64,70,76,80,86,90,93,96], title:"الحوكمة المؤسسية", desc:"توضيح الهيكل التنظيمي للمنشأة وتحديد مصفوفة الصلاحيات (DoA) لضمان سير العمل بانتظام.", acc:"#475569", tint:"rgba(71,85,105,.1)" },
+    { icon:"i-mega", pct:100, pl:"سرية البلاغات", kv:"48h", kl:"متوسط الاستجابة", tr:"▲ قناة مشفرة", bars:[45,52,60,66,72,78,84,90,95,100], title:"الحوادث والبلاغات", desc:"قنوات سرية وآمنة للموظفين لتقديم البلاغات، مع نظام يتيح للمسؤولين تتبع إجراءات التحقيق حتى الإغلاق.", acc:"#e11d48", tint:"rgba(225,29,72,.08)" },
+    { icon:"i-users", pct:89, pl:"حضور رقمي", kv:"120+", kl:"قرار موثق", tr:"▲ توقيع رقمي", bars:[38,45,50,58,64,70,76,80,85,89], title:"حوكمة المجالس واللجان", desc:"تنظيم مواعيد الاجتماعات، إجراء التصويت، وكتابة واعتماد محاضر الاجتماعات عبر التوقيع الرقمي.", acc:"#4f46e5", tint:"rgba(79,70,229,.09)" },
+    { icon:"i-activity", pct:92, pl:"جاهزية التعافي", kv:"4h", kl:"هدف زمن الاستعادة", tr:"▲ خطط محدثة", bars:[42,48,56,62,68,74,80,84,88,92], title:"استمرارية الأعمال (BCM)", desc:"وضع خطط التعافي من الأزمات والكوارث وتحليل تأثير الأعمال لضمان عدم توقف الخدمات الأساسية.", acc:"#C77A05", tint:"rgba(249,157,28,.15)" },
+    { icon:"i-radar", pct:78, pl:"ثغرات مُغلقة", kv:"310", kl:"فحصاً آلياً", tr:"▲ ربط مباشر", bars:[20,30,38,45,52,58,64,70,74,78], title:"نظام تقييم واختبار الثغرات", desc:"نربط المنصة ببرامج فحص الثغرات العالمية لسحب تقارير الأمان الخاصة بك، ونصنفها تلقائياً داخل سجل المخاطر ليسهل عليك متابعة حلها.", tag:"ربط فني مباشر", dark:true, acc:"#F99D1C", tint:"rgba(249,157,28,.16)" }
   ];
   const DUR = 5200;
   const list = document.getElementById("xplList");
@@ -1037,12 +1090,22 @@ const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-mo
       '<h3>' + m.title + '</h3>' +
       '<p class="xdesc">' + m.desc + '</p>' +
       (m.hl ? '<div class="xhl"><span class="hk"><svg width="13" height="13"><use href="#i-check"/></svg></span><p>' + m.hl + '</p></div>' : "") +
+      '<div class="xmetrics">' +
+        '<div class="xm"><span class="xring"><svg viewBox="0 0 56 56"><circle class="bgc" cx="28" cy="28" r="24"/><circle class="fgc" cx="28" cy="28" r="24"/></svg><b>' + m.pct + '%</b></span><small>' + m.pl + '</small></div>' +
+        '<div class="xm"><span class="xv">' + m.kv + '</span><span class="xv"><i>' + m.tr + '</i></span><small>' + m.kl + '</small></div>' +
+        '<div class="xm"><span class="xbars">' + m.bars.map(function(){ return '<i></i>'; }).join("") + '</span><small>تطور 10 أشهر</small></div>' +
+      '</div>' +
       '<div class="xfoot"><span class="xcount"><b>' + pad(i) + '</b> / ' + pad(M.length - 1) + '</span>' +
       '<span class="xnav"><button class="xbtn" id="xprev" aria-label="النظام السابق">‹</button>' +
       '<button class="xbtn" id="xnext" aria-label="النظام التالي">›</button></span></div>';
     inner.style.animation = "none";
     void inner.offsetWidth;
     inner.style.animation = "";
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      const fg = inner.querySelector(".xring .fgc");
+      if (fg) fg.style.strokeDashoffset = (151 * (1 - m.pct / 100)).toFixed(1);
+      inner.querySelectorAll(".xbars i").forEach((b, k) => { b.style.height = Math.max(8, m.bars[k] * 0.36) + "px"; });
+    }));
     document.getElementById("xnext").onclick = () => { select((cur + 1) % M.length); restart(); };
     document.getElementById("xprev").onclick = () => { select((cur - 1 + M.length) % M.length); restart(); };
   }
