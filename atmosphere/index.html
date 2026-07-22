@@ -536,13 +536,14 @@
   /* ===== atmosphere layer (tour-scoped) ===== */
   .tour{transition:background-color 1.1s ease}
   .panel-in{position:relative}
-  .gnum{position:absolute;top:-0.32em;inset-inline-start:-0.12em;z-index:-1;font-family:'Sora';font-weight:800;font-size:clamp(150px,21vw,300px);line-height:1;color:var(--acc,var(--crimson));opacity:.055;letter-spacing:-.04em;user-select:none;pointer-events:none}
+  .gnum{position:absolute;top:-0.32em;inset-inline-start:-0.12em;z-index:-1;font-family:'Sora';font-weight:800;font-size:clamp(90px,18vw,300px);line-height:1;color:var(--acc,var(--crimson));opacity:.055;letter-spacing:-.04em;user-select:none;pointer-events:none}
   .panel.center .gnum{inset-inline-start:50%;transform:translateX(50%)}
   .t-aura{position:fixed;inset:-20%;z-index:0;pointer-events:none;filter:blur(90px);opacity:0;transition:opacity .9s ease}
   .t-aura.show{opacity:.55}
   .t-aura i{position:absolute;border-radius:50%;background:radial-gradient(circle,currentColor,transparent 65%);transition:color 1.2s ease}
   .t-aura .u1{width:52vw;height:52vw;top:-4%;right:-6%;color:rgba(193,2,48,.14);animation:drift1 26s ease-in-out infinite}
   .t-aura .u2{width:44vw;height:44vw;bottom:-8%;left:-4%;color:rgba(249,161,27,.14);animation:drift2 32s ease-in-out infinite}
+  @media (max-width:1020px){.gnum{opacity:.04;top:-0.15em}}
   .trail button.on{background:var(--railacc,var(--crimson));border-color:var(--railacc,var(--crimson));box-shadow:0 0 12px var(--railglow,rgba(193,2,48,.45))}
 </style>
 </head>
@@ -1964,7 +1965,7 @@ function resetForm() {
     const sY=Math.sin(ry),cY=Math.cos(ry),sX=Math.sin(rx),cX=Math.cos(rx);
     const S=Math.min(W,H)*(isMobile?0.16:0.19)*lerp(SCALE[a],SCALE[b],tt);
     const dimF=lerp(DIM[a],DIM[b],tt);
-    const cx=W*0.5+lerp(OFFX[a],OFFX[b],tt)*(isMobile?0:W);
+    const cx=W*0.5+lerp(OFFX[a],OFFX[b],tt)*(W<=1020?0:W);
     const cy=H*(0.5+lerp(OFFY[a],OFFY[b],tt)*(isMobile?0.4:1));
     const persp=4.1;
     const spiralAng=(1-tt)*2.3, burstK=1+Math.sin(Math.PI*tt)*1.05, depthZ=(1-tt)*6;
@@ -1984,7 +1985,7 @@ function resetForm() {
       const sc=persp/(persp+z2);
       const depth=Math.max(0,Math.min(1,(z2+2.2)/4.4));
       const rr=lerp(pa.col[0],pb.col[0],tt)|0, gg=lerp(pa.col[1],pb.col[1],tt)|0, bb=lerp(pa.col[2],pb.col[2],tt)|0;
-      const alpha=((0.22+depth*0.6+0.08*Math.sin(t*2+p.tw))*(isMobile?0.45:1)*dimF*fadeK).toFixed(3);
+      const alpha=((0.22+depth*0.6+0.08*Math.sin(t*2+p.tw))*(W<=1020?0.45:1)*dimF*fadeK).toFixed(3);
       ctx.fillStyle="rgba("+rr+","+gg+","+bb+","+alpha+")";
       ctx.beginPath();ctx.arc(cx+x1*S*sc,cy+y1*S*sc,p.sz*sc*(0.55+depth*0.65),0,6.28318);ctx.fill();
     }
