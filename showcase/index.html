@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Keen Comply — العرض المتكامل</title>
+<meta name="description" content="العرض المتكامل لمنصة Keen Comply — افتتاحية هادئة بأسلوب الموقع الأصلي، وعشرة أنظمة تتجسد بأيقوناتها الجسيمية بحركات متنوعة، وخاتمة منسقة.">
+<meta name="theme-color" content="#FBFAF8">
+<link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><g transform="rotate(-28 60 60)" fill="none" stroke-linecap="round"><path d="M103.3 52.4 A44 44 0 0 0 21.9 38" stroke="%23F9A11B" stroke-width="17"/><path d="M16.7 67.6 A44 44 0 0 0 98.1 82" stroke="%23F9A11B" stroke-width="17"/></g><path d="M30 63 L52 83 L93 39" stroke="%23C8102E" stroke-width="17" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>'>
+<link rel="stylesheet" href="../assets/fonts/fonts.css">
+<style>
+  :root{
+    --crimson:#C10230; --crimson-deep:#7A0220; --gold:#F9A11B;
+    --ink:#FBFAF8; --cream:#17110D; --mute:#5B5550; --line:#EBE6E2;
+    --ease:cubic-bezier(.2,.7,.2,1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:auto}
+  body{font-family:'IBM Plex Sans Arabic',system-ui,sans-serif;background:var(--ink);color:var(--cream);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  ::selection{background:var(--gold);color:var(--cream)}
+  a:focus-visible,button:focus-visible{outline:2.5px solid var(--gold);outline-offset:3px;border-radius:8px}
+  .en{font-family:'Sora',sans-serif;direction:ltr;unicode-bidi:isolate}
+  ::-webkit-scrollbar{width:8px}
+  ::-webkit-scrollbar-track{background:var(--ink)}
+  ::-webkit-scrollbar-thumb{background:#d8d1cb;border-radius:99px}
+
+  #cosmos{position:fixed;inset:0;width:100%;height:100%;z-index:0}
+  .mesh{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:radial-gradient(rgba(193,2,48,.05) 1.2px,transparent 1.2px);background-size:26px 26px;mask-image:linear-gradient(to bottom,#000 40%,transparent 75%,#000);-webkit-mask-image:linear-gradient(to bottom,#000 40%,transparent 75%,#000)}
+  .vignette{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(120% 90% at 50% 45%,transparent 55%,rgba(23,17,13,.09) 100%)}
+  .aurora{position:fixed;inset:-20%;z-index:0;pointer-events:none;filter:blur(90px);opacity:.5}
+  .aurora i{position:absolute;border-radius:50%}
+  .aurora .a1{width:52vw;height:52vw;background:radial-gradient(circle,rgba(193,2,48,.10),transparent 65%);top:-6%;right:-6%;animation:drift1 26s ease-in-out infinite}
+  .aurora .a2{width:44vw;height:44vw;background:radial-gradient(circle,rgba(249,161,27,.16),transparent 65%);bottom:-8%;left:-4%;animation:drift2 32s ease-in-out infinite}
+  @keyframes drift1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-6vw,5vh) scale(1.15)}}
+  @keyframes drift2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(5vw,-6vh) scale(1.1)}}
+
+  .topbar{position:fixed;top:0;right:0;left:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:20px 32px}
+  .brand{display:flex;align-items:center;gap:11px;text-decoration:none}
+  .brand svg{width:40px;height:40px;filter:drop-shadow(0 4px 14px rgba(249,161,27,.3))}
+  .brand b{font-family:'Sora';font-weight:700;font-size:17px;color:#6b6c70;letter-spacing:-.01em;direction:ltr}
+  .exit{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border:1px solid var(--line);color:var(--cream);text-decoration:none;font-size:13px;font-weight:700;background:rgba(255,255,255,.75);box-shadow:0 2px 8px rgba(21,17,15,.04);backdrop-filter:blur(10px);transition:.25s;border-radius:13px}
+  .exit:hover{border-color:var(--crimson);color:var(--crimson);transform:translateY(-2px)}
+  #pbar{position:fixed;top:0;right:0;height:2.5px;width:0;z-index:60;background:linear-gradient(90deg,var(--gold),var(--crimson));border-radius:0 0 0 3px}
+
+  .rail{position:fixed;left:26px;top:50%;transform:translateY(-50%);z-index:50;display:flex;flex-direction:column;gap:13px}
+  .rail button{position:relative;width:11px;height:11px;border-radius:50%;border:1.5px solid rgba(23,17,13,.3);background:transparent;cursor:pointer;transition:.3s;padding:0}
+  .rail button::after{content:attr(data-t);position:absolute;left:21px;top:50%;transform:translateY(-50%);font-family:'IBM Plex Sans Arabic';font-size:11.5px;font-weight:700;color:var(--cream);white-space:nowrap;opacity:0;transition:.25s;pointer-events:none;background:rgba(255,255,255,.92);padding:4px 11px;border-radius:8px;border:1px solid rgba(23,17,13,.12);backdrop-filter:blur(8px)}
+  .rail button:hover::after{opacity:1}
+  .rail button.on{background:var(--crimson);border-color:var(--crimson);box-shadow:0 0 12px rgba(193,2,48,.45)}
+
+  .hint{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);z-index:50;display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--mute);font-size:11.5px;font-weight:700;letter-spacing:.14em;transition:opacity .5s;pointer-events:none}
+  .hint .wheel{width:22px;height:36px;border:1.5px solid rgba(23,17,13,.35);border-radius:12px;position:relative}
+  .hint .wheel::after{content:"";position:absolute;top:6px;left:50%;width:3.5px;height:8px;margin-left:-1.75px;border-radius:3px;background:var(--gold);animation:wheel 1.8s ease-in-out infinite}
+  @keyframes wheel{0%{transform:translateY(0);opacity:1}70%{transform:translateY(12px);opacity:0}100%{transform:translateY(0);opacity:0}}
+  .hint.gone{opacity:0}
+
+  .chapter{position:relative;z-index:10;min-height:148vh;pointer-events:none}
+  .chapter.first,.chapter.last{min-height:118vh}
+  .panel{position:sticky;top:0;min-height:100vh;display:flex;align-items:center;padding:0 8vw;opacity:0;transform:translateY(36px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+  .panel.live{opacity:1;transform:none}
+  .panel.live *{pointer-events:auto}
+  .panel-in{max-width:560px}
+  .panel.center{justify-content:center;text-align:center}
+  .panel.center .panel-in{max-width:760px}
+  .panel.left{justify-content:flex-end}
+
+  .kick{display:inline-flex;align-items:center;gap:9px;font-size:12.5px;font-weight:700;letter-spacing:.05em;color:var(--crimson);background:rgba(193,2,48,.06);border:1px solid rgba(193,2,48,.14);padding:7px 16px;border-radius:99px;margin-bottom:22px}
+  .kick::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gold)}
+  .kick .n{font-family:'Sora';font-size:11px;opacity:.85}
+  .hx{font-size:clamp(30px,4.3vw,50px);font-weight:700;line-height:1.38;letter-spacing:-.015em;margin-bottom:18px;color:var(--cream)}
+  .hx .g{color:var(--crimson);background-image:linear-gradient(rgba(249,157,28,.26),rgba(249,157,28,.26));background-size:100% .32em;background-position:0 92%;background-repeat:no-repeat;-webkit-box-decoration-break:clone;box-decoration-break:clone;padding:0 .05em}
+  .hx .w{display:inline-block;opacity:0;transform:translateY(26px) rotateX(-35deg);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+  .panel.live .hx .w{opacity:1;transform:none}
+  .px{font-size:16px;font-weight:500;color:#57493d;max-width:520px;margin-bottom:24px}
+  .panel.center .px{margin-inline:auto}
+
+  .chips{display:flex;flex-wrap:wrap;gap:10px}
+  .chip{display:inline-flex;align-items:center;gap:8px;padding:9px 17px;border-radius:99px;border:1px solid var(--line);background:#fff;box-shadow:0 4px 14px rgba(21,17,15,.05);font-size:12.5px;font-weight:700;color:var(--cream);opacity:0;transform:translateY(14px);transition:.5s var(--ease)}
+  .panel.live .chip{opacity:1;transform:none}
+  .panel.live .chip:nth-child(2){transition-delay:.1s}
+  .panel.live .chip:nth-child(3){transition-delay:.2s}
+  .chip .dot{width:7px;height:7px;border-radius:50%;background:var(--gold);flex-shrink:0}
+  .chip .dot.r{background:var(--crimson)}
+  .chip .dot.gr{background:#2e9d5c}
+
+
+  /* animated readings card */
+  .scard{display:flex;gap:12px;margin-top:20px;max-width:520px;opacity:0;transform:translateY(22px) scale(.97);transition:opacity .6s var(--ease) .3s,transform .6s var(--ease) .3s}
+  .panel.live .scard{opacity:1;transform:none}
+  .sc{flex:1;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;text-align:center;min-width:0;box-shadow:0 1px 2px rgba(21,17,15,.04), 0 12px 32px rgba(21,17,15,.06)}
+  .sc small{font-size:10.5px;font-weight:700;color:var(--mute);line-height:1.5}
+  .sc .kv{font-family:'Sora';font-weight:800;font-size:21px;color:var(--crimson);line-height:1;direction:ltr;white-space:nowrap}
+  .sring{position:relative;width:54px;height:54px}
+  .sring svg{width:100%;height:100%;transform:rotate(-90deg)}
+  .sring circle{fill:none;stroke-width:5.5}
+  .sring .bgc{stroke:var(--line)}
+  .sring .fgc{stroke:var(--gold);stroke-linecap:round;stroke-dasharray:151;stroke-dashoffset:151;transition:stroke-dashoffset 1.2s var(--ease) .2s}
+  .sring b{position:absolute;inset:0;display:grid;place-items:center;font-family:'Sora';font-size:12px;font-weight:800;direction:ltr;color:var(--cream)}
+  .sbars{display:flex;align-items:flex-end;justify-content:center;gap:4px;height:34px}
+  .sbars i{width:8px;border-radius:3px;background:linear-gradient(180deg,var(--gold),var(--crimson));height:4px;transition:height .7s var(--ease)}
+  .pnav{display:flex;align-items:center;gap:16px;margin-top:28px;padding-top:20px;border-top:1px solid var(--line);max-width:520px;opacity:0;transition:.6s var(--ease) .25s}
+  .panel.live .pnav{opacity:1}
+  .nbtn{width:46px;height:46px;border-radius:13px;border:1px solid var(--line);background:#fff;cursor:pointer;display:grid;place-items:center;color:var(--cream);font-size:19px;font-family:inherit;transition:.2s;box-shadow:0 2px 8px rgba(21,17,15,.04)}
+  .nbtn:hover{background:var(--crimson);border-color:var(--crimson);color:#fff;transform:translateY(-2px)}
+  .sdeep{font-size:12px;font-weight:800;color:var(--crimson);text-decoration:none;padding:9px 15px;border:1px solid rgba(193,2,48,.25);border-radius:11px;transition:.2s;white-space:nowrap}
+  .sdeep:hover{background:var(--crimson);color:#fff;transform:translateY(-2px)}
+  .pcount{font-size:13px;font-weight:700;color:var(--mute);direction:ltr;flex:1;text-align:center}
+  .pcount b{color:var(--crimson);font-family:'Sora';font-size:16px}
+
+  .mega{font-family:'Sora';font-weight:800;font-size:clamp(40px,6.4vw,92px);letter-spacing:-.03em;line-height:1.08;direction:ltr;color:var(--cream);margin-bottom:10px}
+  .mega .g{color:var(--crimson);background-image:linear-gradient(rgba(249,161,27,.28),rgba(249,161,27,.28));background-size:100% .3em;background-position:0 90%;background-repeat:no-repeat;padding:0 .04em}
+  .sub-ar{font-size:clamp(19px,2.3vw,27px);font-weight:600;color:#57493d;margin-bottom:8px}
+
+  .ctas{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:32px}
+  .btn{font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;border-radius:13px;padding:16px 32px;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:.28s var(--ease);border:none}
+  .btn-red{background:var(--crimson);color:#fff;box-shadow:0 8px 22px rgba(193,2,48,.28)}
+  .btn-red:hover{background:var(--crimson-deep);transform:translateY(-3px);box-shadow:0 14px 30px rgba(193,2,48,.36)}
+  .btn-line{background:#fff;color:var(--cream);border:1.5px solid var(--line);box-shadow:0 2px 8px rgba(21,17,15,.04)}
+  .btn-line:hover{border-color:var(--crimson);color:var(--crimson);transform:translateY(-3px)}
+
+  footer{position:relative;z-index:10;text-align:center;padding:28px 20px 38px;color:#8d837d;font-size:12.5px;font-weight:600}
+
+  @media (max-width:760px){
+    .rail{display:none}
+    .panel{padding:92px 7vw 30px;align-items:flex-start}
+    .panel.center{align-items:center}
+    .hx{font-size:clamp(26px,7.4vw,34px)}
+    .scard{gap:9px}
+    .sc{padding:12px 6px}
+    .chapter{min-height:185vh}
+    .chapter.first,.chapter.last{min-height:125vh}
+    .topbar{padding:14px 16px}
+    .brand b{font-size:14px}
+    .exit{padding:9px 16px;font-size:12px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.01ms !important;transition-duration:.01ms !important}
+    .panel{opacity:1;transform:none}
+    .hx .w,.chip,.pnav{opacity:1 !important;transform:none !important}
+  }
+
+  /* ===== showcase build ===== */
+  .panel.bottom{align-items:flex-end;justify-content:center;text-align:center;padding-bottom:7vh}
+  .panel.bottom .panel-in{max-width:660px}
+  .panel.bottom .chips,.panel.bottom .pnav{justify-content:center}
+  .panel.bottom .scard{margin-inline:auto}
+  .panel.bottom .px{margin-inline:auto}
+  .panel.center .chips,.panel.center .pnav{justify-content:center}
+  .panel.center .scard{margin-inline:auto}
+  .hero-pill{display:inline-flex;align-items:center;gap:9px;padding:9px 18px;border-radius:99px;background:#fff;border:1px solid var(--line);box-shadow:0 4px 14px rgba(21,17,15,.05);font-size:12.5px;font-weight:700;margin-bottom:26px}
+  .ping{position:relative;width:9px;height:9px;flex-shrink:0}
+  .ping::before{content:"";position:absolute;inset:0;border-radius:50%;background:var(--crimson);opacity:.75;animation:pingA 1.8s cubic-bezier(0,0,.2,1) infinite}
+  .ping::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--crimson)}
+  @keyframes pingA{75%,100%{transform:scale(2.6);opacity:0}}
+  .hero-h{font-size:clamp(30px,3.6vw,46px);font-weight:700;line-height:1.42;letter-spacing:-.015em;margin-bottom:18px}
+  .hero-h .g{color:var(--crimson);background-image:linear-gradient(rgba(249,157,28,.26),rgba(249,157,28,.26));background-size:100% .3em;background-position:0 92%;background-repeat:no-repeat;-webkit-box-decoration-break:clone;box-decoration-break:clone;padding:0 .05em}
+  .trust{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--mute);font-weight:600;margin-top:24px}
+  .closing-band{background:linear-gradient(150deg,#1c1411,#2a1a18);border-radius:28px;padding:52px 44px;color:#F6EBDD;box-shadow:0 24px 60px rgba(122,2,32,.16);position:relative;overflow:hidden;text-align:center}
+  .closing-band::before{content:"";position:absolute;inset:0;background:radial-gradient(500px 240px at 80% 10%,rgba(249,157,28,.16),transparent 60%),radial-gradient(500px 240px at 15% 90%,rgba(193,2,48,.26),transparent 60%)}
+  .closing-band>*{position:relative}
+  .closing-band h2{font-size:clamp(24px,3vw,36px);font-weight:700;margin-bottom:12px;line-height:1.45}
+  .closing-band h2 .gd{color:var(--gold)}
+  .closing-band p{color:rgba(246,235,221,.78);font-size:15px;font-weight:500;max-width:520px;margin:0 auto 28px}
+  .btn-gold2{background:var(--gold);color:#2a1a00}
+  .btn-gold2:hover{background:#ffb445;transform:translateY(-3px)}
+  .site-footer{position:relative;z-index:10;background:#fff;border-top:1px solid var(--line);padding:34px 20px;text-align:center}
+  .site-footer p{font-size:13px;font-weight:600;color:var(--mute)}
+  .site-footer a{color:var(--crimson);font-weight:700;text-decoration:none}
+</style>
+</head>
+<body>
+
+<canvas id="cosmos" aria-hidden="true"></canvas>
+<div class="aurora" aria-hidden="true"><i class="a1"></i><i class="a2"></i></div>
+<div class="mesh" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+<div id="pbar" aria-hidden="true"></div>
+
+<div class="topbar">
+  <a class="brand" href="../index.html" aria-label="Keen Comply">
+    <svg viewBox="0 0 120 120" fill="none" aria-hidden="true">
+      <g transform="rotate(-28 60 60)" stroke-linecap="round">
+        <path d="M103.3 52.4 A44 44 0 0 0 21.9 38" stroke="#F9A11B" stroke-width="16"/>
+        <path d="M16.7 67.6 A44 44 0 0 0 98.1 82" stroke="#F9A11B" stroke-width="16"/>
+      </g>
+      <path d="M30 63 L52 83 L93 39" stroke="#C8102E" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <b>Keen Comply</b>
+  </a>
+  <a class="exit" href="../index.html">الموقع الرئيسي ←</a>
+</div>
+
+<nav class="rail" aria-label="الأقسام">
+  <button data-t="البداية" data-go="start" class="on"></button>
+  <button data-t="الالتزام التنظيمي" data-go="sys-01"></button>
+  <button data-t="إدارة المخاطر (ERM)" data-go="sys-02"></button>
+  <button data-t="المعاملات ومسارات العمل" data-go="sys-03"></button>
+  <button data-t="الملفات والوثائق" data-go="sys-04"></button>
+  <button data-t="المراجعة والتدقيق الداخلي" data-go="sys-05"></button>
+  <button data-t="الحوكمة المؤسسية" data-go="sys-06"></button>
+  <button data-t="الحوادث والبلاغات" data-go="sys-07"></button>
+  <button data-t="حوكمة المجالس واللجان" data-go="sys-08"></button>
+  <button data-t="استمرارية الأعمال (BCM)" data-go="sys-09"></button>
+  <button data-t="تقييم واختبار الثغرات" data-go="sys-10"></button>
+  <button data-t="الخاتمة" data-go="end"></button>
+</nav>
+
+<div class="hint" id="hint"><span class="wheel"></span> مرر للأسفل</div>
+
+<!-- البداية الهادئة — بأسلوب المخرج الأصلي -->
+<section class="chapter first" id="start" data-ch="0">
+  <div class="panel">
+    <div class="panel-in" style="max-width:600px">
+      <span class="hero-pill"><span class="ping"></span> منصة الأتمتة المتقدمة لعام 2026</span>
+      <h1 class="hero-h">المنصة الموحدة لإدارة المخاطر والامتثال.<br><span class="g">أتمتة العمليات لقرارات أسرع وأدق.</span></h1>
+      <p class="px">ارتقِ بمرونة منشأتك عبر بيئة عمل مركزية تتكامل مع أنظمتك. رحلة قصيرة عبر الأنظمة العشرة — مرر لتبدأ.</p>
+      <div class="ctas" style="justify-content:flex-start;margin-top:26px">
+        <a class="btn btn-red" href="#sys-01" data-go="sys-01">ابدأ الجولة ↓</a>
+        <a class="btn btn-line" href="../index.html#contact">احجز عرضاً مباشراً</a>
+      </div>
+      <div class="trust">
+        <span class="en">NCA · SAMA · NDMO</span><span>·</span><span class="en">ISO 27001 / 22301</span><span>·</span><span>استضافة سيادية محلية</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="sys-01" data-ch="1">
+  <div class="panel">
+    <div class="panel-in">
+      <span class="kick"><span class="n en">01</span> النظام الأول</span>
+      <h2 class="hx"><span class="w">الالتزام</span> <span class="w">التنظيمي</span><br><span class="g"><span class="w">جاهزية</span> <span class="w">دائمة</span> <span class="w">للوائح.</span></span></h2>
+      <p class="px">إدارة دورة التوافق مع التشريعات الوطنية والدولية من نقطة واحدة، مع متابعة وتحديث اللوائح آلياً بمجرد صدورها رسمياً.</p>
+      <div class="chips">
+        <span class="chip"><span class="dot gr"></span> نسبة التوافق 94%</span>
+        <span class="chip"><span class="dot "></span> 114 ضابطاً مفعّلاً</span>
+        <span class="chip"><span class="dot "></span> تحديث آلي للوائح</span>
+      </div>
+      <div class="scard" data-pct="94" data-kv="114" data-suf="" data-bars="55,68,78,88,94">
+        <div class="sc"><span class="sring"><svg viewBox="0 0 56 56"><circle class="bgc" cx="28" cy="28" r="24"/><circle class="fgc" cx="28" cy="28" r="24"/></svg><b>0%</b></span><small>نسبة التوافق</small></div>
+        <div class="sc"><b class="kv en">0</b><small>ضابط مفعّل</small></div>
+        <div class="sc"><span class="sbars"><i></i><i></i><i></i><i></i><i></i></span><small>الاتجاه عبر ٥ فترات</small></div>
+      </div>
+      <div class="pnav">
+        <button class="nbtn" data-go="start" aria-label="السابق">→</button>
+        <a class="sdeep" href="../systems/01/index.html">صفحة النظام ↗</a>
+        <span class="pcount en"><b>01</b> / 10</span>
+        <button class="nbtn" data-go="sys-02" aria-label="التالي">←</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="chapter halo" id="sys-02" data-ch="2">
+  <div class="panel center">
+    <div class="panel-in">
+      <span class="kick"><span class="n en">02</span> النظام الثاني</span>
+      <h2 class="hx"><span class="w">إدارة</span> <span class="w">المخاطر</span> <span class="w">(ERM)</span><br><span class="g"><span class="w">قرارك</span> <span class="w">قبل</span> <span class="w">الخطر.</span></span></h2>
+      <p class="px">تحديد وقياس المخاطر عبر مصفوفات ديناميكية تربط كل خطر بأصوله وخطط معالجته، مع تنبؤ استباقي يدعم قرارك.</p>
+      <div class="chips">
+        <span class="chip"><span class="dot gr"></span> تغطية السجل 87%</span>
+        <span class="chip"><span class="dot "></span> 47 خطراً مُداراً</span>
+        <span class="chip"><span class="dot r"></span> مصفوفة 5×5 حية</span>
+      </div>
+      <div class="scard" data-pct="87" data-kv="47" data-suf="" data-bars="40,58,66,79,87">
+        <div class="sc"><span class="sring"><svg viewBox="0 0 56 56"><circle class="bgc" cx="28" cy="28" r="24"/><circle class="fgc" cx="28" cy="28" r="24"/></svg><b>0%</b></span><small>تغطية السجل</small></div>
+        <div class="sc"><b class="kv en">0</b><small>خطراً مُداراً</small></div>
+        <div class="sc"><span class="sbars"><i></i><i></i><i></i><i></i><i></i></span><small>الاتجاه عبر ٥ فترات</small></div>
+      </div>
+      <div class="pnav">
+        <button class="nbtn" data-go="sys-01" aria-label="السابق">→</button>
+        <a class="sdeep" href="../systems/02/index.html">صفحة النظام ↗</a>
+        <span class="pcount en"><b>02</b> / 10</span>
+        <button class="nbtn" data-go="sys-03" aria-label="التالي">←</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="sys-03" data-ch="3">
+  <div class="panel left">
+    <div class="panel-in">
+      <span class="kick"><span class="n en">03</span> النظام الثالث</span>
+      <h2 class="hx"><span class="w">المعاملات</span> <span class="w">ومسارات</span> <span class="w">العمل</span><br><span class="g"><span class="w">كل</span> <span class="w">طلب</span> <span class="w">في</span> <span class="w">مساره.</span></span></h2>
+      <p class="px">تنظيم طلبات الاستثناءات وتوجيه المهام بين الموظفين عبر مسارات عمل مرنة توافق الهيكل الإداري لمنشأتك.</p>
+      <div class="chips">
+        <span class="chip"><span class="dot gr"></span> 91% ضمن SLA</span>
+        <span class="chip"><span class="dot "></span> 1.4h متوسط الإنجاز</span>
+        <span class="chip"><span class="dot "></span> تصعيد آلي موثق</span>
+      </div>
+      <div class="scard" data-pct="91" data-kv="1.4" data-suf="h" data-bars="52,63,74,84,91">
+        <div class="sc"><span class="sring"><svg viewBox="0 0 56 56"><circle class="bgc" cx="28" cy="28" r="24"/><circle class="fgc" cx="28" cy="28" r="24"/></svg><b>0%</b></span><small>طلبات ضمن SLA</small></div>
+        <div class="sc"><b class="kv en">0</b><small>متوسط زمن الإنجاز</small></div>
+        <div class="sc"><span class="sbars"><i></i><i></i><i></i><i></i><i></i></span><small>الاتجاه عبر ٥ فترات</small></div>
+      </div>
+      <div class="pnav">
+        <button class="nbtn" data-go="sys-02" aria-label="السابق">→</button>
+        <a class="sdeep" href="../systems/03/index.html">صفحة النظام ↗</a>
+        <span class="pcount en"><b>03</b> / 10</span>
+        <button class="nbtn" data-go="sys-04" aria-label="التالي">←</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="sys-04" data-ch="4">
+  <div class="panel">
+    <div class="panel-in">
+      <span class="kick"><span class="n en">04</span> النظام الرابع</span>
+      <h2 class="hx"><span class="w">الملفات</span> <span class="w">والوثائق</span><br><span class="g"><span class="w">ذاكرة</span> <span class="w">مؤسسية</span> <span class="w">مؤمنة.</span></span></h2>
+      <p class="px">مستودع آمن لسياسات المنشأة وأدلة الامتثال، بتصنيف كامل وإدارة دقيقة لصلاحيات الوصول لكل مستخدم.</p>
+      <div class="chips">
+        <span class="chip"><span class="dot "></span> 2,300+ وثيقة مؤمنة</span>
+        <span class="chip"><span class="dot gr"></span> تصنيف 100%</span>
+        <span class="chip"><span class="dot "></span> تشفير كامل</span>
+      </div>
+      <div class="scard" data-pct="100" data-kv="2300" data-suf="+" data-bars="62,74,85,93,100">
+        <div class="sc"><span class="sring"><svg viewBox="0 0 56 56"><circle class="bgc" cx="28" cy="28" r="24"/><circle class="fgc" cx="28" cy="28" r="24"/></svg><b>0%</b></span><small>وثائق مصنفة</small></div>
+        <div class="sc"><b class="kv en">0</b><small>وثيقة مؤمنة</small></div>
+        <div class="sc"><span class="sbars"><i></i><i></i><i></i><i></i><i></i></span><small>الاتجاه عبر ٥ فترات</small></div>
+      </div>
+      <div class="pnav">
+        <button class="nbtn" data-go="sys-03" aria-label="السابق">→</button>
+        <a class="sdeep" href="../systems/04/index.html">صفحة النظام ↗</a>
+        <span class="pcount en"><b>04</b> / 10</span>
+        <button class="nbtn" data-go="sys-05" aria-label="التالي">←</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="chapter halo" id="sys-05" data-ch="5">
+  <div class="panel center">
+    <div class="panel-in">
+      <span class="kick"><span class="n en">05</span> النظام الخامس</span>
+      <h2 class="hx"><span class="w">المراجعة</span> <span class="w">والتدقيق</span> <span class="w">الداخلي</span><br><span class="g"><span class="w">دورة</span> <span class="w">تدقيق</span> <span class="w">بلا</span> <span class="w">أوراق.</span></span></h2>
+      <p class="px">جدولة مهام التدقيق السنوية وحفظ أوراق العمل إلكترونياً وتتبع حل الملاحظات مع الأقسام حتى الإغلاق.</p>
+      <div class="chips">
+        <span class="chip"><span class="dot gr"></span> إنجاز الخطة 81%</span>
+        <span class="chip"><span class="dot "></span> 36 ملاحظة محلولة</span>
+        <span class="chip"><span class="dot "></span> أوراق عمل رقمية</span>
+      </div>
+      <div class="scard" data-pct="81" data-kv="36" data-suf="" data-bars="35,49,62,73,81">
+        <div class="sc"><span class="sring"><svg viewBox="0 0 56 56"><circle class="bgc" cx="28" cy="28" r="24"/><circle class="fgc" cx="28" cy="28" r="24"/></svg><b>0%</b></span><small>إنجاز خطة التدقيق</small></div>
+        <div class="sc"><b class="kv en">0</b><small>ملاحظة محلولة</small></div>
+        <div class="sc"><span class="sbars"><i></i><i></i><i></i><i></i><i></i></span><small>الاتجاه عبر ٥ فترات</small></div>
+      </div>
+      <div class="pnav">
+        <button class="nbtn" data-go="sys-04" aria-label="السابق">→</button>
+        <a class="sdeep" href="../systems/05/index.html">صفحة النظام ↗</a>
+        <span class="pcount en"><b>05</b> / 10</span>
+        <button class="nbtn" data-go="sys-06" aria-label="التالي">←</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="sys-06" data-ch="6">
+  <div class="panel left">
+    <div class="panel-in">
+      <span class="kick"><span class="n en">06</span> النظام السادس</span>
+      <h2 class="hx"><span class="w">الحوكمة</span> <span class="w">المؤسسية</span><br><span class="g"><span class="w">صلاحيات</span> <span class="w">واضحة.</span> <span class="w">قرار</span> <span class="w">منضبط.</span></span></h2>
+      <p class="px">توضيح الهيكل التنظيمي وتحديد مصفوفة الصلاحيات (DoA) عبر خمسة مستويات اعتماد لضمان سير العمل بانتظام.</p>
+      <div class="chips">
+        <span class="chip"><span class="dot gr"></span> تغطية DoA 96%</span>
+        <span class="chip"><span class="dot "></span> 5 مستويات اعتماد</span>
+        <span class="chip"><span class="dot "></span> هيكل تنظيمي حي</span>
+      </div>
+      <div class="scard" data-pct="96" data-kv="5" data-suf="" data-bars="58,70,81,90,96">
+        <div class="sc"><span class="sring"><svg viewBox="0 0 56 56"><circle class="bgc" cx="28" cy="28" r="24"/><circle class="fgc" cx="28" cy="28" r="24"/></svg><b>0%</b></span><small>تغطية DoA</small></div>
+        <div class="sc"><b class="kv en">0</b><small>مستويات اعتماد</small></div>
+        <div class="sc"><span class="sbars"><i></i><i></i><i></i><i></i><i></i></span><small>الاتجاه عبر ٥ فترات</small></div>
+      </div>
+      <div class="pnav">
+        <button class="nbtn" data-go="sys-05" aria-label="السابق">→</button>
+        <a class="sdeep" href="../systems/06/index.html">صفحة النظام ↗</a>
+        <span class="pcount en"><b>06</b> / 10</span>
+        <button class="nbtn" data-go="sys-07" aria-label="التالي">←</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="sys-07" data-ch="7">
+  <div class="panel">
+    <div class="panel-in">
+      <span class="kick"><span class="n en">07</span> النظام السابع</span>
+      <h2 class="hx"><span class="w">الحوادث</span> <span class="w">والبلاغات</span><br><span class="g"><span class="w">قناة</span> <span class="w">آمنة</span> <span class="w">لكل</span> <span class="w">صوت.</span></span></h2>
+      <p class="px">قنوات سرية مشفرة للموظفين لتقديم البلاغات، مع تتبع كامل لإجراءات التحقيق وحماية تامة لهوية المُبلِّغ.</p>
+      <div class="chips">
+        <span class="chip"><span class="dot gr"></span> سرية تامة 100%</span>
+        <span class="chip"><span class="dot "></span> استجابة خلال 48h</span>
+        <span class="chip"><span class="dot r"></span> قنوات مشفرة</span>
+      </div>
+      <div class="scard" data-pct="100" data-kv="48" data-suf="h" data-bars="66,78,87,94,100">
+        <div class="sc"><span class="sring"><svg viewBox="0 0 56 56"><circle class="bgc" cx="28" cy="28" r="24"/><circle class="fgc" cx="28" cy="28" r="24"/></svg><b>0%</b></span><small>سرية البلاغات</small></div>
+        <div class="sc"><b class="kv en">0</b><small>متوسط الاستجابة</small></div>
+        <div class="sc"><span class="sbars"><i></i><i></i><i></i><i></i><i></i></span><small>الاتجاه عبر ٥ فترات</small></div>
+      </div>
+      <div class="pnav">
+        <button class="nbtn" data-go="sys-06" aria-label="السابق">→</button>
+        <a class="sdeep" href="../systems/07/index.html">صفحة النظام ↗</a>
+        <span class="pcount en"><b>07</b> / 10</span>
+        <button class="nbtn" data-go="sys-08" aria-label="التالي">←</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="chapter halo" id="sys-08" data-ch="8">
+  <div class="panel center">
+    <div class="panel-in">
+      <span class="kick"><span class="n en">08</span> النظام الثامن</span>
+      <h2 class="hx"><span class="w">حوكمة</span> <span class="w">المجالس</span> <span class="w">واللجان</span><br><span class="g"><span class="w">قرارات</span> <span class="w">موثقة</span> <span class="w">بتوقيع</span> <span class="w">رقمي.</span></span></h2>
+      <p class="px">تنظيم الاجتماعات وإجراء التصويت وكتابة واعتماد المحاضر عبر التوقيع الرقمي — أمانة سر رقمية متكاملة.</p>
+      <div class="chips">
+        <span class="chip"><span class="dot gr"></span> حضور رقمي 89%</span>
+        <span class="chip"><span class="dot "></span> 120+ قراراً موثقاً</span>
+        <span class="chip"><span class="dot "></span> توقيع رقمي</span>
+      </div>
+      <div class="scard" data-pct="89" data-kv="120" data-suf="+" data-bars="50,64,75,83,89">
+        <div class="sc"><span class="sring"><svg viewBox="0 0 56 56"><circle class="bgc" cx="28" cy="28" r="24"/><circle class="fgc" cx="28" cy="28" r="24"/></svg><b>0%</b></span><small>حضور رقمي</small></div>
+        <div class="sc"><b class="kv en">0</b><small>قراراً موثقاً</small></div>
+        <div class="sc"><span class="sbars"><i></i><i></i><i></i><i></i><i></i></span><small>الاتجاه عبر ٥ فترات</small></div>
+      </div>
+      <div class="pnav">
+        <button class="nbtn" data-go="sys-07" aria-label="السابق">→</button>
+        <a class="sdeep" href="../systems/08/index.html">صفحة النظام ↗</a>
+        <span class="pcount en"><b>08</b> / 10</span>
+        <button class="nbtn" data-go="sys-09" aria-label="التالي">←</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="sys-09" data-ch="9">
+  <div class="panel left">
+    <div class="panel-in">
+      <span class="kick"><span class="n en">09</span> النظام التاسع</span>
+      <h2 class="hx"><span class="w">استمرارية</span> <span class="w">الأعمال</span> <span class="w">(BCM)</span><br><span class="g"><span class="w">خدماتك</span> <span class="w">لا</span> <span class="w">تتوقف.</span></span></h2>
+      <p class="px">تحليل تأثير الأعمال وخطط التعافي من الكوارث مع اختبارات ربع سنوية تضمن عدم توقف الخدمات الأساسية.</p>
+      <div class="chips">
+        <span class="chip"><span class="dot gr"></span> جاهزية 92%</span>
+        <span class="chip"><span class="dot "></span> RTO أربع ساعات</span>
+        <span class="chip"><span class="dot "></span> خطط محدثة</span>
+      </div>
+      <div class="scard" data-pct="92" data-kv="4" data-suf="h" data-bars="55,68,79,87,92">
+        <div class="sc"><span class="sring"><svg viewBox="0 0 56 56"><circle class="bgc" cx="28" cy="28" r="24"/><circle class="fgc" cx="28" cy="28" r="24"/></svg><b>0%</b></span><small>جاهزية التعافي</small></div>
+        <div class="sc"><b class="kv en">0</b><small>هدف زمن الاستعادة</small></div>
+        <div class="sc"><span class="sbars"><i></i><i></i><i></i><i></i><i></i></span><small>الاتجاه عبر ٥ فترات</small></div>
+      </div>
+      <div class="pnav">
+        <button class="nbtn" data-go="sys-08" aria-label="السابق">→</button>
+        <a class="sdeep" href="../systems/09/index.html">صفحة النظام ↗</a>
+        <span class="pcount en"><b>09</b> / 10</span>
+        <button class="nbtn" data-go="sys-10" aria-label="التالي">←</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="sys-10" data-ch="10">
+  <div class="panel">
+    <div class="panel-in">
+      <span class="kick"><span class="n en">10</span> النظام العاشر</span>
+      <h2 class="hx"><span class="w">تقييم</span> <span class="w">واختبار</span> <span class="w">الثغرات</span><br><span class="g"><span class="w">رادار</span> <span class="w">دائم</span> <span class="w">على</span> <span class="w">الثغرات.</span></span></h2>
+      <p class="px">ربط مباشر ببرامج فحص الثغرات العالمية، مع تصنيف تلقائي للنتائج داخل سجل المخاطر ومتابعة الإغلاق حتى النهاية.</p>
+      <div class="chips">
+        <span class="chip"><span class="dot "></span> 310 فحصاً آلياً</span>
+        <span class="chip"><span class="dot gr"></span> إغلاق 78%</span>
+        <span class="chip"><span class="dot r"></span> 4 ثغرات حرجة قيد المعالجة</span>
+      </div>
+      <div class="scard" data-pct="78" data-kv="310" data-suf="" data-bars="30,45,58,69,78">
+        <div class="sc"><span class="sring"><svg viewBox="0 0 56 56"><circle class="bgc" cx="28" cy="28" r="24"/><circle class="fgc" cx="28" cy="28" r="24"/></svg><b>0%</b></span><small>إغلاق الثغرات</small></div>
+        <div class="sc"><b class="kv en">0</b><small>فحصاً آلياً</small></div>
+        <div class="sc"><span class="sbars"><i></i><i></i><i></i><i></i><i></i></span><small>الاتجاه عبر ٥ فترات</small></div>
+      </div>
+      <div class="pnav">
+        <button class="nbtn" data-go="sys-09" aria-label="السابق">→</button>
+        <a class="sdeep" href="../systems/10/index.html">صفحة النظام ↗</a>
+        <span class="pcount en"><b>10</b> / 10</span>
+        <button class="nbtn" data-go="end" aria-label="التالي">←</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- الخاتمة الهادئة — بأسلوب المخرج الأصلي -->
+<section class="chapter last" id="end" data-ch="11">
+  <div class="panel center">
+    <div class="panel-in" style="max-width:640px">
+      <div class="closing-band">
+        <h2>ابدأ رحلة أتمتة الامتثال <span class="gd">معنا</span></h2>
+        <p>عشرة أنظمة تعمل كجسد واحد في بيئة سيادية آمنة. تواصل مع فريقنا لترتيب عرض توضيحي مباشر يناسب منشأتك.</p>
+        <div class="ctas">
+          <a class="btn btn-gold2" href="../index.html#contact">طلب العرض التوضيحي</a>
+          <a class="btn btn-line" href="../index.html#modules" style="background:rgba(255,255,255,.08);color:#F6EBDD;border-color:rgba(246,235,221,.3)">استكشف المنصة الكاملة</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <p>© 2026 Keen Comply. منصة سيادية متوافقة مع متطلبات الأمن السيبراني والبيانات. · <a href="../systems/index.html">رحلة الأنظمة</a> · <a href="../index.html">الموقع الرئيسي</a></p>
+</footer>
+
+<script>
+"use strict";
+const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ============ morphing particle cosmos: 12 sculpted scenes ============ */
+(function(){
+  const canvas = document.getElementById("cosmos");
+  const ctx = canvas.getContext("2d");
+  let W=0,H=0,dpr=1,raf=null,running=true,mx=0,my=0,smx=0,smy=0;
+  const isMobile = window.innerWidth < 760;
+  const N = isMobile ? 850 : 1400;
+  const R2 = () => Math.random() * 6.28318;
+  const hx = h => { const n = parseInt(h.slice(1),16); return [n>>16&255,n>>8&255,n&255]; };
+  const GOLD=hx("#F9A11B"), CRIM=hx("#C10230"), DEEP=hx("#7A0220"), INK=[46,36,28], SLATE=[125,112,100],
+        GREEN=hx("#2e9d5c"), VIOLET=hx("#7c3aed"), ORANGE=hx("#e2790f"), TEAL=hx("#0d9488"),
+        ROSE=hx("#e11d48"), INDIGO=hx("#4f46e5"), AMBER=hx("#C77A05");
+
+  function tube(P,Q,n,rj,col,out){
+    for(let i=0;i<=n;i++){const t=i/n,a=R2(),r=Math.random()*rj;
+      out.push({x:P.x+(Q.x-P.x)*t+Math.cos(a)*r,y:P.y+(Q.y-P.y)*t+Math.sin(a)*r*0.8,z:(Math.random()-.5)*rj*1.6,col});}
+  }
+  function blob(cx,cy,cz,r,n,col,out){
+    for(let i=0;i<n;i++){const rr=Math.pow(Math.random(),.55)*r,th=R2(),ph=Math.acos(2*Math.random()-1);
+      out.push({x:cx+rr*Math.sin(ph)*Math.cos(th),y:cy+rr*Math.sin(ph)*Math.sin(th),z:cz+rr*Math.cos(ph),col});}
+  }
+  function arc(cx,cy,r,a0,a1,n,rj,col,out){
+    for(let i=0;i<n;i++){const a=a0+Math.random()*(a1-a0),j=()=> (Math.random()-.5)*rj;
+      out.push({x:cx+Math.cos(a)*r+j(),y:cy+Math.sin(a)*r+j(),z:j()*1.6,col});}
+  }
+  function fit(pts){
+    while(pts.length<N){const p=pts[Math.floor(Math.random()*pts.length)];
+      pts.push({x:p.x+(Math.random()-.5)*.05,y:p.y+(Math.random()-.5)*.05,z:p.z+(Math.random()-.5)*.05,col:p.col});}
+    return pts.slice(0,N);
+  }
+
+  function S_logo(){
+    const p=[]; 
+    for(let i=0;i<N*0.58;i++){const u=R2(),v=R2(),rr=0.11*(0.5+Math.random()*0.5);
+      p.push({x:(1.5+rr*Math.cos(v))*Math.cos(u),y:(1.5+rr*Math.cos(v))*Math.sin(u),z:rr*Math.sin(v),col:GOLD});}
+    const A={x:-0.76,y:0.1},B={x:-0.16,y:0.7},C={x:1.0,y:-0.6};
+    tube(A,B,Math.floor(N*0.15),0.085,CRIM,p); tube(B,C,Math.floor(N*0.26),0.085,CRIM,p);
+    return fit(p);
+  }
+  function S_shield(){
+    const p=[];
+    for(let i=0;i<N*0.5;i++){const a=(i/(N*0.5))*6.28318,ca=Math.cos(a);
+      const x=1.05*Math.sin(a)*(0.78+0.22*ca), y=-ca*(ca>0?0.92:1.22), j=()=> (Math.random()-.5)*0.09;
+      p.push({x:x+j(),y:y+j(),z:(Math.random()-.5)*0.22,col:GREEN});}
+    for(let i=0;i<N*0.14;i++) p.push({x:(Math.random()-.5)*1.55,y:-0.92+(Math.random()-.5)*0.09,z:(Math.random()-.5)*0.2,col:GREEN});
+    tube({x:-0.5,y:0.12},{x:-0.08,y:0.52},Math.floor(N*0.12),0.07,CRIM,p);
+    tube({x:-0.08,y:0.52},{x:0.66,y:-0.34},Math.floor(N*0.2),0.07,CRIM,p);
+    return fit(p);
+  }
+  function S_matrix(){
+    const p=[]; const per=Math.floor(N/25);
+    const ramp=[GREEN,hx("#8CC63F"),hx("#f3c04c"),hx("#E07B23"),CRIM];
+    for(let r=0;r<5;r++)for(let c=0;c<5;c++){
+      const sev=Math.min(4,Math.round((c+(4-r))/2));
+      blob((c-2)*0.78,(r-2)*0.6,0,0.21,per,ramp[sev],p);
+    }
+    return fit(p);
+  }
+  function S_flow(){
+    const p=[]; const A={x:-1.55,y:-0.7},B={x:0,y:0.1},C={x:1.55,y:-0.55};
+    tube(A,B,Math.floor(N*0.22),0.07,SLATE,p);
+    tube(B,C,Math.floor(N*0.22),0.07,SLATE,p);
+    blob(A.x,A.y,0,0.3,Math.floor(N*0.14),VIOLET,p);
+    blob(B.x,B.y,0,0.36,Math.floor(N*0.2),VIOLET,p);
+    blob(C.x,C.y,0,0.3,Math.floor(N*0.14),GOLD,p);
+    return fit(p);
+  }
+  function S_docs(){
+    const p=[]; 
+    for(let k=0;k<3;k++){
+      const y0=-0.62+k*0.62, w=1.15-k*0.06, h=0.34, col=k===0?GOLD:ORANGE;
+      const per=Math.floor(N*0.22/4);
+      tube({x:-w,y:y0-h},{x:w,y:y0-h},per,0.05,col,p);
+      tube({x:w,y:y0-h},{x:w,y:y0+h},Math.floor(per*0.5),0.05,col,p);
+      tube({x:w,y:y0+h},{x:-w,y:y0+h},per,0.05,col,p);
+      tube({x:-w,y:y0+h},{x:-w,y:y0-h},Math.floor(per*0.5),0.05,col,p);
+      for(let i=0;i<N*0.04;i++) p.push({x:(Math.random()-.5)*w*1.7,y:y0+(Math.random()-.5)*h*1.5,z:(Math.random()-.5)*0.1,col:SLATE});
+    }
+    return fit(p);
+  }
+  function S_audit(){
+    const p=[];
+    arc(-0.3,-0.3,0.88,0,6.28318,Math.floor(N*0.42),0.1,TEAL,p);
+    tube({x:0.35,y:0.32},{x:1.35,y:1.25},Math.floor(N*0.2),0.11,TEAL,p);
+    tube({x:-0.62,y:-0.28},{x:-0.36,y:-0.02},Math.floor(N*0.08),0.05,GOLD,p);
+    tube({x:-0.36,y:-0.02},{x:0.12,y:-0.62},Math.floor(N*0.14),0.05,GOLD,p);
+    return fit(p);
+  }
+  function S_org(){
+    const p=[]; const per=Math.floor(N*0.05);
+    const top={x:0,y:-1.05}, mids=[{x:-0.95,y:0},{x:0,y:0},{x:0.95,y:0}],
+          bots=[-1.5,-0.75,0,0.75,1.5].map(x=>({x,y:1.05}));
+    blob(top.x,top.y,0,0.3,Math.floor(N*0.1),GOLD,p);
+    mids.forEach(m=>{blob(m.x,m.y,0,0.26,Math.floor(N*0.08),INK,p); tube(top,m,per,0.035,SLATE,p);});
+    bots.forEach((b,i)=>{blob(b.x,b.y,0,0.2,Math.floor(N*0.055),SLATE,p); tube(mids[Math.min(2,Math.floor(i/2))],b,per,0.035,SLATE,p);});
+    return fit(p);
+  }
+  function S_alert(){
+    const p=[]; const sx=-1.05,sy=0.62;
+    blob(sx,sy,0,0.3,Math.floor(N*0.16),ROSE,p);
+    arc(sx,sy,0.62,-1.25,0.32,Math.floor(N*0.16),0.07,ROSE,p);
+    arc(sx,sy,1.14,-1.25,0.32,Math.floor(N*0.2),0.07,hx("#f26d8c"),p);
+    arc(sx,sy,1.66,-1.25,0.32,Math.floor(N*0.24),0.07,GOLD,p);
+    return fit(p);
+  }
+  function S_council(){
+    const p=[];
+    for(let i=0;i<N*0.34;i++){const a=R2(),j=()=> (Math.random()-.5)*0.07;
+      p.push({x:Math.cos(a)*1.5+j(),y:Math.sin(a)*0.62+j(),z:j()*2,col:INDIGO});}
+    for(let s=0;s<8;s++){const a=s/8*6.28318;
+      blob(Math.cos(a)*1.5,Math.sin(a)*0.62,0,0.17,Math.floor(N*0.045),s===0?GOLD:INK,p);}
+    blob(0,0,0,0.3,Math.floor(N*0.14),CRIM,p);
+    return fit(p);
+  }
+  function S_bcm(){
+    const p=[]; const a=1.6;
+    for(let i=0;i<N*0.86;i++){const t=R2(),s=Math.sin(t),c=Math.cos(t),d=1+s*s;
+      const j=()=> (Math.random()-.5)*0.11;
+      p.push({x:a*c/d+j(),y:0.85*a*s*c/d+j(),z:j()*1.6,col:Math.random()<0.22?GOLD:AMBER});}
+    return fit(p);
+  }
+  function S_radar(){
+    const p=[];
+    arc(0,0,0.55,0,6.28318,Math.floor(N*0.1),0.05,SLATE,p);
+    arc(0,0,1.05,0,6.28318,Math.floor(N*0.14),0.05,SLATE,p);
+    arc(0,0,1.55,0,6.28318,Math.floor(N*0.18),0.05,GOLD,p);
+    for(let i=0;i<N*0.2;i++){const ang=-0.45+Math.random()*0.55,r=Math.random()*1.55;
+      p.push({x:Math.cos(ang)*r,y:Math.sin(ang)*r,z:(Math.random()-.5)*0.08,col:CRIM});}
+    [[0.7,2.2],[1.25,3.6],[0.9,5.1],[1.45,0.9]].forEach(([r,ang])=>blob(Math.cos(ang)*r,Math.sin(ang)*r,0,0.09,Math.floor(N*0.02),DEEP,p));
+    return fit(p);
+  }
+  function S_globe(){
+    const p=[]; const GA=Math.PI*(3-Math.sqrt(5));
+    for(let i=0;i<N;i++){const yy=1-(i/(N-1))*2,rad=Math.sqrt(1-yy*yy),th=GA*i;
+      p.push({x:Math.cos(th)*rad*1.6,y:yy*1.6,z:Math.sin(th)*rad*1.6,col:Math.abs(yy%0.28)<0.03?CRIM:GOLD});}
+    return p;
+  }
+
+  
+  function S_target(){
+    const p=[];
+    arc(0,0,1.18,0,6.28318,Math.floor(N*0.3),0.07,CRIM,p);
+    arc(0,0,0.76,0,6.28318,Math.floor(N*0.24),0.06,GOLD,p);
+    arc(0,0,0.38,0,6.28318,Math.floor(N*0.16),0.055,CRIM,p);
+    blob(0,0,0,0.15,Math.floor(N*0.12),CRIM,p);
+    return fit(p);
+  }
+  function S_merge(){
+    const p=[]; const V=hx("#7c3aed");
+    blob(-0.85,-1.05,0,0.28,Math.floor(N*0.13),V,p);
+    tube({x:-0.85,y:-0.72},{x:-0.85,y:0.85},Math.floor(N*0.2),0.07,V,p);
+    for(let i=0;i<N*0.2;i++){const a=Math.PI*0.5*Math.random();
+      const j=()=> (Math.random()-.5)*0.08;
+      p.push({x:-0.85+Math.sin(a)*1.05+j(),y:-0.15+ (1-Math.cos(a))*0 + Math.cos(a)*0 + j(),z:j()*1.6,col:SLATE});}
+    tube({x:-0.85,y:-0.15},{x:0.35,y:0.62},Math.floor(N*0.16),0.07,SLATE,p);
+    blob(0.85,0.62,0,0.3,Math.floor(N*0.14),GOLD,p);
+    tube({x:0.35,y:0.62},{x:0.55,y:0.62},Math.floor(N*0.05),0.06,SLATE,p);
+    return fit(p);
+  }
+  function S_folder(){
+    const p=[]; const O=hx("#e2790f");
+    tube({x:-1.35,y:-0.75},{x:-0.45,y:-0.75},Math.floor(N*0.07),0.05,O,p);
+    tube({x:-0.45,y:-0.75},{x:-0.2,y:-0.5},Math.floor(N*0.04),0.05,O,p);
+    tube({x:-0.2,y:-0.5},{x:1.35,y:-0.5},Math.floor(N*0.11),0.05,O,p);
+    tube({x:1.35,y:-0.5},{x:1.35,y:0.95},Math.floor(N*0.1),0.05,O,p);
+    tube({x:1.35,y:0.95},{x:-1.35,y:0.95},Math.floor(N*0.16),0.05,O,p);
+    tube({x:-1.35,y:0.95},{x:-1.35,y:-0.75},Math.floor(N*0.11),0.05,O,p);
+    tube({x:-0.5,y:0.28},{x:-0.1,y:0.62},Math.floor(N*0.08),0.06,GREEN,p);
+    tube({x:-0.1,y:0.62},{x:0.62,y:-0.1},Math.floor(N*0.12),0.06,GREEN,p);
+    return fit(p);
+  }
+  function S_clip(){
+    const p=[]; const T=hx("#0d9488");
+    tube({x:-1.0,y:-1.15},{x:1.0,y:-1.15},Math.floor(N*0.1),0.05,T,p);
+    tube({x:1.0,y:-1.15},{x:1.0,y:1.25},Math.floor(N*0.12),0.05,T,p);
+    tube({x:1.0,y:1.25},{x:-1.0,y:1.25},Math.floor(N*0.1),0.05,T,p);
+    tube({x:-1.0,y:1.25},{x:-1.0,y:-1.15},Math.floor(N*0.12),0.05,T,p);
+    for(let i=0;i<N*0.1;i++){const j=()=> (Math.random()-.5)*0.07;
+      p.push({x:(Math.random()-.5)*0.8+j(),y:-1.32+j(),z:j()*1.5,col:GOLD});}
+    tube({x:-0.5,y:0.1},{x:-0.08,y:0.5},Math.floor(N*0.1),0.06,GOLD,p);
+    tube({x:-0.08,y:0.5},{x:0.66,y:-0.35},Math.floor(N*0.14),0.06,GOLD,p);
+    return fit(p);
+  }
+  function S_building(){
+    const p=[]; const S2=hx("#475569");
+    tube({x:-0.95,y:-1.3},{x:0.95,y:-1.3},Math.floor(N*0.08),0.05,S2,p);
+    tube({x:0.95,y:-1.3},{x:0.95,y:1.3},Math.floor(N*0.11),0.05,S2,p);
+    tube({x:0.95,y:1.3},{x:-0.95,y:1.3},Math.floor(N*0.08),0.05,S2,p);
+    tube({x:-0.95,y:1.3},{x:-0.95,y:-1.3},Math.floor(N*0.11),0.05,S2,p);
+    for(let r=0;r<4;r++)for(let c=0;c<3;c++)
+      blob(-0.55+c*0.55,-0.85+r*0.5,0,0.1,Math.floor(N*0.022),GOLD,p);
+    tube({x:-0.2,y:1.3},{x:-0.2,y:0.75},Math.floor(N*0.04),0.05,S2,p);
+    tube({x:0.2,y:1.3},{x:0.2,y:0.75},Math.floor(N*0.04),0.05,S2,p);
+    tube({x:-0.2,y:0.75},{x:0.2,y:0.75},Math.floor(N*0.03),0.05,S2,p);
+    return fit(p);
+  }
+  function S_mega(){
+    const p=[]; const R=hx("#e11d48");
+    tube({x:-1.3,y:-0.15},{x:0.45,y:-0.85},Math.floor(N*0.12),0.06,R,p);
+    tube({x:-1.3,y:0.55},{x:0.45,y:1.0},Math.floor(N*0.12),0.06,R,p);
+    tube({x:-1.3,y:-0.15},{x:-1.3,y:0.55},Math.floor(N*0.06),0.06,R,p);
+    tube({x:0.45,y:-0.85},{x:0.45,y:1.0},Math.floor(N*0.1),0.06,R,p);
+    for(let i=0;i<N*0.12;i++){const j=()=> (Math.random()-.5)*0.3;
+      p.push({x:-0.4+j(),y:0.15+j()*0.9,z:(Math.random()-.5)*0.2,col:R});}
+    tube({x:-0.9,y:0.55},{x:-0.75,y:1.25},Math.floor(N*0.07),0.07,SLATE,p);
+    arc(0.65,0.05,0.55,-0.9,0.9,Math.floor(N*0.08),0.05,GOLD,p);
+    arc(0.65,0.05,0.95,-0.9,0.9,Math.floor(N*0.1),0.05,GOLD,p);
+    return fit(p);
+  }
+  function S_users(){
+    const p=[]; const I=hx("#4f46e5");
+    arc(-0.5,-0.55,0.45,0,6.28318,Math.floor(N*0.18),0.06,I,p);
+    arc(-0.5,0.9,1.0,3.4,6.03,Math.floor(N*0.18),0.07,I,p);
+    arc(0.7,-0.35,0.36,0,6.28318,Math.floor(N*0.13),0.055,SLATE,p);
+    arc(0.7,0.95,0.8,3.5,5.93,Math.floor(N*0.13),0.06,SLATE,p);
+    return fit(p);
+  }
+  function S_pulse(){
+    const p=[]; const A=hx("#C77A05");
+    const pts=[[-1.7,0.1],[-0.85,0.1],[-0.5,-0.85],[0.1,0.95],[0.5,0.1],[1.7,0.1]];
+    for(let k=0;k<pts.length-1;k++){
+      const seg=Math.floor(N*0.15);
+      tube({x:pts[k][0],y:pts[k][1]},{x:pts[k+1][0],y:pts[k+1][1]},seg,0.06,k<2||k>3?A:GOLD,p);
+    }
+    blob(-1.7,0.1,0,0.1,Math.floor(N*0.03),CRIM,p);
+    blob(1.7,0.1,0,0.1,Math.floor(N*0.03),CRIM,p);
+    return fit(p);
+  }
+  const SHAPES=[S_logo(),S_shield(),S_target(),S_merge(),S_folder(),S_clip(),S_building(),S_mega(),S_users(),S_pulse(),S_radar(),S_logo()];
+  const CH=SHAPES.length;
+  const MODE=["osc","osc","osc","osc","osc","osc","osc","osc","osc","osc","osc","osc"];
+  const SPIN=[0.22,0.45,0.3,0.45,0.45,0.45,0.45,0.45,0.45,0.45,0.45,0.22];
+  const AMP=[0.16,0.28,0.5,0.28,0.28,0.28,0.12,0.28,0.28,0.14,0.28,0.16];
+  const rotOf=(i,time)=>MODE[i]==="osc"?Math.sin(time*SPIN[i])*AMP[i]:time*SPIN[i];
+  const OFFX=[-0.24,-0.24,0,0.24,-0.24,0,0.24,-0.24,0,0.24,-0.24,0];
+  const OFFY=[0,0,0,0,0,0,0,0,0,0,0,-0.06];
+  /* transition style INTO each chapter: direct | spiral | rain | depth | burst */
+  const SCALE=[1,1,1.6,1,1,1.6,1,1,1.6,1,1,1];
+  const DIM=[1,1,0.32,1,1,0.32,1,1,0.32,1,1,1];
+  const TRANS=["direct","rain","depth","spiral","burst","rain","depth","spiral","burst","rain","depth","spiral"];
+
+  const parts=[]; for(let i=0;i<N;i++) parts.push({tw:R2(),sz:0.9+Math.random()*1.7});
+
+  function size(){dpr=Math.min(window.devicePixelRatio||1,2);W=window.innerWidth;H=window.innerHeight;
+    canvas.width=W*dpr;canvas.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);}
+  const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+  const lerp=(a,b,t)=>a+(b-a)*t;
+
+  let scrollP=0,smoothP=0,t=0;
+  const chapterEls=document.querySelectorAll(".chapter");
+  function measure(){
+    const mid=window.scrollY+window.innerHeight/2, centers=[];
+    chapterEls.forEach(s=>centers.push(s.offsetTop+s.offsetHeight/2));
+    if(mid<=centers[0]){scrollP=0;return;}
+    if(mid>=centers[centers.length-1]){scrollP=CH-1;return;}
+    for(let i=0;i<centers.length-1;i++){
+      if(mid>=centers[i]&&mid<centers[i+1]){
+        const frac=(mid-centers[i])/(centers[i+1]-centers[i]);
+        scrollP=i+Math.max(0,Math.min(1,(frac-0.38)/0.24));
+        break;
+      }
+    }
+  }
+  window.addEventListener("scroll",measure,{passive:true});
+  measure();
+
+  function frame(){
+    if(!running){raf=null;return;}
+    t+=0.016;
+    smoothP+=(scrollP-smoothP)*0.12;
+    ctx.clearRect(0,0,W,H);
+    const a=Math.max(0,Math.min(CH-1,Math.floor(smoothP))), b=Math.min(CH-1,a+1);
+    const tt=ease(Math.min(1,Math.max(0,smoothP-a)));
+    const SA=SHAPES[a],SB=SHAPES[b];
+    const style=TRANS[b];
+    smx+=(mx-smx)*0.05; smy+=(my-smy)*0.05;
+    const ry=lerp(rotOf(a,t),rotOf(b,t),tt)+smx*0.4;
+    const rx=-0.2+smy*0.28+Math.sin(t*0.2)*0.04;
+    const sY=Math.sin(ry),cY=Math.cos(ry),sX=Math.sin(rx),cX=Math.cos(rx);
+    const S=Math.min(W,H)*(isMobile?0.16:0.19)*lerp(SCALE[a],SCALE[b],tt);
+    const dimF=lerp(DIM[a],DIM[b],tt);
+    const cx=W*0.5+lerp(OFFX[a],OFFX[b],tt)*(isMobile?0:W);
+    const cy=H*(0.5+lerp(OFFY[a],OFFY[b],tt)*(isMobile?0.4:1));
+    const persp=4.1;
+    const spiralAng=(1-tt)*2.3, burstK=1+Math.sin(Math.PI*tt)*1.05, depthZ=(1-tt)*6;
+    const cosA=Math.cos(spiralAng),sinA=Math.sin(spiralAng);
+    for(let i=0;i<N;i++){
+      const p=parts[i],pa=SA[i],pb=SB[i];
+      let ttp=tt;
+      if(style==="rain"&&tt<1){const stag=(p.tw/6.28318)*0.4;ttp=Math.max(0,Math.min(1,(tt-stag)/0.6));ttp=ease(ttp);}
+      let x=lerp(pa.x,pb.x,ttp), y=lerp(pa.y,pb.y,ttp), z=lerp(pa.z,pb.z,ttp);
+      if(tt>0.0005&&tt<0.9995){
+        if(style==="spiral"){const xr=x*cosA-y*sinA,yr=x*sinA+y*cosA;x=xr;y=yr;}
+        else if(style==="rain"){y-=(1-ttp)*2.8;}
+        else if(style==="depth"){z+=depthZ;}
+        else if(style==="burst"){x*=burstK;y*=burstK;z*=burstK;}
+      }
+      const x1=x*cY+z*sY, z1=-x*sY+z*cY, y1=y*cX-z1*sX, z2=y*sX+z1*cX;
+      const sc=persp/(persp+z2);
+      const depth=Math.max(0,Math.min(1,(z2+2.2)/4.4));
+      const rr=lerp(pa.col[0],pb.col[0],tt)|0, gg=lerp(pa.col[1],pb.col[1],tt)|0, bb=lerp(pa.col[2],pb.col[2],tt)|0;
+      const alpha=((0.22+depth*0.6+0.08*Math.sin(t*2+p.tw))*(isMobile?0.45:1)*dimF).toFixed(3);
+      ctx.fillStyle="rgba("+rr+","+gg+","+bb+","+alpha+")";
+      ctx.beginPath();ctx.arc(cx+x1*S*sc,cy+y1*S*sc,p.sz*sc*(0.55+depth*0.65),0,6.28318);ctx.fill();
+    }
+    raf=requestAnimationFrame(frame);
+  }
+
+  size();
+  window.addEventListener("resize",()=>{size();measure();});
+  window.addEventListener("mousemove",e=>{mx=(e.clientX/W-.5)*0.5;my=(e.clientY/H-.5)*0.4;},{passive:true});
+  document.addEventListener("visibilitychange",()=>{running=!document.hidden;
+    if(running&&!raf&&!reduceMotion)raf=requestAnimationFrame(frame);});
+  if(reduceMotion){t=1;running=true;frame();running=false;}
+  else raf=requestAnimationFrame(frame);
+})();
+
+/* ============ panels + rail + nav ============ */
+(function(){
+  const chapters=document.querySelectorAll(".chapter");
+  const rail=document.querySelectorAll(".rail button");
+  const hint=document.getElementById("hint");
+  const pbar=document.getElementById("pbar");
+  const io=new IntersectionObserver(es=>es.forEach(e=>{
+    const panel=e.target.querySelector(".panel");
+    if(e.isIntersecting){
+      panel.classList.add("live");
+      const ch=+e.target.dataset.ch;
+      rail.forEach((btn,i)=>btn.classList.toggle("on",i===ch));
+      if(history.replaceState) history.replaceState(null,"","#"+e.target.id);
+    } else panel.classList.remove("live");
+  }),{rootMargin:"-35% 0px -35% 0px"});
+  chapters.forEach(c=>io.observe(c));
+  const go=id=>{const el=document.getElementById(id);
+    if(el) el.scrollIntoView({behavior:reduceMotion?"auto":"smooth"});};
+  rail.forEach(btn=>btn.addEventListener("click",()=>go(btn.dataset.go)));
+  document.querySelectorAll(".nbtn,[data-go]").forEach(b=>b.addEventListener("click",ev=>{
+    if(b.dataset.go){ev.preventDefault();go(b.dataset.go);}
+  }));
+  window.addEventListener("scroll",()=>{
+    const doc=document.documentElement;
+    pbar.style.width=((window.scrollY/(doc.scrollHeight-doc.clientHeight))*100).toFixed(2)+"%";
+    hint.classList.toggle("gone",window.scrollY>80);
+  },{passive:true});
+  if(location.hash){
+    const el=document.getElementById(location.hash.slice(1));
+    if(el) setTimeout(()=>el.scrollIntoView({behavior:"auto"}),60);
+  }
+})();
+
+/* ============ animated readings cards ============ */
+(function(){
+  function animate(card){
+    if(card.dataset.on) return; card.dataset.on="1";
+    const pct=+card.dataset.pct, fg=card.querySelector(".fgc"), rb=card.querySelector(".sring b");
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{
+      if(fg) fg.style.strokeDashoffset=(151*(1-pct/100)).toFixed(1);
+      const bars=card.dataset.bars.split(",");
+      card.querySelectorAll(".sbars i").forEach((b,k)=>{b.style.height=Math.max(6,bars[k]*0.3)+"px";});
+    }));
+    const kvEl=card.querySelector(".kv"), target=parseFloat(card.dataset.kv), suf=card.dataset.suf||"";
+    const dec=card.dataset.kv.includes(".")?1:0, t0=performance.now(), dur=1400;
+    function fin(){kvEl.textContent=(dec?target.toFixed(1):Math.round(target).toLocaleString("en-US"))+suf;if(rb)rb.textContent=pct+"%";}
+    if(reduceMotion){fin();return;}
+    (function step(now){
+      const p=Math.min((now-t0)/dur,1), e=1-Math.pow(1-p,3), v=target*e;
+      kvEl.textContent=(dec?v.toFixed(1):Math.round(v).toLocaleString("en-US"))+suf;
+      if(rb) rb.textContent=Math.round(pct*e)+"%";
+      p<1?requestAnimationFrame(step):fin();
+    })(t0);
+  }
+  function reset(card){
+    delete card.dataset.on;
+    const fg=card.querySelector(".fgc");
+    if(fg){fg.style.transition="none";fg.style.strokeDashoffset="151";void fg.getBoundingClientRect();fg.style.transition="";}
+    card.querySelectorAll(".sbars i").forEach(b=>b.style.height="4px");
+    const rb=card.querySelector(".sring b"); if(rb) rb.textContent="0%";
+    card.querySelector(".kv").textContent="0";
+  }
+  const io=new IntersectionObserver(es=>es.forEach(e=>{
+    const card=e.target.querySelector(".scard"); if(!card) return;
+    e.isIntersecting?animate(card):reset(card);
+  }),{rootMargin:"-30% 0px -30% 0px"});
+  document.querySelectorAll(".chapter").forEach(ch=>io.observe(ch));
+})();
+</script>
+</body>
+</html>
