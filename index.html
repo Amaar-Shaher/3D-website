@@ -1120,7 +1120,10 @@ const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-mo
     cur = i;
     items.forEach((el, j) => { el.classList.toggle("active", j === i); el.setAttribute("aria-selected", j === i); setProg(el, j === i); });
     render(i);
-    items[i].scrollIntoView({ block: "nearest", inline: "nearest", behavior: "smooth" });
+    if (list.scrollWidth > list.clientWidth + 4) {
+      const it = items[i];
+      list.scrollTo({ left: it.offsetLeft - (list.clientWidth - it.offsetWidth) / 2, behavior: "smooth" });
+    }
   }
 
   function tick() { if (visible && !paused) select((cur + 1) % M.length); }
@@ -1256,7 +1259,7 @@ function resetForm() {
   })();
   // check mark: two 3D segments sampled as a particle tube
   (function(){
-    const A = {x:-0.78, y:-0.10, z:0}, B = {x:-0.16, y:-0.72, z:0}, C = {x:1.02, y:0.62, z:0};
+    const A = {x:-0.78, y:0.10, z:0}, B = {x:-0.16, y:0.72, z:0}, C = {x:1.02, y:-0.62, z:0};
     const seg = (P, Q, n) => {
       for (let i = 0; i <= n; i++) {
         const t = i / n;
