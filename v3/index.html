@@ -11,7 +11,7 @@
 <meta property="og:site_name" content="Keen Comply">
 <meta property="og:title" content="Keen Comply — أتمتة الحوكمة وإدارة المخاطر والامتثال">
 <meta property="og:description" content="المنصة الموحدة لإدارة المخاطر والامتثال. أتمتة العمليات لقرارات أسرع وأدق.">
-<link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><g fill="none" stroke="%23F9A11B" stroke-width="21" stroke-linecap="square" stroke-linejoin="round"><path d="M80 84 L143.6 37.7 A76 76 0 0 1 86.8 174.8"/><path d="M120 116 L56.4 162.3 A76 76 0 0 1 113.2 25.2"/></g><path d="M47 105 L79 133 L144 77" stroke="%23C8102E" stroke-width="21" fill="none" stroke-linecap="square" stroke-linejoin="round"/></svg>'>
+<link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><g transform="rotate(-28 60 60)" fill="none" stroke-linecap="round"><path d="M103.3 52.4 A44 44 0 0 0 21.9 38" stroke="%23F9A11B" stroke-width="17"/><path d="M16.7 67.6 A44 44 0 0 0 98.1 82" stroke="%23F9A11B" stroke-width="17"/></g><path d="M30 63 L52 83 L93 39" stroke="%23C8102E" stroke-width="17" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>'>
 <link rel="stylesheet" href="../assets/fonts/fonts.css">
 <style>
   :root{
@@ -39,9 +39,9 @@
   #intro{position:fixed;inset:0;z-index:200;background:var(--paper);display:grid;place-items:center;transition:opacity .6s ease,visibility .6s}
   #intro.done{opacity:0;visibility:hidden;pointer-events:none}
   #intro svg{width:96px;height:96px}
-  #intro .arc{stroke-dasharray:300;stroke-dashoffset:300;animation:draw 0.9s var(--ease) forwards}
+  #intro .arc{stroke-dasharray:200;stroke-dashoffset:200;animation:draw 0.9s var(--ease) forwards}
   #intro .arc2{animation-delay:.12s}
-  #intro .chk{stroke-dasharray:150;stroke-dashoffset:150;animation:draw .7s var(--ease) .35s forwards}
+  #intro .chk{stroke-dasharray:130;stroke-dashoffset:130;animation:draw .7s var(--ease) .35s forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
 
   /* ============ scroll progress ============ */
@@ -521,11 +521,11 @@
 <!-- intro -->
 <div id="intro" aria-hidden="true">
   <svg viewBox="0 0 120 120" fill="none">
-    <g transform="scale(0.6)" fill="none" stroke-linecap="square" stroke-linejoin="round">
-      <path class="arc" d="M80 84 L143.6 37.7 A76 76 0 0 1 86.8 174.8" stroke="#F9A11B" stroke-width="21"/>
-      <path class="arc arc2" d="M120 116 L56.4 162.3 A76 76 0 0 1 113.2 25.2" stroke="#F9A11B" stroke-width="21"/>
-      <path class="chk" d="M47 105 L79 133 L144 77" stroke="#C8102E" stroke-width="21"/>
+    <g transform="rotate(-28 60 60)" stroke-linecap="round">
+      <path class="arc" d="M103.3 52.4 A44 44 0 0 0 21.9 38" stroke="#F9A11B" stroke-width="15"/>
+      <path class="arc arc2" d="M16.7 67.6 A44 44 0 0 0 98.1 82" stroke="#F9A11B" stroke-width="15"/>
     </g>
+    <path class="chk" d="M30 63 L52 83 L93 39" stroke="#C8102E" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
 </div>
 
@@ -535,13 +535,11 @@
   <div class="wrap"><nav>
     <a class="brand" href="#hero" aria-label="Keen Comply — الرئيسية">
       <svg viewBox="0 0 120 120" fill="none" aria-hidden="true">
-        <g transform="scale(0.6)" fill="none">
-          <g stroke="#F9A11B" stroke-width="21" stroke-linecap="square" stroke-linejoin="round">
-            <path d="M80 84 L143.6 37.7 A76 76 0 0 1 86.8 174.8"/>
-            <path d="M120 116 L56.4 162.3 A76 76 0 0 1 113.2 25.2"/>
-          </g>
-          <path d="M47 105 L79 133 L144 77" stroke="#C8102E" stroke-width="21" stroke-linecap="square" stroke-linejoin="round"/>
+        <g transform="rotate(-28 60 60)" stroke-linecap="round">
+          <path d="M103.3 52.4 A44 44 0 0 0 21.9 38" stroke="#F9A11B" stroke-width="16"/>
+          <path d="M16.7 67.6 A44 44 0 0 0 98.1 82" stroke="#F9A11B" stroke-width="16"/>
         </g>
+        <path d="M30 63 L52 83 L93 39" stroke="#C8102E" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
       <span class="brand-name">Keen Comply<small>أتمتة وحوكمة سيادية</small></span>
     </a>
@@ -934,18 +932,16 @@
   <div class="wrap">
     <div class="fbrand">
       <svg viewBox="0 0 120 120" fill="none" aria-hidden="true">
-        <g transform="scale(0.6)" fill="none">
-          <g stroke="#F9A11B" stroke-width="21" stroke-linecap="square" stroke-linejoin="round">
-            <path d="M80 84 L143.6 37.7 A76 76 0 0 1 86.8 174.8"/>
-            <path d="M120 116 L56.4 162.3 A76 76 0 0 1 113.2 25.2"/>
-          </g>
-          <path d="M47 105 L79 133 L144 77" stroke="#C8102E" stroke-width="21" stroke-linecap="square" stroke-linejoin="round"/>
+        <g transform="rotate(-28 60 60)" stroke-linecap="round">
+          <path d="M103.3 52.4 A44 44 0 0 0 21.9 38" stroke="#F9A11B" stroke-width="16"/>
+          <path d="M16.7 67.6 A44 44 0 0 0 98.1 82" stroke="#F9A11B" stroke-width="16"/>
         </g>
+        <path d="M30 63 L52 83 L93 39" stroke="#C8102E" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
       <span>Keen Comply</span>
     </div>
     <p>© 2026 Keen Comply. منصة سيادية متوافقة مع متطلبات الأمن السيبراني والبيانات.</p>
-    <p style="margin-top:10px"><a href="../experience/index.html" style="color:var(--crimson);font-weight:700;text-decoration:none">✨ جرّب التجربة الغامرة — رحلة الامتثال</a></p>
+    <p style="margin-top:10px"><a href="../journey/index.html" style="color:var(--crimson);font-weight:700;text-decoration:none">✨ التجربة الغامرة — رحلة الامتثال (الهوية الفاتحة)</a> &nbsp;·&nbsp; <a href="../experience/index.html" style="color:var(--slate);font-weight:700;text-decoration:none">النسخة الداكنة</a></p>
     <p style="margin-top:10px"><a href="../index.html" style="color:var(--crimson);font-weight:700;text-decoration:none">النسخة الأساسية</a></p>
   </div>
 </footer>
