@@ -503,7 +503,7 @@
   .sring .bgc{stroke:var(--line)}
   .sring .fgc{stroke:var(--acc,var(--gold));stroke-linecap:round;stroke-dasharray:151;stroke-dashoffset:151;transition:stroke-dashoffset 1.2s var(--ease) .2s}
   .sring b{position:absolute;inset:0;display:grid;place-items:center;font-family:'Sora';font-size:12px;font-weight:800;direction:ltr;color:var(--ink)}
-  .sbars{display:flex;align-items:flex-end;justify-content:center;gap:4px;height:34px}
+  .sbars{display:flex;align-items:flex-end;justify-content:center;gap:4px;height:34px;direction:ltr}
   .sbars i{width:8px;border-radius:3px;background:linear-gradient(180deg,var(--gold),var(--acc,var(--crimson)));height:4px;transition:height .7s var(--ease)}
   .pnav{display:flex;align-items:center;gap:14px;margin-top:26px;padding-top:20px;border-top:1px solid var(--line);max-width:520px;opacity:0;transition:.6s var(--ease) .25s;flex-wrap:wrap}
   .panel.live .pnav{opacity:1}
@@ -865,10 +865,10 @@
         <span class="chip"><span class="dot "></span> 114 ضابطاً مفعّلاً</span>
         <span class="chip"><span class="dot "></span> تحديث آلي للوائح</span>
       </div>
-      <div class="scard" data-pct="94" data-kv="114" data-suf="" data-bars="55,68,78,88,94">
+      <div class="scard" data-pct="94" data-kv="114" data-suf="" data-bars="96,75,88,91,85">
         <div class="sc"><span class="sring"><svg viewBox="0 0 56 56"><circle class="bgc" cx="28" cy="28" r="24"/><circle class="fgc" cx="28" cy="28" r="24"/></svg><b>0%</b></span><small>نسبة التوافق</small></div>
         <div class="sc"><b class="kv en">0</b><small>ضابط مفعّل</small></div>
-        <div class="sc"><span class="sbars"><i></i><i></i><i></i><i></i><i></i></span><small>الاتجاه عبر ٥ فترات</small></div>
+        <div class="sc"><span class="sbars"><i title="NCA ECC: 96%" style="background:#2e9d5c"></i><i title="SAMA CSF: 75%" style="background:#5cbd88"></i><i title="NDMO: 88%" style="background:#2e9d5c"></i><i title="ISO 27001: 91%" style="background:#5cbd88"></i><i title="ISO 22301: 85%" style="background:#2e9d5c"></i></span><small>الامتثال عبر الأطر الخمسة</small></div>
       </div>
       <div class="pnav">
         <button class="nbtn" data-go="modules" aria-label="السابق">→</button>
@@ -892,10 +892,10 @@
         <span class="chip"><span class="dot "></span> 47 خطراً مُداراً</span>
         <span class="chip"><span class="dot r"></span> مصفوفة 5×5 حية</span>
       </div>
-      <div class="scard" data-pct="87" data-kv="47" data-suf="" data-bars="40,58,66,79,87">
+      <div class="scard" data-pct="87" data-kv="47" data-suf="" data-bars="88,66,42,18">
         <div class="sc"><span class="sring"><svg viewBox="0 0 56 56"><circle class="bgc" cx="28" cy="28" r="24"/><circle class="fgc" cx="28" cy="28" r="24"/></svg><b>0%</b></span><small>تغطية السجل</small></div>
         <div class="sc"><b class="kv en">0</b><small>خطراً مُداراً</small></div>
-        <div class="sc"><span class="sbars"><i></i><i></i><i></i><i></i><i></i></span><small>الاتجاه عبر ٥ فترات</small></div>
+        <div class="sc"><span class="sbars"><i title="منخفضة: 18 خطراً" style="background:#57bd83"></i><i title="متوسطة: 15 خطراً" style="background:#f3c04c"></i><i title="مرتفعة: 9 مخاطر" style="background:#E07B23"></i><i title="حرجة: 3 مخاطر" style="background:#C10230"></i></span><small>المخاطر حسب الشدة</small></div>
       </div>
       <div class="pnav">
         <button class="nbtn" data-go="sys-01" aria-label="السابق">→</button>
@@ -919,10 +919,10 @@
         <span class="chip"><span class="dot "></span> 1.4h متوسط الإنجاز</span>
         <span class="chip"><span class="dot "></span> تصعيد آلي موثق</span>
       </div>
-      <div class="scard" data-pct="91" data-kv="1.4" data-suf="h" data-bars="52,63,74,84,91">
+      <div class="scard" data-pct="91" data-kv="1.4" data-suf="h" data-bars="55,38,92">
         <div class="sc"><span class="sring"><svg viewBox="0 0 56 56"><circle class="bgc" cx="28" cy="28" r="24"/><circle class="fgc" cx="28" cy="28" r="24"/></svg><b>0%</b></span><small>طلبات ضمن SLA</small></div>
         <div class="sc"><b class="kv en">0</b><small>متوسط زمن الإنجاز</small></div>
-        <div class="sc"><span class="sbars"><i></i><i></i><i></i><i></i><i></i></span><small>الاتجاه عبر ٥ فترات</small></div>
+        <div class="sc"><span class="sbars"><i title="واردة" style="background:#f3c04c"></i><i title="قيد المعالجة" style="background:#a78bfa"></i><i title="مكتملة" style="background:#7c3aed"></i></span><small>حالة الطلبات الجارية</small></div>
       </div>
       <div class="pnav">
         <button class="nbtn" data-go="sys-02" aria-label="السابق">→</button>
@@ -946,10 +946,10 @@
         <span class="chip"><span class="dot gr"></span> تصنيف 100%</span>
         <span class="chip"><span class="dot "></span> تشفير كامل</span>
       </div>
-      <div class="scard" data-pct="100" data-kv="2300" data-suf="+" data-bars="62,74,85,93,100">
+      <div class="scard" data-pct="100" data-kv="2300" data-suf="+" data-bars="72,95,56,40">
         <div class="sc"><span class="sring"><svg viewBox="0 0 56 56"><circle class="bgc" cx="28" cy="28" r="24"/><circle class="fgc" cx="28" cy="28" r="24"/></svg><b>0%</b></span><small>وثائق مصنفة</small></div>
         <div class="sc"><b class="kv en">0</b><small>وثيقة مؤمنة</small></div>
-        <div class="sc"><span class="sbars"><i></i><i></i><i></i><i></i><i></i></span><small>الاتجاه عبر ٥ فترات</small></div>
+        <div class="sc"><span class="sbars"><i title="سياسات" style="background:#e2790f"></i><i title="أدلة امتثال" style="background:#f59e42"></i><i title="نماذج" style="background:#e2790f"></i><i title="عقود" style="background:#f59e42"></i></span><small>الوثائق حسب التصنيف</small></div>
       </div>
       <div class="pnav">
         <button class="nbtn" data-go="sys-03" aria-label="السابق">→</button>
@@ -973,10 +973,10 @@
         <span class="chip"><span class="dot "></span> 36 ملاحظة محلولة</span>
         <span class="chip"><span class="dot "></span> أوراق عمل رقمية</span>
       </div>
-      <div class="scard" data-pct="81" data-kv="36" data-suf="" data-bars="35,49,62,73,81">
+      <div class="scard" data-pct="81" data-kv="36" data-suf="" data-bars="28,52,90">
         <div class="sc"><span class="sring"><svg viewBox="0 0 56 56"><circle class="bgc" cx="28" cy="28" r="24"/><circle class="fgc" cx="28" cy="28" r="24"/></svg><b>0%</b></span><small>إنجاز خطة التدقيق</small></div>
         <div class="sc"><b class="kv en">0</b><small>ملاحظة محلولة</small></div>
-        <div class="sc"><span class="sbars"><i></i><i></i><i></i><i></i><i></i></span><small>الاتجاه عبر ٥ فترات</small></div>
+        <div class="sc"><span class="sbars"><i title="مفتوحة: 7" style="background:#C10230"></i><i title="قيد المعالجة: 12" style="background:#f3c04c"></i><i title="مغلقة: 36" style="background:#0d9488"></i></span><small>حالة ملاحظات التدقيق</small></div>
       </div>
       <div class="pnav">
         <button class="nbtn" data-go="sys-04" aria-label="السابق">→</button>
@@ -1000,10 +1000,10 @@
         <span class="chip"><span class="dot "></span> 5 مستويات اعتماد</span>
         <span class="chip"><span class="dot "></span> هيكل تنظيمي حي</span>
       </div>
-      <div class="scard" data-pct="96" data-kv="5" data-suf="" data-bars="58,70,81,90,96">
+      <div class="scard" data-pct="96" data-kv="5" data-suf="" data-bars="95,82,70,55,40">
         <div class="sc"><span class="sring"><svg viewBox="0 0 56 56"><circle class="bgc" cx="28" cy="28" r="24"/><circle class="fgc" cx="28" cy="28" r="24"/></svg><b>0%</b></span><small>تغطية DoA</small></div>
         <div class="sc"><b class="kv en">0</b><small>مستويات اعتماد</small></div>
-        <div class="sc"><span class="sbars"><i></i><i></i><i></i><i></i><i></i></span><small>الاتجاه عبر ٥ فترات</small></div>
+        <div class="sc"><span class="sbars"><i title="المستوى 1" style="background:#475569"></i><i title="المستوى 2" style="background:#64748b"></i><i title="المستوى 3" style="background:#475569"></i><i title="المستوى 4" style="background:#64748b"></i><i title="المستوى 5" style="background:#475569"></i></span><small>التفويض عبر المستويات</small></div>
       </div>
       <div class="pnav">
         <button class="nbtn" data-go="sys-05" aria-label="السابق">→</button>
@@ -1027,10 +1027,10 @@
         <span class="chip"><span class="dot "></span> استجابة خلال 48h</span>
         <span class="chip"><span class="dot r"></span> قنوات مشفرة</span>
       </div>
-      <div class="scard" data-pct="100" data-kv="48" data-suf="h" data-bars="66,78,87,94,100">
+      <div class="scard" data-pct="100" data-kv="48" data-suf="h" data-bars="35,58,88">
         <div class="sc"><span class="sring"><svg viewBox="0 0 56 56"><circle class="bgc" cx="28" cy="28" r="24"/><circle class="fgc" cx="28" cy="28" r="24"/></svg><b>0%</b></span><small>سرية البلاغات</small></div>
         <div class="sc"><b class="kv en">0</b><small>متوسط الاستجابة</small></div>
-        <div class="sc"><span class="sbars"><i></i><i></i><i></i><i></i><i></i></span><small>الاتجاه عبر ٥ فترات</small></div>
+        <div class="sc"><span class="sbars"><i title="جديدة" style="background:#f3c04c"></i><i title="تحت التحقيق" style="background:#E07B23"></i><i title="مغلقة" style="background:#2e9d5c"></i></span><small>مسار البلاغات</small></div>
       </div>
       <div class="pnav">
         <button class="nbtn" data-go="sys-06" aria-label="السابق">→</button>
@@ -1054,10 +1054,10 @@
         <span class="chip"><span class="dot "></span> 120+ قراراً موثقاً</span>
         <span class="chip"><span class="dot "></span> توقيع رقمي</span>
       </div>
-      <div class="scard" data-pct="89" data-kv="120" data-suf="+" data-bars="50,64,75,83,89">
+      <div class="scard" data-pct="89" data-kv="120" data-suf="+" data-bars="78,85,90,82,95,89">
         <div class="sc"><span class="sring"><svg viewBox="0 0 56 56"><circle class="bgc" cx="28" cy="28" r="24"/><circle class="fgc" cx="28" cy="28" r="24"/></svg><b>0%</b></span><small>حضور رقمي</small></div>
         <div class="sc"><b class="kv en">0</b><small>قراراً موثقاً</small></div>
-        <div class="sc"><span class="sbars"><i></i><i></i><i></i><i></i><i></i></span><small>الاتجاه عبر ٥ فترات</small></div>
+        <div class="sc"><span class="sbars"><i title="يناير: 78%" style="background:#4f46e5"></i><i title="فبراير: 85%" style="background:#818cf8"></i><i title="مارس: 90%" style="background:#4f46e5"></i><i title="أبريل: 82%" style="background:#818cf8"></i><i title="مايو: 95%" style="background:#4f46e5"></i><i title="يونيو: 89%" style="background:#818cf8"></i></span><small>حضور آخر ٦ اجتماعات</small></div>
       </div>
       <div class="pnav">
         <button class="nbtn" data-go="sys-07" aria-label="السابق">→</button>
@@ -1081,10 +1081,10 @@
         <span class="chip"><span class="dot "></span> RTO أربع ساعات</span>
         <span class="chip"><span class="dot "></span> خطط محدثة</span>
       </div>
-      <div class="scard" data-pct="92" data-kv="4" data-suf="h" data-bars="55,68,79,87,92">
+      <div class="scard" data-pct="92" data-kv="4" data-suf="h" data-bars="60,75,85,92">
         <div class="sc"><span class="sring"><svg viewBox="0 0 56 56"><circle class="bgc" cx="28" cy="28" r="24"/><circle class="fgc" cx="28" cy="28" r="24"/></svg><b>0%</b></span><small>جاهزية التعافي</small></div>
         <div class="sc"><b class="kv en">0</b><small>هدف زمن الاستعادة</small></div>
-        <div class="sc"><span class="sbars"><i></i><i></i><i></i><i></i><i></i></span><small>الاتجاه عبر ٥ فترات</small></div>
+        <div class="sc"><span class="sbars"><i title="الربع الأول" style="background:#C77A05"></i><i title="الربع الثاني" style="background:#F9A11B"></i><i title="الربع الثالث" style="background:#C77A05"></i><i title="الربع الرابع" style="background:#F9A11B"></i></span><small>اختبارات التعافي ربعياً</small></div>
       </div>
       <div class="pnav">
         <button class="nbtn" data-go="sys-08" aria-label="السابق">→</button>
@@ -1108,10 +1108,10 @@
         <span class="chip"><span class="dot gr"></span> إغلاق 78%</span>
         <span class="chip"><span class="dot r"></span> 4 ثغرات حرجة قيد المعالجة</span>
       </div>
-      <div class="scard" data-pct="78" data-kv="310" data-suf="" data-bars="30,45,58,69,78">
+      <div class="scard" data-pct="78" data-kv="310" data-suf="" data-bars="20,45,70,90">
         <div class="sc"><span class="sring"><svg viewBox="0 0 56 56"><circle class="bgc" cx="28" cy="28" r="24"/><circle class="fgc" cx="28" cy="28" r="24"/></svg><b>0%</b></span><small>إغلاق الثغرات</small></div>
         <div class="sc"><b class="kv en">0</b><small>فحصاً آلياً</small></div>
-        <div class="sc"><span class="sbars"><i></i><i></i><i></i><i></i><i></i></span><small>الاتجاه عبر ٥ فترات</small></div>
+        <div class="sc"><span class="sbars"><i title="حرجة: 4" style="background:#7A0220"></i><i title="عالية: 11" style="background:#C10230"></i><i title="متوسطة: 23" style="background:#E07B23"></i><i title="منخفضة: 41" style="background:#2e9d5c"></i></span><small>الثغرات حسب الخطورة</small></div>
       </div>
       <div class="pnav">
         <button class="nbtn" data-go="sys-09" aria-label="السابق">→</button>

@@ -96,7 +96,7 @@
   .sring .bgc{stroke:var(--line)}
   .sring .fgc{stroke:var(--gold);stroke-linecap:round;stroke-dasharray:151;stroke-dashoffset:151;transition:stroke-dashoffset 1.2s var(--ease) .2s}
   .sring b{position:absolute;inset:0;display:grid;place-items:center;font-family:'Sora';font-size:12px;font-weight:800;direction:ltr;color:var(--cream)}
-  .sbars{display:flex;align-items:flex-end;justify-content:center;gap:4px;height:34px}
+  .sbars{display:flex;align-items:flex-end;justify-content:center;gap:4px;height:34px;direction:ltr}
   .sbars i{width:8px;border-radius:3px;background:linear-gradient(180deg,var(--gold),var(--crimson));height:4px;transition:height .7s var(--ease)}
   .pnav{display:flex;align-items:center;gap:16px;margin-top:28px;padding-top:20px;border-top:1px solid var(--line);max-width:520px;opacity:0;transition:.6s var(--ease) .25s}
   .panel.live .pnav{opacity:1}
@@ -216,10 +216,10 @@
       <span class="kick"><span class="n en">03</span> القراءات</span>
       <h2 class="hx"><span class="w">أرقام</span> <span class="g"><span class="w">تتحدث.</span></span></h2>
       <p class="px">مؤشرات حية من لوحة النظام — تتحدث لحظة بلحظة وتُصدَّر جاهزة للجان التدقيق.</p>
-      <div class="scard" data-pct="100" data-kv="2300" data-suf="+" data-bars="62,74,85,93,100">
+      <div class="scard" data-pct="100" data-kv="2300" data-suf="+" data-bars="72,95,56,40">
         <div class="sc"><span class="sring"><svg viewBox="0 0 56 56"><circle class="bgc" cx="28" cy="28" r="24"/><circle class="fgc" cx="28" cy="28" r="24"/></svg><b>0%</b></span><small>وثائق مصنفة</small></div>
         <div class="sc"><b class="kv en">0</b><small>وثيقة مؤمنة</small></div>
-        <div class="sc"><span class="sbars"><i></i><i></i><i></i><i></i><i></i></span><small>الاتجاه عبر ٥ فترات</small></div>
+        <div class="sc"><span class="sbars"><i title="سياسات" style="background:#e2790f"></i><i title="أدلة امتثال" style="background:#f59e42"></i><i title="نماذج" style="background:#e2790f"></i><i title="عقود" style="background:#f59e42"></i></span><small>الوثائق حسب التصنيف</small></div>
       </div>
     </div>
   </div>
