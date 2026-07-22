@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Keen Comply — أتمتة الامتثال بلا مجهود</title>
+<meta name="description" content="Keen Comply V2 — النسخة الإبداعية. منصة أتمتة الحوكمة وإدارة المخاطر والامتثال: مطابقة فورية للوائح NCA وSAMA وNDMO وقرارات مبنية على البيانات.">
+<meta name="theme-color" content="#C10230">
+<link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><g transform="rotate(-28 60 60)" fill="none" stroke-linecap="round"><path d="M103.3 52.4 A44 44 0 0 0 21.9 38" stroke="%23F9A11B" stroke-width="17"/><path d="M16.7 67.6 A44 44 0 0 0 98.1 82" stroke="%23F9A11B" stroke-width="17"/></g><path d="M30 63 L52 83 L93 39" stroke="%23C8102E" stroke-width="17" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>'>
+<link rel="stylesheet" href="../assets/fonts/fonts.css">
+<style>
+  :root{
+    --crimson:#C10230; --crimson-deep:#7A0220; --gold:#F9A11B; --gold-deep:#C77A05;
+    --ink:#17110D; --cream:#FAF3E7; --cream-2:#F3E9D7; --white:#fff;
+    --green:#2e9d5c;
+    --bd:2.5px solid var(--ink);
+    --pop:7px 7px 0 var(--ink);
+    --ease:cubic-bezier(.2,.7,.2,1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:100px}
+  body{font-family:'IBM Plex Sans Arabic',system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background-color .8s ease}
+  body.on-dark{background:var(--ink)}
+  body.on-gold{background:#F7D9A8}
+  ::selection{background:var(--gold);color:var(--ink)}
+  a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--crimson);outline-offset:3px;border-radius:6px}
+  .en{font-family:'Sora',sans-serif;direction:ltr;unicode-bidi:isolate}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 28px}
+  section{padding:110px 0;position:relative}
+  ::-webkit-scrollbar{width:10px}
+  ::-webkit-scrollbar-track{background:var(--cream)}
+  ::-webkit-scrollbar-thumb{background:var(--ink);border-radius:99px;border:2px solid var(--cream)}
+
+  /* ============ cursor ============ */
+  #cursor{position:fixed;top:0;left:0;width:12px;height:12px;border-radius:50%;background:var(--crimson);pointer-events:none;z-index:999;transform:translate(-50%,-50%);transition:width .25s,height .25s,background .25s;mix-blend-mode:multiply}
+  #cursor.grow{width:52px;height:52px;background:var(--gold)}
+  @media (pointer:coarse){#cursor{display:none}}
+
+  /* ============ header ============ */
+  header{position:fixed;top:16px;right:0;left:0;z-index:100}
+  .navbar{display:flex;align-items:center;justify-content:space-between;background:rgba(250,243,231,.88);backdrop-filter:blur(14px);border:var(--bd);border-radius:99px;padding:10px 12px 10px 22px;box-shadow:5px 5px 0 var(--ink);transition:.3s}
+  body.on-dark .navbar{background:rgba(23,17,13,.85);border-color:var(--cream);box-shadow:5px 5px 0 rgba(249,161,27,.9)}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+  .brand svg{width:38px;height:38px}
+  .brand b{font-family:'Sora';font-weight:800;font-size:17px;letter-spacing:-.02em;color:var(--ink);direction:ltr;transition:color .3s}
+  body.on-dark .brand b{color:var(--cream)}
+  .nav-links{display:flex;gap:4px;align-items:center}
+  .nav-links a{color:var(--ink);text-decoration:none;font-size:13.5px;font-weight:700;padding:9px 16px;border-radius:99px;transition:.2s}
+  body.on-dark .nav-links a{color:var(--cream)}
+  .nav-links a:hover{background:var(--gold);color:var(--ink);transform:rotate(-2deg)}
+  .btn{font-family:inherit;font-size:14.5px;font-weight:800;cursor:pointer;border-radius:99px;padding:13px 26px;border:var(--bd);text-decoration:none;display:inline-flex;align-items:center;gap:9px;transition:transform .2s var(--ease),box-shadow .2s;background:var(--white);color:var(--ink);box-shadow:4px 4px 0 var(--ink);white-space:nowrap}
+  .btn:hover{transform:translate(-2px,-2px) rotate(-1deg);box-shadow:7px 7px 0 var(--ink)}
+  .btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+  .btn-red{background:var(--crimson);color:#fff}
+  .btn-gold{background:var(--gold);color:var(--ink)}
+  .btn-dark{background:var(--ink);color:var(--cream)}
+
+  /* ============ hero ============ */
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:150px 0 40px;position:relative;overflow:hidden}
+  #scene{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+  .hero-inner{position:relative;z-index:2;text-align:center}
+  .kicker{display:inline-flex;align-items:center;gap:10px;background:var(--white);border:var(--bd);border-radius:99px;padding:10px 22px;font-size:14px;font-weight:800;box-shadow:4px 4px 0 var(--ink);transform:rotate(-1.5deg);margin-bottom:34px}
+  .kicker .dot{width:10px;height:10px;border-radius:50%;background:var(--green);animation:blink 1.6s infinite}
+  @keyframes blink{50%{opacity:.25}}
+  .display{font-weight:700;line-height:1.08;letter-spacing:-.02em;margin-bottom:8px}
+  .display .row{display:block;font-size:clamp(46px,9.2vw,132px)}
+  .display .solid{color:var(--ink)}
+  .display .red{color:var(--crimson)}
+  .display .ghost{color:transparent;-webkit-text-stroke:2.5px var(--ink);text-stroke:2.5px var(--ink)}
+  .display .tape{display:inline-block;background:var(--gold);border:var(--bd);border-radius:18px;padding:0 26px;transform:rotate(-2deg);box-shadow:6px 6px 0 var(--ink);color:var(--ink)}
+  .hero-sub{max-width:640px;margin:26px auto 34px;font-size:17.5px;font-weight:600;color:#4d443c}
+  .hero-ctas{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:20px}
+  .hero-ctas .btn{font-size:16px;padding:16px 32px}
+  /* stickers */
+  .sticker{position:absolute;z-index:3;background:var(--white);border:var(--bd);border-radius:16px;padding:10px 16px;font-size:13px;font-weight:800;box-shadow:5px 5px 0 var(--ink);animation:bob 5s ease-in-out infinite}
+  .sticker .en{font-size:11px}
+  .st1{top:24%;right:6%;transform:rotate(6deg);background:var(--gold)}
+  .st2{top:52%;left:5%;transform:rotate(-7deg)}
+  .st3{bottom:18%;right:12%;transform:rotate(-4deg);background:var(--crimson);color:#fff}
+  .st4{top:30%;left:12%;transform:rotate(4deg);animation-delay:1.2s}
+  @keyframes bob{0%,100%{translate:0 0}50%{translate:0 -12px}}
+  /* rotating badge */
+  .orbit{position:absolute;bottom:6%;left:6%;width:130px;height:130px;z-index:3}
+  .orbit svg{width:100%;height:100%;animation:spin 14s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .orbit .core{position:absolute;inset:0;display:grid;place-items:center}
+  .orbit .core svg{width:52px;height:52px;animation:none}
+
+  /* ============ marquee ============ */
+  .mq{background:var(--ink);border-block:var(--bd);padding:16px 0;overflow:hidden;position:relative;z-index:4}
+  .mq.tilt{transform:rotate(-1.6deg) scale(1.02);margin:30px -20px}
+  .mq.gold{background:var(--gold)}
+  .mq-track{display:flex;gap:0;width:max-content;animation:mqmove 26s linear infinite;direction:ltr}
+  .mq:hover .mq-track{animation-play-state:paused}
+  @keyframes mqmove{to{transform:translateX(-50%)}}
+  .mq span{font-family:'Sora';font-weight:800;font-size:20px;color:var(--cream);padding:0 18px;white-space:nowrap;letter-spacing:.01em}
+  .mq span i{font-style:normal;color:var(--gold);padding-inline-start:36px}
+  .mq.gold span{color:var(--ink)}
+  .mq.gold span i{color:var(--crimson)}
+
+  /* ============ section headers ============ */
+  .sec-tag{display:inline-block;background:var(--crimson);color:#fff;border:var(--bd);border-radius:12px;padding:7px 18px;font-size:13.5px;font-weight:800;transform:rotate(-2deg);box-shadow:4px 4px 0 var(--ink);margin-bottom:24px}
+  .sec-h{font-size:clamp(34px,5.4vw,68px);font-weight:700;line-height:1.2;letter-spacing:-.02em;margin-bottom:16px}
+  .sec-h .ghost{color:transparent;-webkit-text-stroke:2px var(--ink)}
+  .sec-h .mark{background:linear-gradient(transparent 55%,var(--gold) 0);padding:0 .1em}
+  .sec-p{font-size:17px;font-weight:600;color:#57493d;max-width:660px}
+  .center{text-align:center}
+  .center .sec-p{margin:0 auto}
+
+  /* ============ stats (dark) ============ */
+  .stats{padding:90px 0}
+  .stats .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+  .stat-card{background:var(--ink);color:var(--cream);border:var(--bd);border-radius:26px;padding:34px 26px;text-align:center;box-shadow:var(--pop);transition:transform .25s var(--ease)}
+  .stat-card:hover{transform:translateY(-8px) rotate(-1.4deg)}
+  .stat-card:nth-child(2n){background:var(--crimson)}
+  .stat-card:nth-child(3){background:var(--gold);color:var(--ink)}
+  .stat-card b{font-family:'Sora';font-size:clamp(38px,4.6vw,58px);font-weight:800;display:block;line-height:1;letter-spacing:-.02em;direction:ltr;margin-bottom:10px}
+  .stat-card span{font-size:14px;font-weight:700;opacity:.85}
+
+  /* ============ engine ============ */
+  .engine-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+  .engine-vis{background:var(--white);border:var(--bd);border-radius:32px;padding:30px;box-shadow:10px 10px 0 var(--ink);position:relative;transform:rotate(1.2deg)}
+  .engine-vis .peel{position:absolute;top:-22px;left:26px;background:var(--gold);border:var(--bd);border-radius:12px;padding:7px 16px;font-size:12.5px;font-weight:800;transform:rotate(-5deg);box-shadow:4px 4px 0 var(--ink)}
+  .enode{display:flex;align-items:center;justify-content:space-between;gap:12px;border:var(--bd);border-radius:18px;padding:18px 20px;background:var(--cream);transition:.2s}
+  .enode:hover{transform:translateX(-4px)}
+  .enode .l{display:flex;align-items:center;gap:14px}
+  .enode .ic{width:46px;height:46px;border-radius:13px;border:var(--bd);background:var(--white);display:grid;place-items:center;flex-shrink:0}
+  .enode b{font-size:15px;font-weight:800;display:block}
+  .enode small{font-size:11.5px;font-weight:600;color:#6b5c4e;display:block}
+  .enode .chip{font-size:11px;font-weight:800;border:var(--bd);border-radius:99px;padding:5px 12px;background:var(--white);white-space:nowrap}
+  .enode.hot{background:var(--crimson);color:#fff}
+  .enode.hot small{color:rgba(255,255,255,.75)}
+  .enode.hot .ic{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.7);color:#fff}
+  .enode.hot .chip{background:var(--gold);color:var(--ink)}
+  .eflow{display:flex;justify-content:center;padding:6px 0}
+  .eflow svg{width:26px;height:40px;overflow:visible}
+  .eflow .lin{stroke:var(--ink);stroke-width:2.5;stroke-dasharray:4 7}
+  .eflow .dotp{fill:var(--crimson);animation:drop 1.4s ease-in infinite}
+  .eflow.f2 .dotp{animation-delay:.7s}
+  @keyframes drop{0%{transform:translateY(0);opacity:0}25%{opacity:1}85%{opacity:1}100%{transform:translateY(34px);opacity:0}}
+  .check-pills{display:flex;flex-direction:column;gap:14px;margin-top:30px}
+  .cpill{display:flex;align-items:flex-start;gap:14px;background:var(--white);border:var(--bd);border-radius:18px;padding:16px 20px;box-shadow:5px 5px 0 var(--ink);transition:.2s}
+  .cpill:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--ink)}
+  .cpill .ok{width:34px;height:34px;border-radius:50%;border:var(--bd);background:var(--green);color:#fff;display:grid;place-items:center;flex-shrink:0}
+  .cpill b{font-size:15px;font-weight:800;display:block}
+  .cpill p{font-size:13px;font-weight:600;color:#57493d}
+
+  /* ============ modules horizontal ============ */
+  .mods{overflow:hidden}
+  .rail-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:38px}
+  .drag-hint{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:800;background:var(--white);border:var(--bd);border-radius:99px;padding:9px 18px;box-shadow:4px 4px 0 var(--ink)}
+  .rail{display:flex;gap:22px;overflow-x:auto;padding:14px 28px 34px;scroll-snap-type:x mandatory;cursor:grab;direction:ltr}
+  .rail::-webkit-scrollbar{height:10px}
+  .rail::-webkit-scrollbar-thumb{background:var(--ink);border-radius:99px}
+  .rail.dragging{cursor:grabbing;scroll-snap-type:none}
+  .mcard{direction:rtl;flex:0 0 330px;scroll-snap-align:center;background:var(--white);border:var(--bd);border-radius:28px;padding:28px;box-shadow:var(--pop);transition:transform .25s var(--ease);position:relative;user-select:none}
+  .mcard:hover{transform:translateY(-10px) rotate(-1.2deg)}
+  .mcard .num{font-family:'Sora';font-weight:800;font-size:44px;color:transparent;-webkit-text-stroke:2px var(--ink);line-height:1;display:block;margin-bottom:18px;direction:ltr;text-align:right}
+  .mcard .mic{position:absolute;top:24px;left:24px;width:52px;height:52px;border-radius:15px;border:var(--bd);display:grid;place-items:center}
+  .mcard h3{font-size:19px;font-weight:800;margin-bottom:10px}
+  .mcard p{font-size:13.5px;font-weight:600;color:#57493d}
+  .mcard .flag{display:inline-block;margin-top:14px;background:var(--gold);border:var(--bd);border-radius:99px;padding:4px 13px;font-size:11px;font-weight:800;transform:rotate(-2deg)}
+  .mcard.c1 .mic{background:#dff3e7}.mcard.c2 .mic{background:#fde3d0}.mcard.c3 .mic{background:#f8d7de}.mcard.c4 .mic{background:#f3e9d7}.mcard.c5 .mic{background:#e4e9f7}
+  .mcard.hotw{flex-basis:420px;background:var(--crimson);color:#fff}
+  .mcard.hotw .num{-webkit-text-stroke:2px rgba(255,255,255,.85)}
+  .mcard.hotw p{color:rgba(255,255,255,.82)}
+  .mcard.hotw .mic{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.75);color:#fff}
+  .mcard.hotw .flag{background:var(--gold);color:var(--ink)}
+
+  /* ============ laws (dark section) ============ */
+  .laws{color:var(--cream)}
+  .laws .sec-p{color:#cbbfae}
+  .laws .sec-h .ghost{-webkit-text-stroke:2px var(--cream)}
+  .law-stack{display:flex;flex-direction:column;gap:18px;margin-top:44px}
+  .law{border:2.5px solid var(--cream);border-radius:26px;overflow:hidden;background:transparent;transition:.3s}
+  .law-head{width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:24px 28px;cursor:pointer;background:none;border:none;font-family:inherit;color:var(--cream);text-align:right}
+  .law-head .lt{display:flex;align-items:center;gap:18px}
+  .law-head .en{font-family:'Sora';font-weight:800;font-size:15px;background:var(--gold);color:var(--ink);border:var(--bd);border-radius:10px;padding:6px 14px;transform:rotate(-2deg)}
+  .law-head h3{font-size:clamp(18px,2.6vw,26px);font-weight:800}
+  .law-head .plus{font-family:'Sora';font-size:30px;font-weight:600;transition:transform .3s;line-height:1}
+  .law.open .plus{transform:rotate(45deg)}
+  .law-body{max-height:0;overflow:hidden;transition:max-height .5s var(--ease)}
+  .law.open{background:var(--cream);color:var(--ink)}
+  .law.open .law-head{color:var(--ink)}
+  .law-in{padding:0 28px 28px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .law-stat{border:var(--bd);border-radius:16px;padding:16px;text-align:center;background:var(--white)}
+  .law-stat small{font-size:11px;font-weight:800;color:#6b5c4e;display:block;margin-bottom:4px}
+  .law-stat b{font-family:'Sora';font-size:24px;font-weight:800;direction:ltr}
+  .law-list{grid-column:1/-1;display:flex;flex-direction:column;gap:10px}
+  .law-row{display:flex;align-items:center;gap:12px;border:var(--bd);border-radius:14px;background:var(--white);padding:12px 16px}
+  .law-row .lid{font-family:'Sora';font-size:11px;font-weight:800;background:var(--ink);color:var(--gold);border-radius:8px;padding:4px 10px;direction:ltr;flex-shrink:0}
+  .law-row .t{flex:1;font-size:13.5px;font-weight:700}
+  .law-row .s{font-size:11px;font-weight:800;border:var(--bd);border-radius:99px;padding:3px 12px}
+  .law-row .s.ok{background:var(--green);color:#fff}
+  .law-row .s.pend{background:var(--gold)}
+
+  /* ============ steps ============ */
+  .steps-list{display:flex;flex-direction:column;margin-top:20px}
+  .srow{display:grid;grid-template-columns:120px 1fr auto;gap:28px;align-items:center;padding:38px 10px;border-bottom:var(--bd);transition:.25s}
+  .srow:first-child{border-top:var(--bd)}
+  .srow:hover{background:var(--white);padding-inline-start:26px}
+  .srow .n{font-family:'Sora';font-size:clamp(44px,6vw,76px);font-weight:800;color:transparent;-webkit-text-stroke:2.5px var(--ink);line-height:1;direction:ltr}
+  .srow:hover .n{color:var(--crimson);-webkit-text-stroke:2.5px var(--crimson)}
+  .srow h3{font-size:clamp(20px,2.8vw,30px);font-weight:800;margin-bottom:6px}
+  .srow p{font-size:14.5px;font-weight:600;color:#57493d;max-width:560px}
+  .srow .go{width:56px;height:56px;border-radius:50%;border:var(--bd);background:var(--gold);display:grid;place-items:center;transform:rotate(180deg);transition:.3s}
+  .srow:hover .go{transform:rotate(135deg);background:var(--crimson);color:#fff}
+
+  /* ============ ROI (crimson block) ============ */
+  .roi-block{background:var(--crimson);border:var(--bd);border-radius:40px;box-shadow:12px 12px 0 var(--ink);padding:64px;color:#fff;position:relative;overflow:hidden}
+  .roi-block::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.14) 1.5px,transparent 1.5px);background-size:26px 26px;border-radius:38px}
+  .roi-grid{display:grid;grid-template-columns:1fr 1fr;gap:54px;align-items:center;position:relative}
+  .roi-block .sec-tag{background:var(--gold);color:var(--ink)}
+  .roi-block .sec-h{color:#fff}
+  .roi-block .sec-p{color:rgba(255,255,255,.85)}
+  .roi-ctl{background:var(--cream);border:var(--bd);border-radius:24px;padding:30px;color:var(--ink);box-shadow:7px 7px 0 var(--ink);display:flex;flex-direction:column;gap:28px;margin-top:30px}
+  .rlab{display:flex;justify-content:space-between;font-size:14px;font-weight:800;margin-bottom:14px}
+  .rlab output{font-family:'Sora';font-size:17px;font-weight:800;color:var(--crimson);direction:ltr}
+  input[type=range]{width:100%;height:14px;-webkit-appearance:none;appearance:none;background:var(--white);border:var(--bd);border-radius:99px;cursor:pointer}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:30px;height:30px;border-radius:50%;background:var(--gold);border:var(--bd);box-shadow:3px 3px 0 var(--ink);cursor:grab}
+  input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:var(--gold);border:var(--bd);cursor:grab}
+  .roi-res{text-align:center}
+  .roi-res .big{font-family:'Sora';font-size:clamp(66px,8.5vw,120px);font-weight:800;line-height:1;letter-spacing:-.03em;direction:ltr;display:block;color:var(--gold);text-shadow:5px 5px 0 rgba(23,17,13,.5)}
+  .roi-res .lab{font-size:15px;font-weight:800;display:block;margin:10px 0 34px}
+  .roi-res .mini{font-family:'Sora';font-size:clamp(40px,5vw,64px);font-weight:800;line-height:1;direction:ltr;display:block;color:#fff}
+  .roi-res .mini.warn{color:var(--gold)}
+  .roi-res .mini.bad{color:#ffb3c2}
+
+  /* ============ CTA / contact ============ */
+  .cta{color:var(--cream)}
+  .cta .giant{font-size:clamp(44px,8.6vw,120px);font-weight:700;line-height:1.15;letter-spacing:-.02em;text-align:center;margin-bottom:14px}
+  .cta .giant .ghost{color:transparent;-webkit-text-stroke:2.5px var(--cream)}
+  .cta .giant .gold{color:var(--gold)}
+  .cta .sec-p{color:#cbbfae;text-align:center;margin:0 auto 44px}
+  .cform{max-width:620px;margin:0 auto;background:var(--cream);border:var(--bd);border-radius:30px;padding:36px;box-shadow:10px 10px 0 var(--gold);color:var(--ink);position:relative;overflow:hidden}
+  .cform h3{font-size:20px;font-weight:800;margin-bottom:4px}
+  .cform .fs{font-size:13px;font-weight:600;color:#57493d;margin-bottom:22px}
+  .cform .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+  .cform input{width:100%;padding:16px 18px;border:var(--bd);border-radius:15px;background:var(--white);font-family:inherit;font-size:14px;font-weight:600;color:var(--ink);outline:none;transition:.2s}
+  .cform input:focus{background:#fff;box-shadow:4px 4px 0 var(--gold)}
+  .cform input[type=email]{direction:ltr;text-align:left;margin-bottom:14px}
+  .cform .btn{width:100%;justify-content:center;font-size:16px;padding:17px}
+  .fdone{position:absolute;inset:0;background:var(--cream);display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px;z-index:5}
+  .fdone.show{display:flex}
+  .fdone .ring{width:86px;height:86px;border-radius:50%;border:var(--bd);background:var(--green);display:grid;place-items:center;margin-bottom:20px;box-shadow:5px 5px 0 var(--ink)}
+  .fdone h3{font-size:22px;font-weight:800;margin-bottom:8px}
+  .fdone p{font-size:13.5px;font-weight:600;color:#57493d;max-width:360px;margin-bottom:22px}
+  .sect-row{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:52px}
+  .sect{display:inline-flex;align-items:center;gap:9px;border:2.5px solid var(--cream);color:var(--cream);border-radius:99px;padding:11px 22px;font-size:14px;font-weight:800;transition:.25s}
+  .sect:hover{background:var(--gold);color:var(--ink);border-color:var(--gold);transform:rotate(-2deg)}
+
+  /* ============ footer ============ */
+  footer{padding:70px 0 30px;position:relative;overflow:hidden}
+  .foot-giant{font-family:'Sora';font-weight:800;font-size:clamp(54px,12.5vw,190px);line-height:.95;text-align:center;color:transparent;-webkit-text-stroke:2.5px var(--ink);letter-spacing:-.03em;direction:ltr;user-select:none;opacity:.9}
+  .foot-row{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:44px;padding-top:24px;border-top:var(--bd)}
+  .foot-row p{font-size:13px;font-weight:700}
+  .foot-row .links{display:flex;gap:18px}
+  .foot-row a{color:var(--ink);font-size:13px;font-weight:800;text-decoration:none}
+  .foot-row a:hover{color:var(--crimson)}
+
+  /* ============ reveal ============ */
+  .rv{opacity:0;transform:translateY(34px) rotate(1deg);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+  .rv.in{opacity:1;transform:none}
+  .d1{transition-delay:.09s}.d2{transition-delay:.18s}.d3{transition-delay:.27s}
+
+  /* ============ responsive ============ */
+  @media (max-width:1020px){
+    .engine-grid,.roi-grid{grid-template-columns:1fr}
+    .stats .grid{grid-template-columns:1fr 1fr}
+    .nav-links{display:none}
+    .sticker,.orbit{display:none}
+    .srow{grid-template-columns:76px 1fr;gap:18px}
+    .srow .go{display:none}
+    .roi-block{padding:44px 26px}
+    section{padding:80px 0}
+    .law-in{grid-template-columns:1fr}
+  }
+  @media (max-width:620px){
+    .wrap{padding:0 18px}
+    .stats .grid{grid-template-columns:1fr 1fr;gap:14px}
+    .cform .row2{grid-template-columns:1fr}
+    .mcard{flex-basis:280px}
+    .mcard.hotw{flex-basis:320px}
+    .navbar{padding:8px 8px 8px 16px}
+    .brand b{font-size:14px}
+    .btn{padding:11px 18px;font-size:13px}
+    .roi-block{border-radius:28px;box-shadow:7px 7px 0 var(--ink)}
+    .display .tape{padding:0 14px;border-radius:12px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+    .rv{opacity:1;transform:none}
+    html{scroll-behavior:auto}
+    #cursor{display:none}
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5l8-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></symbol>
+  <symbol id="i-zap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></symbol>
+  <symbol id="i-server" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="2" y="3" width="20" height="7" rx="2"/><rect x="2" y="14" width="20" height="7" rx="2"/><path d="M6 6.5h.01M6 17.5h.01"/></symbol>
+  <symbol id="i-cpu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="5" y="5" width="14" height="14" rx="2"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2v11z"/><path d="M9.5 13.5l2 2 3.5-4"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></symbol>
+  <symbol id="i-merge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M6 21V9a9 9 0 009 9"/></symbol>
+  <symbol id="i-audit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></symbol>
+  <symbol id="i-building" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="1"/><path d="M9 22v-4h6v4M8 6h.01M16 6h.01M12 6h.01M8 10h.01M16 10h.01M12 10h.01M8 14h.01M16 14h.01M12 14h.01"/></symbol>
+  <symbol id="i-mega" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-7-4 16-6-5-3 3v-4l8-7-11 6-2-2z"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></symbol>
+  <symbol id="i-activity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></symbol>
+  <symbol id="i-radar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19.07 4.93A10 10 0 006.99 3.34M4 6h.01M2.29 9.62a10 10 0 1019.02-1.27M16.24 7.76a6 6 0 10-8.01 8.91M12 18h.01M17.99 11.66a6 6 0 01-2.22 4.75"/><circle cx="12" cy="12" r="2"/><path d="M13.41 10.59l5.66-5.66"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></symbol>
+  <symbol id="i-landmark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 22h18M6 18v-7M10 18v-7M14 18v-7M18 18v-7M12 2L3 7h18l-9-5z"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></symbol>
+  <symbol id="i-grad" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></symbol>
+</defs></svg>
+
+<div id="cursor" aria-hidden="true"></div>
+
+<header>
+  <div class="wrap"><div class="navbar">
+    <a class="brand" href="#top" aria-label="Keen Comply">
+      <svg viewBox="0 0 120 120" fill="none" aria-hidden="true">
+        <g transform="rotate(-28 60 60)" stroke-linecap="round">
+          <path d="M103.3 52.4 A44 44 0 0 0 21.9 38" stroke="#F9A11B" stroke-width="16"/>
+          <path d="M16.7 67.6 A44 44 0 0 0 98.1 82" stroke="#F9A11B" stroke-width="16"/>
+        </g>
+        <path d="M30 63 L52 83 L93 39" stroke="#C8102E" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <b>Keen Comply</b>
+    </a>
+    <nav class="nav-links">
+      <a href="#engine">المحرك</a>
+      <a href="#mods">الأنظمة</a>
+      <a href="#laws">اللوائح</a>
+      <a href="#roi">التوفير</a>
+    </nav>
+    <a href="#cta" class="btn btn-red">اطلب عرضاً 🎯</a>
+  </div></div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <canvas id="scene" aria-hidden="true"></canvas>
+
+  <span class="sticker st1">أتمتة <span class="en">24/7</span> ⚡</span>
+  <span class="sticker st2"><span class="en">NCA · SAMA · NDMO</span> ✓</span>
+  <span class="sticker st3">بدون عمل يدوي!</span>
+  <span class="sticker st4">امتثال <span class="en">94.2%</span> 📈</span>
+
+  <div class="orbit" aria-hidden="true">
+    <svg viewBox="0 0 130 130" fill="none">
+      <path id="orbitPath" d="M65,65 m-52,0 a52,52 0 1,1 104,0 a52,52 0 1,1 -104,0" fill="none"/>
+      <text style="font-family:'IBM Plex Sans Arabic';font-size:13.5px;font-weight:700;fill:#17110D">
+        <textPath href="#orbitPath">حوكمة · مخاطر · امتثال · أتمتة · حوكمة · مخاطر · امتثال ·</textPath>
+      </text>
+    </svg>
+    <span class="core">
+      <svg viewBox="0 0 120 120" fill="none">
+        <g transform="rotate(-28 60 60)" stroke-linecap="round">
+          <path d="M103.3 52.4 A44 44 0 0 0 21.9 38" stroke="#F9A11B" stroke-width="16"/>
+          <path d="M16.7 67.6 A44 44 0 0 0 98.1 82" stroke="#F9A11B" stroke-width="16"/>
+        </g>
+        <path d="M30 63 L52 83 L93 39" stroke="#C8102E" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+  </div>
+
+  <div class="wrap hero-inner">
+    <span class="kicker"><span class="dot"></span> منصة الأتمتة المتقدمة لعام 2026</span>
+    <h1 class="display">
+      <span class="row solid rv in">أتمتة الامتثال</span>
+      <span class="row rv in d1"><span class="ghost">بلا</span> <span class="tape">مجهود.</span></span>
+      <span class="row red rv in d2" style="font-size:clamp(24px,3.4vw,44px);margin-top:14px">قرارات أسرع وأدق لإدارة المخاطر.</span>
+    </h1>
+    <p class="hero-sub rv in d2">بيئة عمل مركزية تتكامل مع أنظمتك وتستبدل العمل اليدوي المشتت بمسارات مؤتمتة — رؤية شاملة، مطابقة فورية للوائح، وقرارات مبنية على البيانات.</p>
+    <div class="hero-ctas rv in d3">
+      <a href="#cta" class="btn btn-red">احجز عرضاً مباشراً ←</a>
+      <a href="#mods" class="btn">استكشف الأنظمة</a>
+    </div>
+  </div>
+</section>
+
+<!-- marquee -->
+<div class="mq tilt" aria-hidden="true">
+  <div class="mq-track">
+    <span>NCA ECC <i>✦</i></span><span>SAMA CSF <i>✦</i></span><span>NDMO <i>✦</i></span><span>ISO 27001 <i>✦</i></span><span>ISO 22301 <i>✦</i></span><span>PDPL <i>✦</i></span>
+    <span>NCA ECC <i>✦</i></span><span>SAMA CSF <i>✦</i></span><span>NDMO <i>✦</i></span><span>ISO 27001 <i>✦</i></span><span>ISO 22301 <i>✦</i></span><span>PDPL <i>✦</i></span>
+  </div>
+</div>
+
+<!-- ============ STATS ============ -->
+<section class="stats" data-bg="cream">
+  <div class="wrap">
+    <div class="grid">
+      <div class="stat-card rv"><b><span class="cnt" data-to="6000">0</span>+</b><span>إطار تنظيمي مدمج</span></div>
+      <div class="stat-card rv d1"><b><span class="cnt" data-to="3500">0</span>+</b><span>ضابط رقابي جاهز</span></div>
+      <div class="stat-card rv d2"><b><span class="cnt" data-to="360">0</span>°</b><span>رؤية إدارية متكاملة</span></div>
+      <div class="stat-card rv d3"><b><span class="cnt" data-to="10">0</span></b><span>أنظمة في منصة واحدة</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ENGINE ============ -->
+<section id="engine" data-bg="gold">
+  <div class="wrap">
+    <div class="engine-grid">
+      <div class="rv">
+        <span class="sec-tag">مُحرك المطابقة الآلية ⚙️</span>
+        <h2 class="sec-h">أتمتة جمع الأدلة.<br><span class="mark">نظام يعمل بالخلفية</span> لتوفير وقتك.</h2>
+        <p class="sec-p">بدلاً من جمع المرفقات يدوياً، يقوم محرك المنصة بالربط المباشر مع أنظمتك التقنية (مثل Active Directory والأنظمة السحابية) لسحب وتحديث أدلة الامتثال تلقائياً وبشكل دوري ومطابقتها مع اللوائح.</p>
+        <div class="check-pills">
+          <div class="cpill">
+            <span class="ok"><svg width="15" height="15"><use href="#i-check"/></svg></span>
+            <div><b>ربط مباشر وسريع</b><p>يتوافق بسهولة مع الأنظمة التي تستخدمها منشأتك حالياً للتدقيق المستمر.</p></div>
+          </div>
+          <div class="cpill">
+            <span class="ok"><svg width="15" height="15"><use href="#i-lock"/></svg></span>
+            <div><b>سجل أدلة موثق</b><p>يقدم تقارير وأدلة جاهزة ومعتمدة لتقديمها للجان التفتيش الخارجية.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="engine-vis rv d1">
+        <span class="peel">يعمل الآن ⚡</span>
+        <div class="enode">
+          <div class="l"><span class="ic"><svg width="20" height="20"><use href="#i-server"/></svg></span>
+          <div><b>الأنظمة الداخلية للمنشأة</b><small class="en">On-Premise / Cloud Apps</small></div></div>
+          <span class="chip">تشفير آمن</span>
+        </div>
+        <div class="eflow"><svg viewBox="0 0 26 40"><line class="lin" x1="13" y1="2" x2="13" y2="38"/><circle class="dotp" cx="13" cy="4" r="4"/></svg></div>
+        <div class="enode hot">
+          <div class="l"><span class="ic"><svg width="22" height="22"><use href="#i-cpu"/></svg></span>
+          <div><b>مُحرك الأتمتة والربط</b><small>يقرأ السجلات ويطابقها مع اللوائح</small></div></div>
+          <span class="chip">Keen Engine</span>
+        </div>
+        <div class="eflow f2"><svg viewBox="0 0 26 40"><line class="lin" x1="13" y1="2" x2="13" y2="38"/><circle class="dotp" cx="13" cy="4" r="4"/></svg></div>
+        <div class="enode">
+          <div class="l"><span class="ic" style="background:#dff3e7"><svg width="20" height="20"><use href="#i-folder"/></svg></span>
+          <div><b>مستودع الامتثال النهائي</b><small>ملفات جاهزة لإصدار التقارير</small></div></div>
+          <span class="chip" style="background:var(--green);color:#fff;border-color:var(--ink)">مُعتمد 100%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MODULES ============ -->
+<section class="mods" id="mods" data-bg="cream">
+  <div class="wrap rail-head">
+    <div class="rv">
+      <span class="sec-tag">الأنظمة 🧩</span>
+      <h2 class="sec-h">عشرة أنظمة <span class="ghost">في منصة</span> واحدة</h2>
+      <p class="sec-p">بيئة عمل رقمية متكاملة تربط الامتثال وسجلات المخاطر لتمنحك رؤية شاملة وسيطرة كاملة على أعمالك.</p>
+    </div>
+    <span class="drag-hint rv d1">اسحب لاستكشاف الأنظمة ← →</span>
+  </div>
+  <div class="rail" id="rail">
+    <div class="mcard hotw">
+      <span class="mic"><svg width="24" height="24"><use href="#i-radar"/></svg></span>
+      <span class="num">10</span>
+      <h3>تقييم واختبار الثغرات</h3>
+      <p>نربط المنصة ببرامج فحص الثغرات العالمية لسحب تقارير الأمان، ونصنفها تلقائياً داخل سجل المخاطر ليسهل متابعة حلها.</p>
+      <span class="flag">ربط فني مباشر</span>
+    </div>
+    <div class="mcard c4">
+      <span class="mic"><svg width="22" height="22"><use href="#i-activity"/></svg></span>
+      <span class="num">09</span>
+      <h3>استمرارية الأعمال (BCM)</h3>
+      <p>وضع خطط التعافي من الأزمات والكوارث لضمان عدم توقف الخدمات الأساسية للمنشأة.</p>
+    </div>
+    <div class="mcard c5">
+      <span class="mic"><svg width="22" height="22"><use href="#i-users"/></svg></span>
+      <span class="num">08</span>
+      <h3>حوكمة المجالس واللجان</h3>
+      <p>تنظيم مواعيد الاجتماعات، إجراء التصويت، واعتماد المحاضر عبر التوقيع الرقمي.</p>
+    </div>
+    <div class="mcard c3">
+      <span class="mic"><svg width="22" height="22"><use href="#i-mega"/></svg></span>
+      <span class="num">07</span>
+      <h3>الحوادث والبلاغات</h3>
+      <p>قنوات سرية وآمنة للموظفين لتقديم البلاغات مع تتبع كامل لإجراءات التحقيق.</p>
+    </div>
+    <div class="mcard c4">
+      <span class="mic"><svg width="22" height="22"><use href="#i-building"/></svg></span>
+      <span class="num">06</span>
+      <h3>الحوكمة المؤسسية</h3>
+      <p>توضيح الهيكل التنظيمي وتحديد مصفوفة الصلاحيات (DoA) لضمان سير العمل بانتظام.</p>
+    </div>
+    <div class="mcard c1">
+      <span class="mic"><svg width="22" height="22"><use href="#i-audit"/></svg></span>
+      <span class="num">05</span>
+      <h3>المراجعة والتدقيق الداخلي</h3>
+      <p>جدولة مهام التدقيق السنوية، وحفظ أوراق العمل إلكترونياً، وتتبع حل الملاحظات.</p>
+    </div>
+    <div class="mcard c2">
+      <span class="mic"><svg width="22" height="22"><use href="#i-folder"/></svg></span>
+      <span class="num">04</span>
+      <h3>إدارة الملفات والوثائق</h3>
+      <p>مستودع آمن لسياسات المنشأة وأدلة الامتثال مع إدارة دقيقة لصلاحيات الوصول.</p>
+    </div>
+    <div class="mcard c5">
+      <span class="mic"><svg width="22" height="22"><use href="#i-merge"/></svg></span>
+      <span class="num">03</span>
+      <h3>المعاملات ومسارات العمل</h3>
+      <p>تنظيم طلبات الاستثناءات وتوجيه المهام عبر مسارات عمل مرنة توافق الهيكل الإداري.</p>
+    </div>
+    <div class="mcard c3">
+      <span class="mic"><svg width="22" height="22"><use href="#i-target"/></svg></span>
+      <span class="num">02</span>
+      <h3>إدارة المخاطر (ERM)</h3>
+      <p>تحديد وقياس المخاطر بوضوح، والتنبؤ بالمخاطر المحتملة واقتراح خطط المعالجة استباقياً.</p>
+      <span class="flag">تحليل ذكي</span>
+    </div>
+    <div class="mcard c1">
+      <span class="mic"><svg width="22" height="22"><use href="#i-shield"/></svg></span>
+      <span class="num">01</span>
+      <h3>الالتزام التنظيمي</h3>
+      <p>إدارة دورة التوافق مع التشريعات، ومتابعة وتحديث اللوائح آلياً بمجرد صدورها رسمياً.</p>
+      <span class="flag">أتمتة متقدمة</span>
+    </div>
+  </div>
+</section>
+
+<div class="mq gold" aria-hidden="true">
+  <div class="mq-track">
+    <span>أتمتة جمع الأدلة <i>✦</i></span><span>تحديث آلي للوائح <i>✦</i></span><span>تنبؤ مبكر بالمخاطر <i>✦</i></span><span>استضافة سيادية <i>✦</i></span>
+    <span>أتمتة جمع الأدلة <i>✦</i></span><span>تحديث آلي للوائح <i>✦</i></span><span>تنبؤ مبكر بالمخاطر <i>✦</i></span><span>استضافة سيادية <i>✦</i></span>
+  </div>
+</div>
+
+<!-- ============ LAWS (dark) ============ -->
+<section class="laws" id="laws" data-bg="dark">
+  <div class="wrap">
+    <div class="center rv">
+      <span class="sec-tag" style="background:var(--gold);color:var(--ink)">المطابقة التشريعية الحية 📡</span>
+      <h2 class="sec-h">تحديث فوري مع <span class="ghost">اللوائح الوطنية</span></h2>
+      <p class="sec-p" style="margin:0 auto">المنصة مجهزة مسبقاً بكافة أطر التشريعات الحكومية السعودية والدولية. افتح أي إطار لتشاهد حالته.</p>
+    </div>
+    <div class="law-stack rv d1">
+      <div class="law open" id="law-nca">
+        <button class="law-head" onclick="toggleLaw('nca')" aria-expanded="true">
+          <span class="lt"><span class="en">NCA ECC</span><h3>الهيئة الوطنية للأمن السيبراني</h3></span>
+          <span class="plus">+</span>
+        </button>
+        <div class="law-body">
+          <div class="law-in">
+            <div class="law-stat"><small>الضوابط العامة</small><b>114</b></div>
+            <div class="law-stat"><small>الضوابط الفرعية</small><b>+350</b></div>
+            <div class="law-stat"><small>نسبة الامتثال</small><b style="color:var(--green)">94.2%</b></div>
+            <div class="law-list">
+              <div class="law-row"><span class="lid">ECC-1.1</span><span class="t">اعتماد سياسة الأمن السيبراني</span><span class="s ok">معتمد</span></div>
+              <div class="law-row"><span class="lid">ECC-2.1</span><span class="t">إدارة وحماية الأصول</span><span class="s ok">معتمد</span></div>
+              <div class="law-row"><span class="lid">ECC-3.2</span><span class="t">إدارة الثغرات الأمنية</span><span class="s ok">معتمد</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="law" id="law-sama">
+        <button class="law-head" onclick="toggleLaw('sama')" aria-expanded="false">
+          <span class="lt"><span class="en">SAMA CSF</span><h3>البنك المركزي السعودي</h3></span>
+          <span class="plus">+</span>
+        </button>
+        <div class="law-body">
+          <div class="law-in">
+            <div class="law-stat"><small>الضوابط العامة</small><b>98</b></div>
+            <div class="law-stat"><small>الضوابط الفرعية</small><b>+280</b></div>
+            <div class="law-stat"><small>نسبة الامتثال</small><b style="color:var(--gold-deep)">89.6%</b></div>
+            <div class="law-list">
+              <div class="law-row"><span class="lid">CSF-1.1</span><span class="t">إطار حوكمة الأمن السيبراني</span><span class="s ok">معتمد</span></div>
+              <div class="law-row"><span class="lid">CSF-2.3</span><span class="t">إدارة الوصول للبيانات</span><span class="s ok">معتمد</span></div>
+              <div class="law-row"><span class="lid">CSF-3.1</span><span class="t">فحوصات الاختراق السنوية</span><span class="s pend">معلق</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="law" id="law-ndmo">
+        <button class="law-head" onclick="toggleLaw('ndmo')" aria-expanded="false">
+          <span class="lt"><span class="en">NDMO PDPL</span><h3>مكتب إدارة البيانات الوطنية</h3></span>
+          <span class="plus">+</span>
+        </button>
+        <div class="law-body">
+          <div class="law-in">
+            <div class="law-stat"><small>الضوابط العامة</small><b>62</b></div>
+            <div class="law-stat"><small>الضوابط الفرعية</small><b>+190</b></div>
+            <div class="law-stat"><small>نسبة الامتثال</small><b style="color:var(--green)">92.0%</b></div>
+            <div class="law-list">
+              <div class="law-row"><span class="lid">PDPL-1.2</span><span class="t">توثيق دورة حياة البيانات</span><span class="s ok">معتمد</span></div>
+              <div class="law-row"><span class="lid">PDPL-2.4</span><span class="t">سجل موافقات المستخدمين</span><span class="s ok">معتمد</span></div>
+              <div class="law-row"><span class="lid">PDPL-4.2</span><span class="t">تقييم الأثر والمخاطر</span><span class="s pend">معلق</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STEPS ============ -->
+<section id="how" data-bg="cream">
+  <div class="wrap">
+    <div class="rv">
+      <span class="sec-tag">آلية العمل 🛠️</span>
+      <h2 class="sec-h"><span class="ghost">3 خطوات</span> لأتمتة التزامك</h2>
+      <p class="sec-p">نهج مباشر ينقلك من العشوائية والعمل الورقي إلى الحوكمة الرقمية المنظمة.</p>
+    </div>
+    <div class="steps-list rv d1">
+      <div class="srow">
+        <span class="n">01</span>
+        <div><h3>تهيئة الأنظمة</h3><p>تفعيل اللوائح والضوابط الخاصة بقطاع منشأتك لتكون جاهزة للمطابقة فوراً.</p></div>
+        <span class="go"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M14 5l7 7-7 7M21 12H3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+      <div class="srow">
+        <span class="n">02</span>
+        <div><h3>الأتمتة وسحب الأدلة</h3><p>يقوم محرك المنصة بالفحص التلقائي المستمر لجمع شواهد الامتثال وتدوين الفجوات.</p></div>
+        <span class="go"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M14 5l7 7-7 7M21 12H3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+      <div class="srow">
+        <span class="n">03</span>
+        <div><h3>لوحة القيادة والتقارير</h3><p>استعراض مستويات الأمان وتصدير مستندات جاهزة للجان التدقيق الخارجي.</p></div>
+        <span class="go"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M14 5l7 7-7 7M21 12H3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ROI ============ -->
+<section id="roi" data-bg="cream" style="padding-top:20px">
+  <div class="wrap">
+    <div class="roi-block rv">
+      <div class="roi-grid">
+        <div>
+          <span class="sec-tag">حساب التوفير 🧮</span>
+          <h2 class="sec-h" style="font-size:clamp(28px,3.8vw,46px)">وفّر وقت فريقك وقلل التكاليف التشغيلية</h2>
+          <p class="sec-p">الأتمتة تخفض الوقت المستهلك في التدقيق اليدوي، ليتفرغ فريقك لمعالجة الثغرات والتخطيط.</p>
+          <div class="roi-ctl">
+            <div>
+              <div class="rlab"><span>عدد أفراد فريق الامتثال</span><output id="calc-team">5 أفراد</output></div>
+              <input type="range" id="slider-team" min="1" max="30" value="5" aria-label="عدد أفراد فريق الامتثال">
+            </div>
+            <div>
+              <div class="rlab"><span>نسبة الأتمتة المطلوبة</span><output id="calc-comp" style="color:var(--green)">90%</output></div>
+              <input type="range" id="slider-comp" min="50" max="100" value="90" aria-label="نسبة الأتمتة المطلوبة">
+            </div>
+          </div>
+        </div>
+        <div class="roi-res">
+          <span class="big" id="res-hours">2,160</span>
+          <span class="lab">ساعة عمل تُوفَّر سنوياً لتطوير أعمالك</span>
+          <span class="mini" id="res-risk">10%</span>
+          <span class="lab" style="margin-bottom:0">نسبة المخاطر المتبقية</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="cta" id="cta" data-bg="dark">
+  <div class="wrap">
+    <h2 class="giant rv"><span class="ghost">جاهز</span> <span class="gold">للانطلاق؟</span></h2>
+    <p class="sec-p rv d1">تواصل مع فريقنا لترتيب عرض توضيحي مباشر وتصميم خطة تناسب احتياجات منشأتك.</p>
+    <div class="cform rv d2">
+      <div class="fdone" id="fdone">
+        <span class="ring"><svg width="36" height="36" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <h3>تم استلام طلبك بنجاح!</h3>
+        <p>شكراً لاهتمامك. سيتواصل معك فريقنا قريباً لترتيب موعد العرض التوضيحي.</p>
+        <button class="btn btn-gold" onclick="resetForm()">العودة للنموذج</button>
+      </div>
+      <h3>طلب العرض التوضيحي 🎯</h3>
+      <p class="fs">أكمل البيانات وسنتواصل معك خلال يوم عمل واحد.</p>
+      <form id="cform" onsubmit="submitForm(event)">
+        <div class="row2">
+          <input type="text" placeholder="الاسم الكريم" required aria-label="الاسم الكريم">
+          <input type="text" placeholder="جهة العمل / المؤسسة" required aria-label="جهة العمل">
+        </div>
+        <input type="email" placeholder="name@company.sa" required aria-label="البريد الإلكتروني المهني">
+        <button type="submit" class="btn btn-red">أرسل الطلب ←</button>
+      </form>
+    </div>
+    <div class="sect-row rv d3">
+      <span class="sect"><svg width="15" height="15"><use href="#i-landmark"/></svg> القطاع المالي</span>
+      <span class="sect"><svg width="15" height="15"><use href="#i-building"/></svg> الجهات الحكومية</span>
+      <span class="sect"><svg width="15" height="15"><use href="#i-heart"/></svg> الرعاية الصحية</span>
+      <span class="sect"><svg width="15" height="15"><use href="#i-grad"/></svg> قطاع التعليم</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer data-bg="cream">
+  <div class="wrap">
+    <div class="foot-giant" aria-hidden="true">KEEN COMPLY</div>
+    <div class="foot-row">
+      <p>© 2026 Keen Comply — منصة سيادية متوافقة مع متطلبات الأمن السيبراني والبيانات.</p>
+      <div class="links">
+        <a href="../index.html">النسخة الكلاسيكية</a>
+        <a href="#top">العودة للأعلى ↑</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+"use strict";
+const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ---------- custom cursor ---------- */
+(function(){
+  if (reduceMotion || !window.matchMedia("(pointer:fine)").matches) return;
+  const c = document.getElementById("cursor");
+  let x = 0, y = 0, cx = 0, cy = 0;
+  window.addEventListener("mousemove", e => { x = e.clientX; y = e.clientY; }, { passive: true });
+  (function loop(){
+    cx += (x - cx) * .22; cy += (y - cy) * .22;
+    c.style.transform = "translate(" + (cx - 6) + "px," + (cy - 6) + "px)";
+    requestAnimationFrame(loop);
+  })();
+  document.querySelectorAll("a,button,input,.mcard,.law-head").forEach(el => {
+    el.addEventListener("mouseenter", () => c.classList.add("grow"));
+    el.addEventListener("mouseleave", () => c.classList.remove("grow"));
+  });
+})();
+
+/* ---------- scroll bg morph ---------- */
+(function(){
+  const secs = document.querySelectorAll("[data-bg]");
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    const bg = e.target.dataset.bg;
+    document.body.classList.toggle("on-dark", bg === "dark");
+    document.body.classList.toggle("on-gold", bg === "gold");
+  }), { rootMargin: "-42% 0px -42% 0px" });
+  secs.forEach(s => io.observe(s));
+})();
+
+/* ---------- reveal ---------- */
+(function(){
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+  }), { threshold: .12 });
+  document.querySelectorAll(".rv").forEach(el => io.observe(el));
+})();
+
+/* ---------- counters ---------- */
+(function(){
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    io.unobserve(e.target);
+    const to = +e.target.dataset.to, t0 = performance.now(), dur = 1500;
+    const step = now => {
+      const p = Math.min((now - t0) / dur, 1);
+      e.target.textContent = Math.round(to * (1 - Math.pow(1 - p, 3))).toLocaleString("en-US");
+      if (p < 1) requestAnimationFrame(step);
+    };
+    reduceMotion ? e.target.textContent = to.toLocaleString("en-US") : requestAnimationFrame(step);
+  }), { threshold: .5 });
+  document.querySelectorAll(".cnt").forEach(el => io.observe(el));
+})();
+
+/* ---------- drag-scroll rail ---------- */
+(function(){
+  const rail = document.getElementById("rail");
+  let down = false, sx = 0, sl = 0;
+  rail.addEventListener("pointerdown", e => { down = true; sx = e.clientX; sl = rail.scrollLeft; rail.classList.add("dragging"); });
+  window.addEventListener("pointerup", () => { down = false; rail.classList.remove("dragging"); });
+  window.addEventListener("pointermove", e => { if (down) rail.scrollLeft = sl - (e.clientX - sx); });
+  // start rail at its end (RTL cards laid out LTR: first module is rightmost)
+  requestAnimationFrame(() => { rail.scrollLeft = rail.scrollWidth; });
+})();
+
+/* ---------- laws accordion ---------- */
+function toggleLaw(id) {
+  document.querySelectorAll(".law").forEach(l => {
+    const open = l.id === "law-" + id ? !l.classList.contains("open") : false;
+    l.classList.toggle("open", open);
+    l.querySelector(".law-head").setAttribute("aria-expanded", open);
+    l.querySelector(".law-body").style.maxHeight = open ? l.querySelector(".law-in").scrollHeight + 40 + "px" : "0";
+  });
+}
+document.querySelectorAll(".law.open .law-body").forEach(b => b.style.maxHeight = b.querySelector(".law-in").scrollHeight + 40 + "px");
+
+/* ---------- ROI ---------- */
+(function(){
+  const t = document.getElementById("slider-team"), c = document.getElementById("slider-comp");
+  const calc = () => {
+    document.getElementById("calc-team").textContent = t.value + " أفراد";
+    document.getElementById("calc-comp").textContent = c.value + "%";
+    document.getElementById("res-hours").textContent = Math.round(t.value * 480 * (c.value / 100)).toLocaleString("en-US");
+    const risk = 100 - c.value;
+    const el = document.getElementById("res-risk");
+    el.textContent = risk + "%";
+    el.className = "mini" + (risk > 30 ? " bad" : risk > 15 ? " warn" : "");
+  };
+  t.addEventListener("input", calc); c.addEventListener("input", calc); calc();
+})();
+
+/* ---------- form ---------- */
+function submitForm(e){ e.preventDefault(); document.getElementById("fdone").classList.add("show"); }
+function resetForm(){ document.getElementById("fdone").classList.remove("show"); document.getElementById("cform").reset(); }
+
+/* ==========================================================
+   HERO 3D SCENE — confetti-style brand particles + 3D logo
+   (same zero-dependency engine, creative edition tuning)
+========================================================== */
+(function(){
+  const canvas = document.getElementById("scene");
+  const ctx = canvas.getContext("2d");
+  let W = 0, H = 0, dpr = 1, running = true, raf = null;
+  let mx = 0, my = 0, smx = 0, smy = 0;
+  const GOLD = "249,161,27", CRIM = "200,16,46", INK = "23,17,13";
+
+  const ring = [], check = [], confetti = [];
+  (function(){
+    const N = 560, R = 1.55, r = 0.12;
+    for (let i = 0; i < N; i++) {
+      const u = Math.random() * 6.283, v = Math.random() * 6.283;
+      const rr = r * (0.55 + Math.random() * 0.45);
+      ring.push({ x:(R+rr*Math.cos(v))*Math.cos(u), y:(R+rr*Math.cos(v))*Math.sin(u), z:rr*Math.sin(v), s:1+Math.random()*1.7, tw:Math.random()*6.283 });
+    }
+    const A={x:-0.78,y:-0.10,z:0}, B={x:-0.16,y:-0.72,z:0}, C={x:1.02,y:0.62,z:0};
+    const seg=(P,Q,n)=>{ for(let i=0;i<=n;i++){ const t=i/n, a=Math.random()*6.283, rj=Math.random()*0.08;
+      check.push({ x:P.x+(Q.x-P.x)*t+Math.cos(a)*rj, y:P.y+(Q.y-P.y)*t+Math.sin(a)*rj*0.8, z:(Math.random()-.5)*0.09, s:1.3+Math.random()*1.9, deep:Math.random()<0.1, tw:Math.random()*6.283 }); } };
+    seg(A,B,95); seg(B,C,180);
+    // playful confetti: squares, circles, triangles drifting slowly
+    for (let i = 0; i < 42; i++) {
+      confetti.push({
+        x: Math.random(), y: Math.random(),
+        vy: 0.00012 + Math.random() * 0.00025,
+        rot: Math.random() * 6.283, vr: (Math.random() - .5) * 0.012,
+        size: 5 + Math.random() * 9,
+        shape: Math.floor(Math.random() * 3),
+        col: [GOLD, CRIM, INK][Math.floor(Math.random() * 3)],
+        a: 0.12 + Math.random() * 0.16
+      });
+    }
+  })();
+
+  function size(){
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const r = canvas.getBoundingClientRect();
+    W = r.width; H = r.height;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  function rot(p, sY, cY, sX, cX){
+    const x1 = p.x * cY + p.z * sY, z1 = -p.x * sY + p.z * cY;
+    return { x: x1, y: p.y * cX - z1 * sX, z: p.y * sX + z1 * cX };
+  }
+
+  let t = 0;
+  function frame(){
+    if (!running) { raf = null; return; }
+    t += 0.016;
+    ctx.clearRect(0, 0, W, H);
+    smx += (mx - smx) * .05; smy += (my - smy) * .05;
+
+    /* confetti */
+    for (const f of confetti) {
+      f.y += f.vy; if (f.y > 1.05) { f.y = -0.05; f.x = Math.random(); }
+      f.rot += f.vr;
+      const px = f.x * W, py = f.y * H;
+      ctx.save(); ctx.translate(px, py); ctx.rotate(f.rot);
+      ctx.fillStyle = "rgba(" + f.col + "," + f.a + ")";
+      if (f.shape === 0) ctx.fillRect(-f.size/2, -f.size/2, f.size, f.size);
+      else if (f.shape === 1) { ctx.beginPath(); ctx.arc(0, 0, f.size/2, 0, 6.283); ctx.fill(); }
+      else { ctx.beginPath(); ctx.moveTo(0, -f.size/2); ctx.lineTo(f.size/2, f.size/2); ctx.lineTo(-f.size/2, f.size/2); ctx.closePath(); ctx.fill(); }
+      ctx.restore();
+    }
+
+    /* 3D logo motif — centered behind headline, subtle */
+    const wide = W > 720;
+    if (wide) {
+      const cx = W * 0.5, cy = H * 0.44, S = Math.min(W, H) * 0.34, persp = 3.8;
+      const glow = ctx.createRadialGradient(cx, cy, 0, cx, cy, S * 1.7);
+      glow.addColorStop(0, "rgba(249,161,27,.13)");
+      glow.addColorStop(.6, "rgba(200,16,46,.05)");
+      glow.addColorStop(1, "rgba(249,161,27,0)");
+      ctx.fillStyle = glow;
+      ctx.fillRect(cx - S * 1.8, cy - S * 1.8, S * 3.6, S * 3.6);
+
+      const ry = t * 0.2 + smx * 0.5, rx = -0.46 + smy * 0.3;
+      const sY = Math.sin(ry), cY = Math.cos(ry), sX = Math.sin(rx), cX = Math.cos(rx);
+      for (const p of ring) {
+        const q = rot(p, sY, cY, sX, cX);
+        const sc = persp / (persp + q.z);
+        const depth = (q.z + 1.8) / 3.6;
+        const a = 0.07 + depth * 0.3 + 0.05 * Math.sin(t * 2 + p.tw);
+        ctx.fillStyle = "rgba(" + GOLD + "," + Math.max(0, a).toFixed(3) + ")";
+        ctx.beginPath(); ctx.arc(cx + q.x * S * sc, cy + q.y * S * sc, p.s * sc * (0.7 + depth * 0.6), 0, 6.283); ctx.fill();
+      }
+      const wy = Math.sin(t * 0.45) * 0.2 + smx * 0.35, wx = -0.08 + smy * 0.22;
+      const sY2 = Math.sin(wy), cY2 = Math.cos(wy), sX2 = Math.sin(wx), cX2 = Math.cos(wx);
+      for (const p of check) {
+        const q = rot(p, sY2, cY2, sX2, cX2);
+        const sc = persp / (persp + q.z);
+        const depth = (q.z + 0.6) / 1.2;
+        const a = 0.16 + depth * 0.28 + 0.05 * Math.sin(t * 2.4 + p.tw);
+        ctx.fillStyle = "rgba(" + (p.deep ? "122,2,32" : CRIM) + "," + Math.max(0, a).toFixed(3) + ")";
+        ctx.beginPath(); ctx.arc(cx + q.x * S * sc, cy + q.y * S * sc, p.s * sc, 0, 6.283); ctx.fill();
+      }
+    }
+    raf = requestAnimationFrame(frame);
+  }
+
+  size();
+  window.addEventListener("resize", size);
+  window.addEventListener("mousemove", e => {
+    mx = (e.clientX / window.innerWidth - .5) * 0.6;
+    my = (e.clientY / window.innerHeight - .5) * 0.5;
+  }, { passive: true });
+  const hero = document.querySelector(".hero");
+  new IntersectionObserver(es => {
+    running = es[0].isIntersecting && !document.hidden;
+    if (running && !raf && !reduceMotion) raf = requestAnimationFrame(frame);
+  }, { threshold: 0 }).observe(hero);
+  document.addEventListener("visibilitychange", () => {
+    running = !document.hidden;
+    if (running && !raf && !reduceMotion) raf = requestAnimationFrame(frame);
+  });
+  if (reduceMotion) { t = 1; running = true; frame(); running = false; }
+  else raf = requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
