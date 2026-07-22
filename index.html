@@ -232,29 +232,64 @@
   .lrow .lst.ok{background:rgba(46,157,92,.1);color:#1d7c45}
   .lrow .lst.pend{background:rgba(249,157,28,.14);color:var(--gold-deep)}
 
-  /* ============ modules ============ */
+  /* ============ modules explorer ============ */
   .modules{background:var(--paper-2)}
-  .mod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-  .mod{background:var(--white);border:1px solid var(--line);border-radius:20px;padding:28px;transition:transform .3s var(--ease),box-shadow .3s,border-color .3s;position:relative;transform-style:preserve-3d;will-change:transform}
-  .mod:hover{box-shadow:0 22px 48px rgba(21,17,15,.1);border-color:transparent;z-index:2}
-  .mod-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}
-  .mod-ic{width:50px;height:50px;border-radius:14px;display:grid;place-items:center;transform:translateZ(30px)}
-  .mod h3{font-size:17px;font-weight:700;margin-bottom:9px}
-  .mod p{color:var(--slate);font-size:13.5px;font-weight:500}
-  .mod p strong{color:var(--ink);font-weight:700}
-  .mod-tag{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:800;padding:6px 12px;border-radius:99px;background:var(--paper);border:1px solid var(--line);color:var(--ink)}
-  .mod-tag svg{color:var(--gold-deep)}
-  .ic-g{background:rgba(46,157,92,.1);color:var(--green)}
-  .ic-c{background:rgba(193,2,48,.07);color:var(--crimson)}
-  .ic-a{background:rgba(249,157,28,.14);color:var(--gold-deep)}
-  .ic-k{background:rgba(21,17,15,.06);color:var(--ink)}
-  .mod-wide{grid-column:1/-1;display:flex;align-items:center;gap:28px;background:linear-gradient(140deg,var(--crimson),var(--crimson-deep));border:none;color:#fff;overflow:hidden;padding:34px}
-  .mod-wide::before{content:"";position:absolute;inset:0;background:radial-gradient(600px 280px at 12% 110%,rgba(249,157,28,.28),transparent 60%),radial-gradient(500px 240px at 88% -10%,rgba(255,255,255,.08),transparent 60%)}
-  .mod-wide>*{position:relative}
-  .mod-wide .mod-ic{width:64px;height:64px;border-radius:18px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:#fff;flex-shrink:0;backdrop-filter:blur(6px)}
-  .mod-wide h3{color:#fff;font-size:19px}
-  .mod-wide p{color:rgba(255,255,255,.82);max-width:640px}
-  .mod-wide .btn{flex-shrink:0}
+  .xpl{display:grid;grid-template-columns:.92fr 1.5fr;gap:24px;align-items:stretch}
+  .xpl-list{display:flex;flex-direction:column;gap:8px}
+  .xpl-item{position:relative;display:flex;align-items:center;gap:13px;padding:12px 16px;border-radius:15px;border:1.5px solid transparent;background:transparent;cursor:pointer;font-family:inherit;text-align:right;transition:all .25s var(--ease);overflow:hidden}
+  .xpl-item:hover{background:var(--white);border-color:var(--line);transform:translateX(-3px)}
+  .xpl-item .xi{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;flex-shrink:0;background:var(--tint);color:var(--acc);transition:.25s}
+  .xpl-item .xt{font-size:14px;font-weight:700;color:var(--slate);transition:.25s;flex:1;line-height:1.5}
+  .xpl-item .xn{font-family:'Sora';font-size:11px;font-weight:700;color:#cfc7bf;direction:ltr;transition:.25s}
+  .xpl-item.active{background:var(--white);border-color:rgba(193,2,48,.4);box-shadow:0 12px 28px rgba(122,2,32,.09);transform:translateX(-4px)}
+  .xpl-item.active .xt{color:var(--ink)}
+  .xpl-item.active .xn{color:var(--crimson)}
+  .xpl-item.active .xi{transform:scale(1.08)}
+  .xpl-item .prog{position:absolute;bottom:0;right:0;height:2.5px;width:0;background:linear-gradient(90deg,var(--gold),var(--crimson));border-radius:2px;opacity:0}
+  .xpl-item.active .prog{opacity:1}
+  .xpl-stage{position:relative;min-height:540px}
+  .xpl-panel{position:absolute;inset:0;background:var(--white);border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow-lg);overflow:hidden}
+  .xpl-panel .tintbg{position:absolute;inset:0;background:radial-gradient(620px 420px at 18% -10%,var(--tint),transparent 65%);transition:.6s}
+  .xpl-panel .ghostn{position:absolute;top:14px;left:26px;font-family:'Sora';font-weight:800;font-size:150px;line-height:1;color:var(--acc);opacity:.07;direction:ltr;user-select:none;letter-spacing:-.04em}
+  .xpl-inner{position:relative;height:100%;display:flex;flex-direction:column;justify-content:center;padding:52px 54px;animation:xin .55s var(--ease)}
+  @keyframes xin{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+  .xheroic{position:relative;width:104px;height:104px;margin-bottom:30px}
+  .xheroic .disc{position:absolute;inset:0;border-radius:28px;background:var(--tint);border:1px solid var(--line);display:grid;place-items:center;color:var(--acc);animation:xfloat 5s ease-in-out infinite;z-index:2;backdrop-filter:blur(4px)}
+  @keyframes xfloat{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-9px) rotate(-2deg)}}
+  .xheroic .ring{position:absolute;inset:-6px;border-radius:34px;border:1.5px solid var(--acc);opacity:.35;animation:xpulse 2.6s var(--ease) infinite}
+  .xheroic .ring.r2{animation-delay:1.3s}
+  @keyframes xpulse{0%{transform:scale(.92);opacity:.4}100%{transform:scale(1.35);opacity:0}}
+  .xheroic .orbit{position:absolute;inset:-18px;animation:xspin 7s linear infinite;z-index:1}
+  .xheroic .orbit i{position:absolute;top:0;left:50%;width:9px;height:9px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px rgba(249,157,28,.6)}
+  @keyframes xspin{to{transform:rotate(360deg)}}
+  .xtag{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;padding:6px 14px;border-radius:99px;background:var(--tint);border:1px solid var(--line);color:var(--acc);font-size:11.5px;font-weight:800;margin-bottom:14px}
+  .xpl-inner h3{font-size:clamp(22px,2.6vw,30px);font-weight:700;letter-spacing:-.01em;margin-bottom:12px}
+  .xpl-inner .xdesc{font-size:15.5px;font-weight:500;color:var(--slate);max-width:560px;line-height:1.9}
+  .xhl{display:flex;gap:12px;align-items:flex-start;margin-top:20px;padding:15px 18px;border-radius:15px;background:var(--paper);border:1px solid var(--line);max-width:560px}
+  .xhl .hk{width:26px;height:26px;border-radius:50%;background:rgba(46,157,92,.12);color:var(--green);display:grid;place-items:center;flex-shrink:0;margin-top:1px}
+  .xhl p{font-size:13.5px;font-weight:700;color:#3d3733;line-height:1.8}
+  .xfoot{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:34px;padding-top:22px;border-top:1px solid var(--line);max-width:560px}
+  .xcount{font-family:'Sora';font-size:13px;font-weight:700;color:var(--slate);direction:ltr}
+  .xcount b{color:var(--crimson);font-size:16px}
+  .xnav{display:flex;gap:10px}
+  .xbtn{width:44px;height:44px;border-radius:13px;border:1px solid var(--line);background:var(--white);cursor:pointer;display:grid;place-items:center;color:var(--ink);transition:.2s;font-family:inherit}
+  .xbtn:hover{background:var(--crimson);border-color:var(--crimson);color:#fff;transform:translateY(-2px)}
+  /* dark variant (vulnerability system) */
+  .xpl-panel.darkp{background:linear-gradient(150deg,var(--crimson) 0%,var(--crimson-deep) 90%);border-color:var(--crimson-deep)}
+  .xpl-panel.darkp .tintbg{background:radial-gradient(620px 420px at 18% -10%,rgba(249,157,28,.22),transparent 65%)}
+  .xpl-panel.darkp .ghostn{color:#fff;opacity:.09}
+  .xpl-panel.darkp h3{color:#fff}
+  .xpl-panel.darkp .xdesc{color:rgba(255,255,255,.82)}
+  .xpl-panel.darkp .xtag{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.25);color:var(--gold)}
+  .xpl-panel.darkp .xheroic .disc{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.3);color:#fff}
+  .xpl-panel.darkp .xheroic .ring{border-color:var(--gold)}
+  .xpl-panel.darkp .xfoot{border-top-color:rgba(255,255,255,.2)}
+  .xpl-panel.darkp .xcount{color:rgba(255,255,255,.75)}
+  .xpl-panel.darkp .xcount b{color:var(--gold)}
+  .xpl-panel.darkp .xbtn{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.3);color:#fff}
+  .xpl-panel.darkp .xbtn:hover{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+  .xpl-panel.darkp .xhl{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18)}
+  .xpl-panel.darkp .xhl p{color:rgba(255,255,255,.92)}
 
   /* ============ steps + why ============ */
   .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;position:relative;margin-bottom:100px}
@@ -352,7 +387,16 @@
     .leg-grid{grid-template-columns:1fr}
     .leg-tabs{position:static;flex-direction:row;overflow-x:auto;padding-bottom:6px}
     .leg-tab{flex-shrink:0;min-width:210px}
-    .mod-grid{grid-template-columns:1fr 1fr}
+    .xpl{grid-template-columns:1fr}
+    .xpl-list{flex-direction:row;overflow-x:auto;gap:10px;padding-bottom:10px}
+    .xpl-item{flex-direction:column;min-width:96px;gap:8px;padding:12px 10px;text-align:center;border-color:var(--line);background:var(--white)}
+    .xpl-item:hover,.xpl-item.active{transform:none}
+    .xpl-item .xt{font-size:11px;font-weight:700;line-height:1.4}
+    .xpl-item .xn{display:none}
+    .xpl-stage{min-height:0}
+    .xpl-panel{position:relative;inset:auto}
+    .xpl-inner{padding:34px 26px}
+    .xpl-panel .ghostn{font-size:100px;top:8px;left:14px}
     .stage{height:540px;max-width:640px;margin:0 auto}
     .hero{min-height:auto;padding:150px 0 80px}
     .steps::before{display:none}
@@ -360,12 +404,11 @@
     .stats-grid{grid-template-columns:1fr 1fr;gap:34px 20px}
     .contact-band{padding:44px 30px}
     .nav-links{display:none}
-    .mod-wide{flex-direction:column;text-align:center;align-items:center}
   }
   @media (max-width:620px){
     .wrap{padding:0 20px}
     section{padding:68px 0}
-    .mod-grid{grid-template-columns:1fr}
+    .xheroic{width:88px;height:88px}
     .cform .frow{grid-template-columns:1fr}
     .stage{height:480px}
     .fcard-a{width:78%}
@@ -675,74 +718,13 @@
       <p>بيئة عمل رقمية متكاملة تربط الامتثال وسجلات المخاطر لتمنحك رؤية شاملة وسيطرة كاملة على أعمالك، مما يسهل إصدار التقارير للإدارة العليا.</p>
     </div>
 
-    <div class="mod-grid">
-      <div class="mod tilt reveal">
-        <div class="mod-top">
-          <span class="mod-ic ic-g"><svg width="22" height="22"><use href="#i-shield"/></svg></span>
-          <span class="mod-tag"><svg width="11" height="11"><use href="#i-zap"/></svg> أتمتة متقدمة</span>
+    <div class="xpl reveal d1" id="xpl">
+      <div class="xpl-list" id="xplList" role="tablist" aria-label="أنظمة المنصة"></div>
+      <div class="xpl-stage">
+        <div class="xpl-panel" id="xplPanel">
+          <div class="tintbg"></div>
+          <div class="xpl-inner" id="xplInner"></div>
         </div>
-        <h3>الالتزام التنظيمي</h3>
-        <p>إدارة دورة التوافق مع التشريعات. <strong>متابعة وتحديث اللوائح التشريعية آلياً بمجرد صدورها رسمياً لضمان الجاهزية الدائمة.</strong></p>
-      </div>
-
-      <div class="mod tilt reveal d1">
-        <div class="mod-top">
-          <span class="mod-ic ic-c"><svg width="22" height="22"><use href="#i-target"/></svg></span>
-          <span class="mod-tag"><svg width="11" height="11"><use href="#i-activity"/></svg> تحليل ذكي</span>
-        </div>
-        <h3>إدارة المخاطر <span class="en">(ERM)</span></h3>
-        <p>تحديد وقياس المخاطر بوضوح. <strong>التنبؤ بالمخاطر المحتملة واقتراح خطط التحييد والمعالجة استباقياً لدعم قرارك.</strong></p>
-      </div>
-
-      <div class="mod tilt reveal d2">
-        <div class="mod-top"><span class="mod-ic ic-a"><svg width="22" height="22"><use href="#i-merge"/></svg></span></div>
-        <h3>إدارة المعاملات ومسارات العمل</h3>
-        <p>تنظيم طلبات الاستثناءات وتوجيه المهام بين الموظفين عبر مسارات عمل مرنة توافق الهيكل الإداري.</p>
-      </div>
-
-      <div class="mod tilt reveal">
-        <div class="mod-top"><span class="mod-ic ic-a"><svg width="22" height="22"><use href="#i-folder"/></svg></span></div>
-        <h3>إدارة الملفات والوثائق</h3>
-        <p>مستودع آمن لحفظ سياسات المنشأة وأدلة الامتثال، مع إدارة دقيقة لصلاحيات الوصول لكل مستخدم.</p>
-      </div>
-
-      <div class="mod tilt reveal d1">
-        <div class="mod-top"><span class="mod-ic ic-g"><svg width="22" height="22"><use href="#i-audit"/></svg></span></div>
-        <h3>المراجعة والتدقيق الداخلي</h3>
-        <p>جدولة مهام التدقيق السنوية، وحفظ أوراق العمل إلكترونياً، وتتبع حل الملاحظات مع الأقسام المختلفة.</p>
-      </div>
-
-      <div class="mod tilt reveal d2">
-        <div class="mod-top"><span class="mod-ic ic-k"><svg width="22" height="22"><use href="#i-building"/></svg></span></div>
-        <h3>الحوكمة المؤسسية</h3>
-        <p>توضيح الهيكل التنظيمي للمنشأة وتحديد مصفوفة الصلاحيات (DoA) لضمان سير العمل بانتظام.</p>
-      </div>
-
-      <div class="mod tilt reveal">
-        <div class="mod-top"><span class="mod-ic ic-c"><svg width="22" height="22"><use href="#i-mega"/></svg></span></div>
-        <h3>الحوادث والبلاغات</h3>
-        <p>قنوات سرية وآمنة للموظفين لتقديم البلاغات، مع نظام يتيح للمسؤولين تتبع إجراءات التحقيق.</p>
-      </div>
-
-      <div class="mod tilt reveal d1">
-        <div class="mod-top"><span class="mod-ic ic-k"><svg width="22" height="22"><use href="#i-users"/></svg></span></div>
-        <h3>حوكمة المجالس واللجان</h3>
-        <p>تنظيم مواعيد الاجتماعات، إجراء التصويت، وكتابة واعتماد محاضر الاجتماعات عبر التوقيع الرقمي.</p>
-      </div>
-
-      <div class="mod tilt reveal d2">
-        <div class="mod-top"><span class="mod-ic ic-a"><svg width="22" height="22"><use href="#i-activity"/></svg></span></div>
-        <h3>استمرارية الأعمال <span class="en">(BCM)</span></h3>
-        <p>وضع خطط التعافي من الأزمات والكوارث لضمان عدم توقف الخدمات الأساسية للمنشأة.</p>
-      </div>
-
-      <div class="mod mod-wide reveal">
-        <span class="mod-ic"><svg width="28" height="28"><use href="#i-radar"/></svg></span>
-        <div style="flex:1">
-          <h3>نظام تقييم واختبار الثغرات</h3>
-          <p>نربط المنصة ببرامج فحص الثغرات العالمية لسحب تقارير الأمان الخاصة بك، ونصنفها تلقائياً داخل سجل المخاطر ليسهل عليك متابعة حلها.</p>
-        </div>
-        <a href="#contact" class="btn btn-gold">استكشف الربط الفني</a>
       </div>
     </div>
   </div>
@@ -881,7 +863,6 @@
       <span>Keen Comply</span>
     </div>
     <p>© 2026 Keen Comply. منصة سيادية متوافقة مع متطلبات الأمن السيبراني والبيانات.</p>
-    <p style="margin-top:10px"><a href="v2/index.html" style="color:var(--crimson);font-weight:700;text-decoration:none">جرّب النسخة الإبداعية V2 ←</a></p>
   </div>
 </footer>
 
@@ -999,6 +980,97 @@ const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-mo
     });
     card.addEventListener("mouseleave", () => { card.style.transform = ""; });
   });
+})();
+
+/* ---------- systems explorer ---------- */
+(function(){
+  const M = [
+    { icon:"i-shield", title:"الالتزام التنظيمي", desc:"إدارة دورة التوافق مع التشريعات الوطنية والدولية من نقطة واحدة، مع رؤية دقيقة لحالة كل ضابط.", hl:"متابعة وتحديث اللوائح التشريعية آلياً بمجرد صدورها رسمياً لضمان الجاهزية الدائمة.", tag:"أتمتة متقدمة", acc:"#2e9d5c", tint:"rgba(46,157,92,.11)" },
+    { icon:"i-target", title:"إدارة المخاطر (ERM)", desc:"تحديد وقياس المخاطر بوضوح عبر مصفوفات ديناميكية تربط كل خطر بأصوله وخطط معالجته.", hl:"التنبؤ بالمخاطر المحتملة واقتراح خطط التحييد والمعالجة استباقياً لدعم قرارك.", tag:"تحليل ذكي", acc:"#C10230", tint:"rgba(193,2,48,.08)" },
+    { icon:"i-merge", title:"إدارة المعاملات ومسارات العمل", desc:"تنظيم طلبات الاستثناءات وتوجيه المهام بين الموظفين عبر مسارات عمل مرنة توافق الهيكل الإداري لمنشأتك.", acc:"#7c3aed", tint:"rgba(124,58,237,.09)" },
+    { icon:"i-folder", title:"إدارة الملفات والوثائق", desc:"مستودع آمن لحفظ سياسات المنشأة وأدلة الامتثال، مع إدارة دقيقة لصلاحيات الوصول لكل مستخدم.", acc:"#e2790f", tint:"rgba(226,121,15,.11)" },
+    { icon:"i-audit", title:"المراجعة والتدقيق الداخلي", desc:"جدولة مهام التدقيق السنوية، وحفظ أوراق العمل إلكترونياً، وتتبع حل الملاحظات مع الأقسام المختلفة.", acc:"#0d9488", tint:"rgba(13,148,136,.1)" },
+    { icon:"i-building", title:"الحوكمة المؤسسية", desc:"توضيح الهيكل التنظيمي للمنشأة وتحديد مصفوفة الصلاحيات (DoA) لضمان سير العمل بانتظام.", acc:"#475569", tint:"rgba(71,85,105,.1)" },
+    { icon:"i-mega", title:"الحوادث والبلاغات", desc:"قنوات سرية وآمنة للموظفين لتقديم البلاغات، مع نظام يتيح للمسؤولين تتبع إجراءات التحقيق حتى الإغلاق.", acc:"#e11d48", tint:"rgba(225,29,72,.08)" },
+    { icon:"i-users", title:"حوكمة المجالس واللجان", desc:"تنظيم مواعيد الاجتماعات، إجراء التصويت، وكتابة واعتماد محاضر الاجتماعات عبر التوقيع الرقمي.", acc:"#4f46e5", tint:"rgba(79,70,229,.09)" },
+    { icon:"i-activity", title:"استمرارية الأعمال (BCM)", desc:"وضع خطط التعافي من الأزمات والكوارث وتحليل تأثير الأعمال لضمان عدم توقف الخدمات الأساسية.", acc:"#C77A05", tint:"rgba(249,157,28,.15)" },
+    { icon:"i-radar", title:"نظام تقييم واختبار الثغرات", desc:"نربط المنصة ببرامج فحص الثغرات العالمية لسحب تقارير الأمان الخاصة بك، ونصنفها تلقائياً داخل سجل المخاطر ليسهل عليك متابعة حلها.", tag:"ربط فني مباشر", dark:true, acc:"#F99D1C", tint:"rgba(249,157,28,.16)" }
+  ];
+  const DUR = 5200;
+  const list = document.getElementById("xplList");
+  const panel = document.getElementById("xplPanel");
+  const inner = document.getElementById("xplInner");
+  const xpl = document.getElementById("xpl");
+  let cur = 0, timer = null, visible = false, paused = false;
+
+  const pad = n => (n + 1).toString().padStart(2, "0");
+
+  M.forEach((m, i) => {
+    const b = document.createElement("button");
+    b.className = "xpl-item";
+    b.setAttribute("role", "tab");
+    b.style.setProperty("--acc", m.acc);
+    b.style.setProperty("--tint", m.tint);
+    b.innerHTML = '<span class="xi"><svg width="19" height="19"><use href="#' + m.icon + '"/></svg></span>' +
+      '<span class="xt">' + m.title + '</span><span class="xn">' + pad(i) + '</span><i class="prog"></i>';
+    b.addEventListener("click", () => { select(i); restart(); });
+    list.appendChild(b);
+  });
+  const items = list.querySelectorAll(".xpl-item");
+
+  function render(i) {
+    const m = M[i];
+    panel.classList.toggle("darkp", !!m.dark);
+    panel.style.setProperty("--acc", m.acc);
+    panel.style.setProperty("--tint", m.tint);
+    const gn = panel.querySelector(".ghostn");
+    if (gn) gn.remove();
+    const g = document.createElement("span");
+    g.className = "ghostn";
+    g.textContent = pad(i);
+    g.style.color = m.dark ? "#fff" : m.acc;
+    panel.appendChild(g);
+    inner.innerHTML =
+      '<div class="xheroic"><span class="ring"></span><span class="ring r2"></span><span class="orbit"><i></i></span>' +
+      '<span class="disc"><svg width="44" height="44"><use href="#' + m.icon + '"/></svg></span></div>' +
+      (m.tag ? '<span class="xtag"><svg width="12" height="12"><use href="#i-zap"/></svg> ' + m.tag + '</span>' : "") +
+      '<h3>' + m.title + '</h3>' +
+      '<p class="xdesc">' + m.desc + '</p>' +
+      (m.hl ? '<div class="xhl"><span class="hk"><svg width="13" height="13"><use href="#i-check"/></svg></span><p>' + m.hl + '</p></div>' : "") +
+      '<div class="xfoot"><span class="xcount"><b>' + pad(i) + '</b> / ' + pad(M.length - 1) + '</span>' +
+      '<span class="xnav"><button class="xbtn" id="xprev" aria-label="النظام السابق">‹</button>' +
+      '<button class="xbtn" id="xnext" aria-label="النظام التالي">›</button></span></div>';
+    inner.style.animation = "none";
+    void inner.offsetWidth;
+    inner.style.animation = "";
+    document.getElementById("xnext").onclick = () => { select((cur + 1) % M.length); restart(); };
+    document.getElementById("xprev").onclick = () => { select((cur - 1 + M.length) % M.length); restart(); };
+  }
+
+  function setProg(el, on) {
+    const p = el.querySelector(".prog");
+    p.style.transition = "none"; p.style.width = "0";
+    if (on && !reduceMotion) { void p.offsetWidth; p.style.transition = "width " + DUR + "ms linear"; p.style.width = "100%"; }
+  }
+
+  function select(i) {
+    cur = i;
+    items.forEach((el, j) => { el.classList.toggle("active", j === i); el.setAttribute("aria-selected", j === i); setProg(el, j === i); });
+    render(i);
+    items[i].scrollIntoView({ block: "nearest", inline: "nearest", behavior: "smooth" });
+  }
+
+  function tick() { if (visible && !paused) select((cur + 1) % M.length); }
+  function restart() { clearInterval(timer); if (!reduceMotion) timer = setInterval(tick, DUR); }
+
+  xpl.addEventListener("mouseenter", () => { paused = true; });
+  xpl.addEventListener("mouseleave", () => { paused = false; setProg(items[cur], true); });
+  new IntersectionObserver(es => {
+    visible = es[0].isIntersecting;
+    if (visible) setProg(items[cur], true);
+  }, { threshold: .25 }).observe(xpl);
+
+  select(0); restart();
 })();
 
 /* ---------- legislation tabs ---------- */
