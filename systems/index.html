@@ -549,7 +549,13 @@ const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-mo
     if(mid<=centers[0]){scrollP=0;return;}
     if(mid>=centers[centers.length-1]){scrollP=CH-1;return;}
     for(let i=0;i<centers.length-1;i++){
-      if(mid>=centers[i]&&mid<centers[i+1]){scrollP=i+(mid-centers[i])/(centers[i+1]-centers[i]);break;}
+      if(mid>=centers[i]&&mid<centers[i+1]){
+        // plateau: hold the sculpture in place while its chapter is on screen,
+        // morph only inside the empty gap between chapters (frac 0.22 -> 0.78)
+        const frac=(mid-centers[i])/(centers[i+1]-centers[i]);
+        scrollP=i+Math.max(0,Math.min(1,(frac-0.22)/0.56));
+        break;
+      }
     }
   }
   window.addEventListener("scroll",measure,{passive:true});
@@ -558,7 +564,7 @@ const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-mo
   function frame(){
     if(!running){raf=null;return;}
     t+=0.016;
-    smoothP+=(scrollP-smoothP)*0.09;
+    smoothP+=(scrollP-smoothP)*0.12;
     ctx.clearRect(0,0,W,H);
     const a=Math.max(0,Math.min(CH-1,Math.floor(smoothP))), b=Math.min(CH-1,a+1);
     const tt=ease(Math.min(1,Math.max(0,smoothP-a)));
