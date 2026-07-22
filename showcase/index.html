@@ -1903,13 +1903,17 @@ function resetForm() {
   const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
   const lerp=(a,b,t)=>a+(b-a)*t;
 
-  let scrollP=0,smoothP=0,t=0;
+  let scrollP=0,smoothP=0,t=0,fadeK=1;
   const chapterEls=document.querySelectorAll(".tour .chapter");
   function measure(){
     const mid=window.scrollY+window.innerHeight/2, centers=[];
     chapterEls.forEach(s=>{const r=s.getBoundingClientRect();centers.push(r.top+window.scrollY+r.height/2);});
-    if(mid<=centers[0]){scrollP=0;return;}
-    if(mid>=centers[centers.length-1]){scrollP=CH-1;return;}
+    // dissolve the sculpture at the tour boundaries so it never rides over
+    // the stable sections before/after the tour
+    const hold=window.innerHeight*0.25, span=window.innerHeight*0.5;
+    if(mid<=centers[0]){scrollP=0;fadeK=Math.max(0,Math.min(1,1-((centers[0]-mid)-hold)/span));return;}
+    if(mid>=centers[centers.length-1]){scrollP=CH-1;fadeK=Math.max(0,Math.min(1,1-((mid-centers[centers.length-1])-hold)/span));return;}
+    fadeK=1;
     for(let i=0;i<centers.length-1;i++){
       if(mid>=centers[i]&&mid<centers[i+1]){
         const frac=(mid-centers[i])/(centers[i+1]-centers[i]);
@@ -1926,6 +1930,7 @@ function resetForm() {
     t+=0.016;
     smoothP+=(scrollP-smoothP)*0.12;
     ctx.clearRect(0,0,W,H);
+    if(fadeK<=0.005){raf=requestAnimationFrame(frame);return;}
     const a=Math.max(0,Math.min(CH-1,Math.floor(smoothP))), b=Math.min(CH-1,a+1);
     const tt=ease(Math.min(1,Math.max(0,smoothP-a)));
     const SA=SHAPES[a],SB=SHAPES[b];
@@ -1956,7 +1961,7 @@ function resetForm() {
       const sc=persp/(persp+z2);
       const depth=Math.max(0,Math.min(1,(z2+2.2)/4.4));
       const rr=lerp(pa.col[0],pb.col[0],tt)|0, gg=lerp(pa.col[1],pb.col[1],tt)|0, bb=lerp(pa.col[2],pb.col[2],tt)|0;
-      const alpha=((0.22+depth*0.6+0.08*Math.sin(t*2+p.tw))*(isMobile?0.45:1)*dimF).toFixed(3);
+      const alpha=((0.22+depth*0.6+0.08*Math.sin(t*2+p.tw))*(isMobile?0.45:1)*dimF*fadeK).toFixed(3);
       ctx.fillStyle="rgba("+rr+","+gg+","+bb+","+alpha+")";
       ctx.beginPath();ctx.arc(cx+x1*S*sc,cy+y1*S*sc,p.sz*sc*(0.55+depth*0.65),0,6.28318);ctx.fill();
     }
