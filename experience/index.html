@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Keen Comply — رحلة الامتثال | تجربة غامرة</title>
+<meta name="description" content="تجربة تفاعلية غامرة لمنصة Keen Comply — رحلة من العمل اليدوي المشتت إلى الحوكمة الرقمية المؤتمتة، مروية بآلاف الجسيمات ثلاثية الأبعاد.">
+<meta name="theme-color" content="#120B09">
+<link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><g fill="none" stroke="%23F9A11B" stroke-width="21" stroke-linecap="square" stroke-linejoin="round"><path d="M80 84 L143.6 37.7 A76 76 0 0 1 86.8 174.8"/><path d="M120 116 L56.4 162.3 A76 76 0 0 1 113.2 25.2"/></g><path d="M47 105 L79 133 L144 77" stroke="%23C8102E" stroke-width="21" fill="none" stroke-linecap="square" stroke-linejoin="round"/></svg>'>
+<link rel="stylesheet" href="../assets/fonts/fonts.css">
+<style>
+  :root{
+    --crimson:#E31C4B; --crimson-deep:#8A0E2A; --gold:#F9A11B; --gold-soft:#FFC46A;
+    --ink:#120B09; --ink-2:#1D1310; --cream:#F6EBDD; --mute:#9C8B7E;
+    --ease:cubic-bezier(.2,.7,.2,1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:auto}
+  body{font-family:'IBM Plex Sans Arabic',system-ui,sans-serif;background:var(--ink);color:var(--cream);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  ::selection{background:var(--gold);color:var(--ink)}
+  a:focus-visible,button:focus-visible{outline:2.5px solid var(--gold);outline-offset:3px;border-radius:8px}
+  .en{font-family:'Sora',sans-serif;direction:ltr;unicode-bidi:isolate}
+  ::-webkit-scrollbar{width:8px}
+  ::-webkit-scrollbar-track{background:var(--ink)}
+  ::-webkit-scrollbar-thumb{background:#3a2a22;border-radius:99px}
+  ::-webkit-scrollbar-thumb:hover{background:var(--gold-deep,#C77A05)}
+
+  /* ============ fixed cosmos ============ */
+  #cosmos{position:fixed;inset:0;width:100%;height:100%;z-index:0}
+  .vignette{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(120% 90% at 50% 45%,transparent 55%,rgba(10,6,4,.55) 100%)}
+  .grain{position:fixed;inset:-50%;z-index:1;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");animation:grain 1.1s steps(4) infinite}
+  @keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-4%,3%)}50%{transform:translate(3%,-2%)}75%{transform:translate(-2%,-4%)}100%{transform:translate(0,0)}}
+  .aurora{position:fixed;inset:-20%;z-index:0;pointer-events:none;filter:blur(90px);opacity:.5}
+  .aurora i{position:absolute;border-radius:50%}
+  .aurora .a1{width:52vw;height:52vw;background:radial-gradient(circle,rgba(227,28,75,.16),transparent 65%);top:-6%;right:-6%;animation:drift1 26s ease-in-out infinite}
+  .aurora .a2{width:44vw;height:44vw;background:radial-gradient(circle,rgba(249,161,27,.13),transparent 65%);bottom:-8%;left:-4%;animation:drift2 32s ease-in-out infinite}
+  @keyframes drift1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-6vw,5vh) scale(1.15)}}
+  @keyframes drift2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(5vw,-6vh) scale(1.1)}}
+
+  /* ============ chrome ============ */
+  .topbar{position:fixed;top:0;right:0;left:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:22px 34px;mix-blend-mode:normal}
+  .brand{display:flex;align-items:center;gap:11px;text-decoration:none}
+  .brand svg{width:40px;height:40px;filter:drop-shadow(0 4px 14px rgba(249,161,27,.35))}
+  .brand b{font-family:'Sora';font-weight:700;font-size:17px;color:var(--cream);letter-spacing:-.01em;direction:ltr}
+  .exit{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:99px;border:1px solid rgba(246,235,221,.22);color:var(--cream);text-decoration:none;font-size:13px;font-weight:700;background:rgba(18,11,9,.35);backdrop-filter:blur(10px);transition:.25s}
+  .exit:hover{border-color:var(--gold);color:var(--gold)}
+  #pbar{position:fixed;top:0;right:0;height:2.5px;width:0;z-index:60;background:linear-gradient(90deg,var(--gold),var(--crimson));border-radius:0 0 0 3px}
+
+  /* side rail */
+  .rail{position:fixed;left:26px;top:50%;transform:translateY(-50%);z-index:50;display:flex;flex-direction:column;gap:18px}
+  .rail button{position:relative;width:12px;height:12px;border-radius:50%;border:1.5px solid rgba(246,235,221,.35);background:transparent;cursor:pointer;transition:.3s;padding:0}
+  .rail button::after{content:attr(data-t);position:absolute;left:22px;top:50%;transform:translateY(-50%);font-family:'IBM Plex Sans Arabic';font-size:11.5px;font-weight:700;color:var(--cream);white-space:nowrap;opacity:0;transition:.25s;pointer-events:none;background:rgba(18,11,9,.7);padding:4px 11px;border-radius:8px;border:1px solid rgba(246,235,221,.14);backdrop-filter:blur(8px)}
+  .rail button:hover::after{opacity:1}
+  .rail button.on{background:var(--gold);border-color:var(--gold);box-shadow:0 0 14px rgba(249,161,27,.6)}
+
+  /* scroll hint */
+  .hint{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);z-index:50;display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--mute);font-size:11.5px;font-weight:700;letter-spacing:.14em;transition:opacity .5s;pointer-events:none}
+  .hint .wheel{width:22px;height:36px;border:1.5px solid rgba(246,235,221,.4);border-radius:12px;position:relative}
+  .hint .wheel::after{content:"";position:absolute;top:6px;left:50%;width:3.5px;height:8px;margin-left:-1.75px;border-radius:3px;background:var(--gold);animation:wheel 1.8s ease-in-out infinite}
+  @keyframes wheel{0%{transform:translateY(0);opacity:1}70%{transform:translateY(12px);opacity:0}100%{transform:translateY(0);opacity:0}}
+  .hint.gone{opacity:0}
+
+  /* ============ chapters ============ */
+  .chapter{position:relative;z-index:10;min-height:172vh;pointer-events:none}
+  .chapter.first,.chapter.last{min-height:120vh}
+  .panel{position:sticky;top:0;min-height:100vh;display:flex;align-items:center;padding:0 8vw;opacity:0;transform:translateY(36px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+  .panel.live{opacity:1;transform:none}
+  .panel.live *{pointer-events:auto}
+  .panel-in{max-width:560px}
+  .panel.center{justify-content:center;text-align:center}
+  .panel.center .panel-in{max-width:760px}
+  .panel.left{justify-content:flex-end}
+
+  .kick{display:inline-flex;align-items:center;gap:10px;font-size:12.5px;font-weight:800;letter-spacing:.16em;color:var(--gold);margin-bottom:22px;text-transform:uppercase}
+  .kick::before{content:"";width:30px;height:1.5px;background:var(--gold);opacity:.7}
+  .kick .n{font-family:'Sora';font-size:11px;opacity:.75}
+  .hx{font-size:clamp(34px,5vw,62px);font-weight:700;line-height:1.34;letter-spacing:-.015em;margin-bottom:20px;color:var(--cream)}
+  .hx .g{background:linear-gradient(100deg,var(--gold-soft),var(--gold) 55%,#e8890a);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hx .r{color:var(--crimson)}
+  .hx .w{display:inline-block;opacity:0;transform:translateY(26px) rotateX(-35deg);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+  .panel.live .hx .w{opacity:1;transform:none}
+  .px{font-size:16.5px;font-weight:500;color:#C9B8A8;max-width:520px;margin-bottom:28px}
+  .panel.center .px{margin-inline:auto}
+
+  .chips{display:flex;flex-wrap:wrap;gap:10px}
+  .chip{display:inline-flex;align-items:center;gap:8px;padding:9px 17px;border-radius:99px;border:1px solid rgba(246,235,221,.16);background:rgba(29,19,16,.55);backdrop-filter:blur(10px);font-size:12.5px;font-weight:700;color:var(--cream);opacity:0;transform:translateY(14px);transition:.5s var(--ease)}
+  .panel.live .chip{opacity:1;transform:none}
+  .panel.live .chip:nth-child(2){transition-delay:.1s}
+  .panel.live .chip:nth-child(3){transition-delay:.2s}
+  .panel.live .chip:nth-child(4){transition-delay:.3s}
+  .chip .en{font-size:11.5px;color:var(--gold)}
+  .chip .dot{width:7px;height:7px;border-radius:50%;background:var(--gold)}
+  .chip .dot.r{background:var(--crimson)}
+  .chip .dot.gr{background:#4ade80}
+
+  /* big hero title */
+  .mega{font-family:'Sora';font-weight:800;font-size:clamp(44px,7.2vw,104px);letter-spacing:-.03em;line-height:1.04;direction:ltr;color:var(--cream);margin-bottom:10px}
+  .mega .g{background:linear-gradient(100deg,var(--gold-soft),var(--gold) 50%,#e8890a);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub-ar{font-size:clamp(19px,2.3vw,28px);font-weight:600;color:#C9B8A8;margin-bottom:8px}
+
+  /* stats row (chapter 4) */
+  .metrics{display:flex;gap:14px;flex-wrap:wrap;margin-top:6px}
+  .met{min-width:150px;padding:20px 22px;border-radius:20px;border:1px solid rgba(246,235,221,.14);background:linear-gradient(160deg,rgba(29,19,16,.72),rgba(29,19,16,.45));backdrop-filter:blur(12px);opacity:0;transform:translateY(18px);transition:.6s var(--ease)}
+  .panel.live .met{opacity:1;transform:none}
+  .panel.live .met:nth-child(2){transition-delay:.12s}
+  .panel.live .met:nth-child(3){transition-delay:.24s}
+  .met b{font-family:'Sora';font-size:clamp(28px,3vw,40px);font-weight:800;display:flex;align-items:baseline;gap:2px;direction:ltr;line-height:1;color:var(--cream)}
+  .met b em{font-style:normal;font-size:.55em;color:var(--gold);transform:translateY(-.4em)}
+  .met.hero-num b{color:var(--gold)}
+  .met small{display:block;font-size:12px;font-weight:700;color:var(--mute);margin-top:8px}
+
+  /* CTA */
+  .ctas{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:34px}
+  .btn{font-family:inherit;font-size:15.5px;font-weight:800;cursor:pointer;border-radius:99px;padding:17px 36px;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:.28s var(--ease);border:none}
+  .btn-gold{background:linear-gradient(120deg,var(--gold-soft),var(--gold));color:#2a1a00;box-shadow:0 14px 40px rgba(249,161,27,.35)}
+  .btn-gold:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 20px 54px rgba(249,161,27,.5)}
+  .btn-line{background:transparent;color:var(--cream);border:1.5px solid rgba(246,235,221,.3)}
+  .btn-line:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-3px)}
+
+  footer{position:relative;z-index:10;text-align:center;padding:30px 20px 40px;color:#7d6d61;font-size:12.5px;font-weight:600}
+
+  @media (max-width:760px){
+    .rail{display:none}
+    .panel{padding:0 7vw}
+    .chapter{min-height:150vh}
+    .topbar{padding:16px 18px}
+    .brand b{font-size:14px}
+    .exit{padding:9px 16px;font-size:12px}
+    .met{min-width:124px;padding:16px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.01ms !important;transition-duration:.01ms !important}
+    .panel{opacity:1;transform:none}
+    .hx .w,.chip,.met{opacity:1 !important;transform:none !important}
+  }
+</style>
+</head>
+<body>
+
+<canvas id="cosmos" aria-hidden="true"></canvas>
+<div class="aurora" aria-hidden="true"><i class="a1"></i><i class="a2"></i></div>
+<div class="vignette" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div id="pbar" aria-hidden="true"></div>
+
+<div class="topbar">
+  <a class="brand" href="../index.html" aria-label="Keen Comply">
+    <svg viewBox="0 0 120 120" fill="none" aria-hidden="true">
+      <g transform="scale(0.6)" fill="none">
+          <g stroke="#F9A11B" stroke-width="21" stroke-linecap="square" stroke-linejoin="round">
+            <path d="M80 84 L143.6 37.7 A76 76 0 0 1 86.8 174.8"/>
+            <path d="M120 116 L56.4 162.3 A76 76 0 0 1 113.2 25.2"/>
+          </g>
+          <path d="M47 105 L79 133 L144 77" stroke="#C8102E" stroke-width="21" stroke-linecap="square" stroke-linejoin="round"/>
+        </g>
+    </svg>
+    <b>Keen Comply</b>
+  </a>
+  <a class="exit" href="../index.html">الموقع الرئيسي ←</a>
+</div>
+
+<nav class="rail" aria-label="فصول الرحلة">
+  <button data-t="البداية" data-ch="0" class="on"></button>
+  <button data-t="التشتت" data-ch="1"></button>
+  <button data-t="المحرك" data-ch="2"></button>
+  <button data-t="الحماية" data-ch="3"></button>
+  <button data-t="الرؤية" data-ch="4"></button>
+  <button data-t="الانطلاق" data-ch="5"></button>
+</nav>
+
+<div class="hint" id="hint"><span class="wheel"></span> مرر لتبدأ الرحلة</div>
+
+<!-- CH 0 : اللوجو -->
+<section class="chapter first" data-ch="0">
+  <div class="panel center">
+    <div class="panel-in">
+      <div class="mega"><span class="g">Keen</span> Comply</div>
+      <div class="sub-ar">رحلة الامتثال تبدأ هنا.</div>
+      <p class="px">تجربة تفاعلية قصيرة تروي كيف تتحول منشأتك من العمل اليدوي المشتت إلى حوكمة رقمية مؤتمتة — مشهداً بمشهد.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CH 1 : الفوضى -->
+<section class="chapter" data-ch="1">
+  <div class="panel">
+    <div class="panel-in">
+      <span class="kick"><span class="n en">01</span> الواقع الحالي</span>
+      <h2 class="hx"><span class="w">جداول</span> <span class="w">متناثرة.</span> <span class="w">أدلة</span> <span class="w">مفقودة.</span><br><span class="w r">ولوائح تتغير بلا إنذار.</span></h2>
+      <p class="px">فرق الامتثال تستهلك آلاف الساعات في مطاردة المرفقات والمراسلات، بينما تتراكم الفجوات في صمت — هذا هو التشتت الذي يسبق كل ملاحظة تدقيق.</p>
+      <div class="chips">
+        <span class="chip"><span class="dot r"></span> عمل يدوي متكرر</span>
+        <span class="chip"><span class="dot r"></span> فجوات غير مرئية</span>
+        <span class="chip"><span class="dot r"></span> تدقيق مرهق</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CH 2 : المحرك -->
+<section class="chapter" data-ch="2">
+  <div class="panel left">
+    <div class="panel-in">
+      <span class="kick"><span class="n en">02</span> التحول</span>
+      <h2 class="hx"><span class="w">محرك</span> <span class="w g">المطابقة</span> <span class="w g">الآلية</span><br><span class="w">يعيد ترتيب كل شيء.</span></h2>
+      <p class="px">يرتبط Keen Comply مباشرة بأنظمتك التقنية، فيسحب أدلة الامتثال ويطابقها مع الضوابط تلقائياً وبشكل دوري — نظام يعمل بالخلفية لتوفير وقتك.</p>
+      <div class="chips">
+        <span class="chip"><span class="dot"></span> ربط مباشر <span class="en">API / AD</span></span>
+        <span class="chip"><span class="dot"></span> جمع أدلة مؤتمت</span>
+        <span class="chip"><span class="dot"></span> مطابقة مستمرة <span class="en">24/7</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CH 3 : الدرع -->
+<section class="chapter" data-ch="3">
+  <div class="panel">
+    <div class="panel-in">
+      <span class="kick"><span class="n en">03</span> الجاهزية</span>
+      <h2 class="hx"><span class="w">جاهزية</span> <span class="w">تشريعية</span> <span class="w g">دائمة.</span></h2>
+      <p class="px">المنصة مجهزة مسبقاً بكافة الأطر الوطنية والدولية، وتتحدث آلياً فور صدور أي تعديل من المشرّع — فتبقى منشأتك مطابقة دون أن تلاحق أحداً.</p>
+      <div class="chips">
+        <span class="chip"><span class="dot gr"></span> <span class="en">NCA ECC</span> الأمن السيبراني</span>
+        <span class="chip"><span class="dot gr"></span> <span class="en">SAMA CSF</span> البنك المركزي</span>
+        <span class="chip"><span class="dot gr"></span> <span class="en">NDMO</span> حوكمة البيانات</span>
+        <span class="chip"><span class="dot gr"></span> <span class="en">ISO 27001 / 22301</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CH 4 : البيانات -->
+<section class="chapter" data-ch="4">
+  <div class="panel left">
+    <div class="panel-in">
+      <span class="kick"><span class="n en">04</span> الرؤية</span>
+      <h2 class="hx"><span class="w">قرارات</span> <span class="w">مبنية</span> <span class="w">على</span> <span class="w g">البيانات.</span></h2>
+      <p class="px">لوحة قيادة تنفيذية تحوّل سجلات المخاطر وأدلة الامتثال إلى مؤشرات حية — ترى موقفك الرقابي لحظة بلحظة، وتصدّر تقارير جاهزة للجان التدقيق.</p>
+      <div class="metrics">
+        <div class="met hero-num"><b><span data-cnt="94.2" data-dec="1">0</span><em>%</em></b><small>مؤشر الامتثال الشامل</small></div>
+        <div class="met"><b><span data-cnt="6000">0</span><em>+</em></b><small>إطار تنظيمي مدمج</small></div>
+        <div class="met"><b><span data-cnt="3500">0</span><em>+</em></b><small>ضابط رقابي جاهز</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CH 5 : الختام -->
+<section class="chapter last" data-ch="5">
+  <div class="panel center">
+    <div class="panel-in">
+      <span class="kick" style="justify-content:center"><span class="n en">05</span> الانطلاق</span>
+      <h2 class="hx"><span class="w">منصة</span> <span class="w">واحدة.</span> <span class="w g">سيطرة</span> <span class="w g">كاملة.</span></h2>
+      <p class="px">عشرة أنظمة متخصصة، أتمتة كاملة للأدلة، وجاهزية دائمة للوائح — كل ذلك في بيئة سيادية آمنة داخل المملكة.</p>
+      <div class="ctas">
+        <a class="btn btn-gold" href="../index.html#contact">احجز عرضاً مباشراً ←</a>
+        <a class="btn btn-line" href="../index.html">استكشف المنصة الكاملة</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Keen Comply — تجربة «رحلة الامتثال» الغامرة</footer>
+
+<script>
+"use strict";
+const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ==================================================================
+   COSMOS — zero-dependency morphing particle engine.
+   ~1500 particles fly between 6 sculpted 3D shapes as you scroll:
+   logo → chaos → engine torus → shield → data bars → globe.
+================================================================== */
+(function(){
+  const canvas = document.getElementById("cosmos");
+  const ctx = canvas.getContext("2d");
+  let W = 0, H = 0, dpr = 1, raf = null, running = true;
+  let mx = 0, my = 0, smx = 0, smy = 0;
+
+  const PAL = [
+    [249,161,27],   // 0 gold
+    [227,28,75],    // 1 crimson
+    [246,235,221],  // 2 cream
+    [124,109,97]    // 3 mute
+  ];
+
+  const isMobile = Math.min(window.innerWidth, window.innerHeight) < 700;
+  const N = isMobile ? 900 : 1500;
+
+  /* ---------- shape builders (each returns N pts {x,y,z,c}) ---------- */
+  const R2 = () => Math.random() * 6.28318;
+  function shapeLogo(){
+    const pts = [];
+    const nRing = Math.floor(N * 0.46), nHook = Math.floor(N * 0.14), nChk = N - nRing - nHook;
+    for (let i = 0; i < nRing; i++) {
+      const u = R2(), v = R2(), rr = 0.11 * (0.5 + Math.random() * 0.5);
+      pts.push({ x:(1.5+rr*Math.cos(v))*Math.cos(u), y:(1.5+rr*Math.cos(v))*Math.sin(u), z:rr*Math.sin(v), c:0 });
+    }
+    // the two S-hooks of the mark
+    const hooks = [
+      [{x:-0.39,y:-0.32},{x:0.86,y:-1.23}],
+      [{x:0.39,y:0.32},{x:-0.86,y:1.23}]
+    ];
+    for (let i = 0; i < nHook; i++) {
+      const h = hooks[i % 2], t = Math.random();
+      const a = R2(), rj = Math.random() * 0.07;
+      pts.push({ x:h[0].x+(h[1].x-h[0].x)*t+Math.cos(a)*rj, y:h[0].y+(h[1].y-h[0].y)*t+Math.sin(a)*rj*0.8, z:(Math.random()-.5)*0.09, c:0 });
+    }
+    const A={x:-1.25,y:0.12,z:0}, B={x:-0.49,y:0.78,z:0}, C={x:1.04,y:-0.54,z:0};
+    for (let i = 0; i < nChk; i++) {
+      const t = i / nChk;
+      let P, Q, tt;
+      if (t < 0.36) { P=A; Q=B; tt=t/0.36; } else { P=B; Q=C; tt=(t-0.36)/0.64; }
+      const a = R2(), rj = Math.random() * 0.085;
+      pts.push({ x:P.x+(Q.x-P.x)*tt+Math.cos(a)*rj, y:P.y+(Q.y-P.y)*tt+Math.sin(a)*rj*0.8, z:(Math.random()-.5)*0.09, c:1 });
+    }
+    return pts;
+  }
+  function shapeChaos(){
+    const pts = [];
+    for (let i = 0; i < N; i++) {
+      const r = 0.6 + Math.pow(Math.random(), 0.5) * 2.3;
+      const th = R2(), ph = Math.acos(2 * Math.random() - 1);
+      pts.push({
+        x: r * Math.sin(ph) * Math.cos(th),
+        y: r * Math.sin(ph) * Math.sin(th) * 0.75,
+        z: r * Math.cos(ph),
+        c: Math.random() < 0.14 ? 1 : 3
+      });
+    }
+    return pts;
+  }
+  function shapeEngine(){
+    // gyroscope: horizontal gold ring + vertical crimson ring + dense core
+    const pts = [];
+    const n1 = Math.floor(N * 0.42), n2 = Math.floor(N * 0.36), n3 = N - n1 - n2;
+    const R = 1.6;
+    for (let i = 0; i < n1; i++) {
+      const u = R2(), v = R2(), rr = 0.14 * (0.4 + Math.random() * 0.6);
+      pts.push({ x:(R+rr*Math.cos(v))*Math.cos(u), y:rr*Math.sin(v)*1.4, z:(R+rr*Math.cos(v))*Math.sin(u), c:0 });
+    }
+    for (let i = 0; i < n2; i++) {
+      const u = R2(), v = R2(), rr = 0.13 * (0.4 + Math.random() * 0.6), R2r = 1.15;
+      pts.push({ x:(R2r+rr*Math.cos(v))*Math.cos(u), y:(R2r+rr*Math.cos(v))*Math.sin(u), z:rr*Math.sin(v)*1.4, c:1 });
+    }
+    for (let i = 0; i < n3; i++) {
+      const r = Math.pow(Math.random(), 0.6) * 0.42;
+      const th = R2(), ph = Math.acos(2 * Math.random() - 1);
+      pts.push({ x:r*Math.sin(ph)*Math.cos(th), y:r*Math.sin(ph)*Math.sin(th), z:r*Math.cos(ph), c:2 });
+    }
+    return pts;
+  }
+  function shapeShield(){
+    const pts = [];
+    // shield silhouette: parametric outline (wide rounded top, tapered point)
+    const nOut = Math.floor(N * 0.55), nChk = Math.floor(N * 0.3), nTop = N - nOut - nChk;
+    for (let i = 0; i < nOut; i++) {
+      const a = (i / nOut) * Math.PI * 2;
+      const ca = Math.cos(a);
+      const x = 1.05 * Math.sin(a) * (0.78 + 0.22 * ca);
+      const y = -ca * (ca > 0 ? 0.92 : 1.22);
+      const j = () => (Math.random()-.5) * 0.09;
+      pts.push({ x: x + j(), y: y + j(), z: (Math.random()-.5)*0.22, c: 0 });
+    }
+    for (let i = 0; i < nTop; i++) { // flat top edge
+      pts.push({ x:(Math.random()-.5)*1.55, y:-0.92 + (Math.random()-.5)*0.09, z:(Math.random()-.5)*0.2, c:0 });
+    }
+    const A={x:-0.5,y:0.12,z:0}, B={x:-0.08,y:0.52,z:0}, C={x:0.66,y:-0.34,z:0};
+    for (let i = 0; i < nChk; i++) {
+      const t = i / nChk;
+      let P,Q,tt;
+      if (t < 0.36) { P=A;Q=B;tt=t/0.36; } else { P=B;Q=C;tt=(t-0.36)/0.64; }
+      const a = R2(), rj = Math.random()*0.07;
+      pts.push({ x:P.x+(Q.x-P.x)*tt+Math.cos(a)*rj, y:P.y+(Q.y-P.y)*tt+Math.sin(a)*rj*0.8, z:(Math.random()-.5)*0.12, c:1 });
+    }
+    return pts;
+  }
+  function shapeBars(){
+    const pts = [];
+    const bars = [
+      { x: -1.5, h: 0.55, c: 3 },
+      { x: -0.75, h: 0.95, c: 3 },
+      { x: 0, h: 1.35, c: 0 },
+      { x: 0.75, h: 1.75, c: 0 },
+      { x: 1.5, h: 2.15, c: 1 }
+    ];
+    const per = Math.floor(N / (bars.length + 1));
+    bars.forEach(b => {
+      for (let i = 0; i < per; i++) {
+        pts.push({
+          x: b.x + (Math.random()-.5)*0.42,
+          y: 1.15 - Math.random() * b.h,
+          z: (Math.random()-.5)*0.42,
+          c: b.c
+        });
+      }
+    });
+    while (pts.length < N) { // baseline
+      pts.push({ x:(Math.random()-.5)*3.6, y:1.2+(Math.random()-.5)*0.05, z:(Math.random()-.5)*0.3, c:2 });
+    }
+    return pts;
+  }
+  function shapeGlobe(){
+    const pts = [];
+    const GA = Math.PI * (3 - Math.sqrt(5));
+    for (let i = 0; i < N; i++) {
+      const yy = 1 - (i / (N - 1)) * 2;
+      const rad = Math.sqrt(1 - yy * yy);
+      const th = GA * i;
+      const band = Math.abs(yy % 0.28) < 0.03;
+      pts.push({ x: Math.cos(th)*rad*1.65, y: yy*1.65, z: Math.sin(th)*rad*1.65, c: band ? 1 : 0 });
+    }
+    return pts;
+  }
+
+  const SHAPES = [shapeLogo(), shapeChaos(), shapeEngine(), shapeShield(), shapeBars(), shapeGlobe()];
+  const CH = SHAPES.length;
+
+  /* per-chapter rotation: 'osc' sways around the front so the shape stays
+     readable; 'spin' rotates continuously for ambient sculptures */
+  const SPIN = [0.5, 0.06, 0.4, 0.45, 0.5, 0.2];
+  const MODE = ["osc", "spin", "spin", "osc", "osc", "spin"];
+  const rotOf = (i, time) => MODE[i] === "osc" ? Math.sin(time * SPIN[i]) * 0.3 : time * SPIN[i];
+  /* per-chapter shape offset so text panels never fight the sculpture:
+     0 center, 1 center, then alternate: panel right => shape left, etc. */
+  const OFFX = [0, -0.14, 0.24, -0.24, 0.24, 0]; // fraction of W (RTL: text default at right)
+
+  const parts = [];
+  for (let i = 0; i < N; i++) {
+    parts.push({ x:0, y:0, z:0, tw: R2(), sz: 0.9 + Math.random() * 1.7 });
+  }
+
+  function size(){
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth; H = window.innerHeight;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  const ease = t => t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3) / 2;
+  const lerp = (a, b, t) => a + (b - a) * t;
+
+  let scrollP = 0, smoothP = 0, t = 0;
+  const chapterEls = document.querySelectorAll(".chapter");
+  function measure(){
+    // map viewport midpoint onto chapter centers so the sculpture is fully
+    // formed exactly when its chapter text is on screen
+    const mid = window.scrollY + window.innerHeight / 2;
+    const centers = [];
+    chapterEls.forEach(s => centers.push(s.offsetTop + s.offsetHeight / 2));
+    if (mid <= centers[0]) { scrollP = 0; return; }
+    if (mid >= centers[centers.length - 1]) { scrollP = CH - 1; return; }
+    for (let i = 0; i < centers.length - 1; i++) {
+      if (mid >= centers[i] && mid < centers[i + 1]) {
+        scrollP = i + (mid - centers[i]) / (centers[i + 1] - centers[i]);
+        break;
+      }
+    }
+  }
+  window.addEventListener("scroll", measure, { passive: true });
+  measure();
+
+  function frame(){
+    if (!running) { raf = null; return; }
+    t += 0.016;
+    smoothP += (scrollP - smoothP) * 0.09;
+    ctx.clearRect(0, 0, W, H);
+
+    const a = Math.max(0, Math.min(CH - 1, Math.floor(smoothP)));
+    const b = Math.min(CH - 1, a + 1);
+    const tt = ease(Math.min(1, Math.max(0, smoothP - a)));
+    const SA = SHAPES[a], SB = SHAPES[b];
+
+    smx += (mx - smx) * 0.05;
+    smy += (my - smy) * 0.05;
+
+    const ry = lerp(rotOf(a, t), rotOf(b, t), tt) + smx * 0.45;
+    const rx = -0.24 + smy * 0.3 + Math.sin(t * 0.2) * 0.05;
+    const sY = Math.sin(ry), cY = Math.cos(ry), sX = Math.sin(rx), cX = Math.cos(rx);
+
+    const S = Math.min(W, H) * (isMobile ? 0.17 : 0.215);
+    const cx = W * 0.5 + lerp(OFFX[a], OFFX[b], tt) * W;
+    const cy = H * 0.5;
+    const persp = 4.1;
+
+    // during chaos chapter, particles jitter alive
+    const chaosAmt = (a === 1 ? 1 - tt : 0) + (b === 1 ? tt : 0);
+
+    for (let i = 0; i < N; i++) {
+      const p = parts[i], pa = SA[i], pb = SB[i];
+      let x = lerp(pa.x, pb.x, tt);
+      let y = lerp(pa.y, pb.y, tt);
+      let z = lerp(pa.z, pb.z, tt);
+      if (chaosAmt > 0.01) {
+        x += Math.sin(t * 1.7 + p.tw * 7) * 0.07 * chaosAmt;
+        y += Math.cos(t * 1.3 + p.tw * 5) * 0.07 * chaosAmt;
+        z += Math.sin(t * 2.1 + p.tw * 3) * 0.07 * chaosAmt;
+      }
+      // rotate Y then X
+      const x1 = x * cY + z * sY, z1 = -x * sY + z * cY;
+      const y1 = y * cX - z1 * sX, z2 = y * sX + z1 * cX;
+      const sc = persp / (persp + z2);
+      const px = cx + x1 * S * sc;
+      const py = cy + y1 * S * sc;
+      const depth = Math.max(0, Math.min(1, (z2 + 2.2) / 4.4));
+      // color: blend palettes of the two shapes
+      const ca = PAL[pa.c], cb = PAL[pb.c];
+      const rr = lerp(ca[0], cb[0], tt) | 0;
+      const gg = lerp(ca[1], cb[1], tt) | 0;
+      const bb = lerp(ca[2], cb[2], tt) | 0;
+      const alpha = (0.2 + depth * 0.65 + 0.08 * Math.sin(t * 2 + p.tw)).toFixed(3);
+      ctx.fillStyle = "rgba(" + rr + "," + gg + "," + bb + "," + alpha + ")";
+      const r = p.sz * sc * (0.55 + depth * 0.65);
+      ctx.beginPath(); ctx.arc(px, py, r, 0, 6.28318); ctx.fill();
+    }
+    raf = requestAnimationFrame(frame);
+  }
+
+  size();
+  window.addEventListener("resize", () => { size(); measure(); });
+  window.addEventListener("mousemove", e => {
+    mx = (e.clientX / W - .5) * 0.5;
+    my = (e.clientY / H - .5) * 0.4;
+  }, { passive: true });
+  document.addEventListener("visibilitychange", () => {
+    running = !document.hidden;
+    if (running && !raf && !reduceMotion) raf = requestAnimationFrame(frame);
+  });
+
+  if (reduceMotion) { smoothP = 0; t = 1; running = true; frame(); running = false; }
+  else raf = requestAnimationFrame(frame);
+})();
+
+/* ---------- chapters: live panels + rail + progress ---------- */
+(function(){
+  const chapters = document.querySelectorAll(".chapter");
+  const rail = document.querySelectorAll(".rail button");
+  const hint = document.getElementById("hint");
+  const pbar = document.getElementById("pbar");
+
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    const panel = e.target.querySelector(".panel");
+    if (e.isIntersecting) {
+      panel.classList.add("live");
+      const ch = +e.target.dataset.ch;
+      rail.forEach(btn => btn.classList.toggle("on", +btn.dataset.ch === ch));
+    } else {
+      panel.classList.remove("live");
+    }
+  }), { rootMargin: "-35% 0px -35% 0px" });
+  chapters.forEach(c => io.observe(c));
+
+  rail.forEach(btn => btn.addEventListener("click", () => {
+    const target = document.querySelector('.chapter[data-ch="' + btn.dataset.ch + '"]');
+    target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
+  }));
+
+  window.addEventListener("scroll", () => {
+    const doc = document.documentElement;
+    const p = window.scrollY / (doc.scrollHeight - doc.clientHeight);
+    pbar.style.width = (p * 100).toFixed(2) + "%";
+    hint.classList.toggle("gone", window.scrollY > 80);
+  }, { passive: true });
+})();
+
+/* ---------- counters ---------- */
+(function(){
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    io.unobserve(e.target);
+    const to = parseFloat(e.target.dataset.cnt);
+    const dec = +(e.target.dataset.dec || 0);
+    const t0 = performance.now(), dur = 1700;
+    const step = now => {
+      const p = Math.min((now - t0) / dur, 1);
+      const v = to * (1 - Math.pow(1 - p, 3));
+      e.target.textContent = dec ? v.toFixed(dec) : Math.round(v).toLocaleString("en-US");
+      if (p < 1) requestAnimationFrame(step);
+    };
+    reduceMotion ? e.target.textContent = dec ? to.toFixed(dec) : to.toLocaleString("en-US")
+                 : requestAnimationFrame(step);
+  }), { threshold: .6 });
+  document.querySelectorAll("[data-cnt]").forEach(el => io.observe(el));
+})();
+</script>
+</body>
+</html>
