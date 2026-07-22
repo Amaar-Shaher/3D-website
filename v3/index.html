@@ -24,7 +24,7 @@
     --ease:cubic-bezier(.2,.7,.2,1);
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth;scroll-padding-top:96px;overflow-x:clip}
+  html{scroll-behavior:smooth;scroll-padding-top:96px}
   body{font-family:'IBM Plex Sans Arabic',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
   ::selection{background:var(--crimson);color:#fff}
   a:focus-visible,button:focus-visible,input:focus-visible{outline:2.5px solid var(--gold);outline-offset:3px;border-radius:8px}
@@ -395,7 +395,7 @@
   .fsuccess button:hover{background:rgba(255,255,255,.18)}
 
   /* ============ sectors ============ */
-  .sectors{padding:72px 0 96px;text-align:center}
+  .sectors{padding:72px 0 96px;text-align:center;overflow:hidden}
   .sectors h2{font-size:12px;font-weight:700;letter-spacing:.14em;color:#a39a93;margin-bottom:30px}
   .sector-row{display:flex;flex-wrap:wrap;justify-content:center;gap:14px}
   .sector{display:flex;align-items:center;gap:11px;padding:13px 24px;border-radius:99px;background:var(--white);border:1px solid var(--line);font-size:14px;font-weight:700;color:#4a443f;transition:.25s}

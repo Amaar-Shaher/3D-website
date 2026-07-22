@@ -503,7 +503,7 @@ const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-mo
       const rr = lerp(ca[0], cb[0], tt) | 0;
       const gg = lerp(ca[1], cb[1], tt) | 0;
       const bb = lerp(ca[2], cb[2], tt) | 0;
-      const alpha = (0.2 + depth * 0.65 + 0.08 * Math.sin(t * 2 + p.tw)).toFixed(3);
+      const alpha = ((0.2 + depth * 0.65 + 0.08 * Math.sin(t * 2 + p.tw)) * (isMobile ? 0.5 : 1)).toFixed(3);
       ctx.fillStyle = "rgba(" + rr + "," + gg + "," + bb + "," + alpha + ")";
       const r = p.sz * sc * (0.55 + depth * 0.65);
       ctx.beginPath(); ctx.arc(px, py, r, 0, 6.28318); ctx.fill();
