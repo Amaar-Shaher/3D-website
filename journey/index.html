@@ -286,7 +286,7 @@ const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-mo
     [125,112,100]   // 3 slate
   ];
 
-  const isMobile = Math.min(window.innerWidth, window.innerHeight) < 700;
+  const isMobile = window.innerWidth < 760;
   const N = isMobile ? 900 : 1500;
 
   /* ---------- shape builders (each returns N pts {x,y,z,c}) ---------- */
@@ -447,7 +447,7 @@ const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-mo
         // plateau: hold the sculpture while its chapter is on screen,
         // morph only inside the gap between chapters (frac 0.22 -> 0.78)
         const frac = (mid - centers[i]) / (centers[i + 1] - centers[i]);
-        scrollP = i + Math.max(0, Math.min(1, (frac - 0.22) / 0.56));
+        scrollP = i + Math.max(0, Math.min(1, (frac - 0.38) / 0.24));
         break;
       }
     }

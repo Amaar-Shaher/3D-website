@@ -475,7 +475,7 @@ const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-mo
   const canvas = document.getElementById("cosmos");
   const ctx = canvas.getContext("2d");
   let W=0,H=0,dpr=1,raf=null,running=true,mx=0,my=0,smx=0,smy=0;
-  const isMobile = Math.min(window.innerWidth, window.innerHeight) < 700;
+  const isMobile = window.innerWidth < 760;
   const N = isMobile ? 850 : 1400;
   const R2 = () => Math.random() * 6.28318;
   const hx = h => { const n = parseInt(h.slice(1),16); return [n>>16&255,n>>8&255,n&255]; };
@@ -635,7 +635,7 @@ const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-mo
         // plateau: hold the sculpture in place while its chapter is on screen,
         // morph only inside the empty gap between chapters (frac 0.22 -> 0.78)
         const frac=(mid-centers[i])/(centers[i+1]-centers[i]);
-        scrollP=i+Math.max(0,Math.min(1,(frac-0.22)/0.56));
+        scrollP=i+Math.max(0,Math.min(1,(frac-0.38)/0.24));
         break;
       }
     }
