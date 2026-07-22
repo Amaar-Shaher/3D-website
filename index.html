@@ -275,12 +275,14 @@
   .xhl{display:flex;gap:12px;align-items:flex-start;margin-top:20px;padding:15px 18px;border-radius:15px;background:var(--paper);border:1px solid var(--line);max-width:560px}
   .xhl .hk{width:26px;height:26px;border-radius:50%;background:rgba(46,157,92,.12);color:var(--green);display:grid;place-items:center;flex-shrink:0;margin-top:1px}
   .xhl p{font-size:13.5px;font-weight:700;color:#3d3733;line-height:1.8}
-  .xfoot{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:24px;padding-top:18px;border-top:1px solid var(--line);max-width:560px}
+  .xfoot{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:24px;padding-top:18px;border-top:1px solid var(--line);max-width:560px}
   .xcount{font-family:'Sora';font-size:13px;font-weight:700;color:var(--slate);direction:ltr}
   .xcount b{color:var(--crimson);font-size:16px}
   .xnav{display:flex;gap:10px}
   .xbtn{width:44px;height:44px;border-radius:13px;border:1px solid var(--line);background:var(--white);cursor:pointer;display:grid;place-items:center;color:var(--ink);transition:.2s;font-family:inherit}
   .xbtn:hover{background:var(--crimson);border-color:var(--crimson);color:#fff;transform:translateY(-2px)}
+  .xstory{font-size:12px;font-weight:800;color:var(--crimson);text-decoration:none;padding:9px 15px;border:1px solid rgba(193,2,48,.25);border-radius:11px;transition:.2s;white-space:nowrap}
+  .xstory:hover{background:var(--crimson);color:#fff;transform:translateY(-2px)}
   /* metrics inside explorer panel */
   .xmetrics{display:flex;gap:12px;margin-top:22px;max-width:560px}
   .xm{flex:1;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:14px 10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;text-align:center;min-width:0}
@@ -309,6 +311,8 @@
   .xpl-panel.darkp .xcount b{color:var(--gold)}
   .xpl-panel.darkp .xbtn{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.3);color:#fff}
   .xpl-panel.darkp .xbtn:hover{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+  .xpl-panel.darkp .xstory{color:var(--gold);border-color:rgba(249,157,28,.45)}
+  .xpl-panel.darkp .xstory:hover{background:var(--gold);color:var(--ink)}
   .xpl-panel.darkp .xhl{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18)}
   .xpl-panel.darkp .xhl p{color:rgba(255,255,255,.92)}
 
@@ -908,7 +912,7 @@
       <span>Keen Comply</span>
     </div>
     <p>© 2026 Keen Comply. منصة سيادية متوافقة مع متطلبات الأمن السيبراني والبيانات.</p>
-    <p style="margin-top:10px"><a href="journey/index.html" style="color:var(--crimson);font-weight:700;text-decoration:none">✨ التجربة الغامرة — رحلة الامتثال (الهوية الفاتحة)</a> &nbsp;·&nbsp; <a href="experience/index.html" style="color:var(--slate);font-weight:700;text-decoration:none">النسخة الداكنة</a></p>
+    <p style="margin-top:10px"><a href="systems/index.html" style="color:var(--crimson);font-weight:700;text-decoration:none">🧭 رحلة الأنظمة العشرة</a> &nbsp;·&nbsp; <a href="journey/index.html" style="color:var(--crimson);font-weight:700;text-decoration:none">✨ التجربة الغامرة — رحلة الامتثال (الهوية الفاتحة)</a> &nbsp;·&nbsp; <a href="experience/index.html" style="color:var(--slate);font-weight:700;text-decoration:none">النسخة الداكنة</a></p>
   </div>
 </footer>
 
@@ -1094,6 +1098,7 @@ const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-mo
         '<div class="xm"><span class="xbars">' + m.viz.bars.map(function(b){ return '<i title="' + b.n + '" style="background:' + (b.c || m.acc) + '"></i>'; }).join("") + '</span><small>' + m.viz.label + '</small></div>' +
       '</div>' +
       '<div class="xfoot"><span class="xcount"><b>' + pad(i) + '</b> / ' + pad(M.length - 1) + '</span>' +
+      '<a class="xstory" href="systems/index.html#sys-' + pad(i) + '">القصة التفاعلية ↗</a>' +
       '<span class="xnav"><button class="xbtn" id="xprev" aria-label="النظام السابق">‹</button>' +
       '<button class="xbtn" id="xnext" aria-label="النظام التالي">›</button></span></div>';
     inner.style.animation = "none";
