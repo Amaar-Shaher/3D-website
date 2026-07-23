@@ -1643,7 +1643,7 @@ function resetForm() {
   const canvas = document.getElementById("cosmos");
   const ctx = canvas.getContext("2d");
   let W=0,H=0,dpr=1,raf=null,running=true,mx=0,my=0,smx=0,smy=0;
-  const isMobile = window.innerWidth < 760;
+  let isMobile = window.innerWidth < 760;
   const N = isMobile ? 850 : 1400;
   const R2 = () => Math.random() * 6.28318;
   const hx = h => { const n = parseInt(h.slice(1),16); return [n>>16&255,n>>8&255,n&255]; };
@@ -1880,12 +1880,12 @@ function resetForm() {
 
   const parts=[]; for(let i=0;i<N;i++) parts.push({tw:R2(),sz:0.9+Math.random()*1.7});
 
-  function size(){dpr=Math.min(window.devicePixelRatio||1,2);W=window.innerWidth;H=window.innerHeight;
+  function size(){dpr=Math.min(window.devicePixelRatio||1,2);W=window.innerWidth;H=window.innerHeight;isMobile=W<760;
     canvas.width=W*dpr;canvas.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);}
   const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
   const lerp=(a,b,t)=>a+(b-a)*t;
 
-  let scrollP=0,smoothP=0,t=0,fadeK=1,bandS=0,visT=1,visS=1;
+  let scrollP=0,smoothP=0,t=0,fadeK=1,visT=1,visS=1;
   const chapterEls=document.querySelectorAll(".tour .chapter");
   function measure(){
     const mid=window.scrollY+window.innerHeight/2, centers=[];
@@ -1929,21 +1929,28 @@ function resetForm() {
     const dimF=lerp(DIM[a],DIM[b],tt);
     const cx=W*0.5+lerp(OFFX[a],OFFX[b],tt)*(W<=1020?0:W);
     let cy=H*(0.5+lerp(OFFY[a],OFFY[b],tt));
+    let zoneK=1;
     if(isMobile){
-      // center the sculpture in the free band below the readings card,
-      // scaled to fit with even breathing room
+      // geometric guarantee: the sculpture lives strictly inside the free
+      // zone of its own chapter — below the readings card, above the
+      // chapter bottom — measured fresh every frame with no smoothing,
+      // so overlap with content is impossible at any scroll position
       const dom=chapterEls[Math.max(0,Math.min(CH-1,Math.round(smoothP)))];
-      const sc0=dom&&dom.querySelector(".scard");
-      if(sc0&&visT>0.6){const rb=sc0.getBoundingClientRect().bottom;
-        if(rb>H*0.25&&rb<H*0.92){if(!bandS)bandS=rb;bandS+=(rb-bandS)*0.15;}}
-      if(!bandS)bandS=H*0.62;
-      const band=H-bandS;
-      cy=bandS+band*0.52;
-      S=Math.min(S,band*0.135);
+      const sc0=dom.querySelector(".scard");
+      const chB=dom.getBoundingClientRect().bottom;
+      const zT=Math.max((sc0?sc0.getBoundingClientRect().bottom:H*0.55)+10,0);
+      const zB=Math.min(chB-10,H-8);
+      const zone=zB-zT;
+      if(zone<90){zoneK=0;}
+      else{
+        zoneK=Math.min(1,(zone-90)/70);
+        cy=zT+zone*0.52;
+        S=Math.min(S,zone*0.16);
+      }
     }
     const persp=4.1;
     visS+=(visT-visS)*0.16;
-    const mobT=isMobile?visS:1;
+    const mobT=isMobile?visS*zoneK:1;
     const spiralAng=(1-tt)*2.3, burstK=1+Math.sin(Math.PI*tt)*(isMobile?0.3:1.05), depthZ=(1-tt)*6;
     const cosA=Math.cos(spiralAng),sinA=Math.sin(spiralAng);
     for(let i=0;i<N;i++){
