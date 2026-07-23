@@ -1885,7 +1885,7 @@ function resetForm() {
   const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
   const lerp=(a,b,t)=>a+(b-a)*t;
 
-  let scrollP=0,smoothP=0,t=0,fadeK=1,bandS=0;
+  let scrollP=0,smoothP=0,t=0,fadeK=1,bandS=0,visT=1,visS=1;
   const chapterEls=document.querySelectorAll(".tour .chapter");
   function measure(){
     const mid=window.scrollY+window.innerHeight/2, centers=[];
@@ -1893,13 +1893,17 @@ function resetForm() {
     // dissolve the sculpture at the tour boundaries so it never rides over
     // the stable sections before/after the tour
     const hold=window.innerHeight*0.25, span=window.innerHeight*0.5;
-    if(mid<=centers[0]){scrollP=0;fadeK=Math.max(0,Math.min(1,1-((centers[0]-mid)-hold)/span));return;}
-    if(mid>=centers[centers.length-1]){scrollP=CH-1;fadeK=Math.max(0,Math.min(1,1-((mid-centers[centers.length-1])-hold)/span));return;}
+    if(mid<=centers[0]){scrollP=0;visT=1;fadeK=Math.max(0,Math.min(1,1-((centers[0]-mid)-hold)/span));return;}
+    if(mid>=centers[centers.length-1]){scrollP=CH-1;visT=1;fadeK=Math.max(0,Math.min(1,1-((mid-centers[centers.length-1])-hold)/span));return;}
     fadeK=1;
     for(let i=0;i<centers.length-1;i++){
       if(mid>=centers[i]&&mid<centers[i+1]){
         const frac=(mid-centers[i])/(centers[i+1]-centers[i]);
         scrollP=i+Math.max(0,Math.min(1,(frac-0.38)/0.24));
+        // on mobile the sculpture only lives while its chapter is settled
+        // near the viewport center; it dissolves as the panel moves
+        const d=Math.min(frac,1-frac);
+        visT=Math.max(0,Math.min(1,(0.30-d)/0.12));
         break;
       }
     }
@@ -1930,7 +1934,7 @@ function resetForm() {
       // scaled to fit with even breathing room
       const dom=chapterEls[Math.max(0,Math.min(CH-1,Math.round(smoothP)))];
       const sc0=dom&&dom.querySelector(".scard");
-      if(sc0){const rb=sc0.getBoundingClientRect().bottom;
+      if(sc0&&visT>0.6){const rb=sc0.getBoundingClientRect().bottom;
         if(rb>H*0.25&&rb<H*0.92){if(!bandS)bandS=rb;bandS+=(rb-bandS)*0.15;}}
       if(!bandS)bandS=H*0.62;
       const band=H-bandS;
@@ -1938,7 +1942,8 @@ function resetForm() {
       S=Math.min(S,band*0.135);
     }
     const persp=4.1;
-    const mobT=isMobile?Math.max(0,1-Math.sin(Math.PI*tt)*1.15):1;
+    visS+=(visT-visS)*0.16;
+    const mobT=isMobile?visS:1;
     const spiralAng=(1-tt)*2.3, burstK=1+Math.sin(Math.PI*tt)*(isMobile?0.3:1.05), depthZ=(1-tt)*6;
     const cosA=Math.cos(spiralAng),sinA=Math.sin(spiralAng);
     for(let i=0;i<N;i++){
