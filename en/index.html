@@ -531,6 +531,20 @@
     .scard{gap:9px}
     .sc{padding:12px 6px}
   }
+  @media (max-width:760px){
+    .panel{padding:78px 6vw 0}
+    .kick{margin-bottom:14px;padding:6px 13px;font-size:11px}
+    .hx{font-size:clamp(22px,6vw,27px);margin-bottom:12px}
+    .px{font-size:14px;margin-bottom:16px}
+    .chips{gap:8px}
+    .chip{padding:7px 13px;font-size:11px}
+    .scard{margin-top:14px}
+    .sc{padding:10px 5px;gap:5px}
+    .sc .kv{font-size:18px}
+    .sring{width:46px;height:46px}
+    .sc small{font-size:10px}
+    .sbars{height:30px}
+  }
   @media (prefers-reduced-motion:reduce){
     .panel{opacity:1;transform:none}
     .hx .w,.chip,.scard,.pnav{opacity:1 !important;transform:none !important}
@@ -1877,7 +1891,7 @@ function resetForm() {
   const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
   const lerp=(a,b,t)=>a+(b-a)*t;
 
-  let scrollP=0,smoothP=0,t=0,fadeK=1;
+  let scrollP=0,smoothP=0,t=0,fadeK=1,bandS=0;
   const chapterEls=document.querySelectorAll(".tour .chapter");
   function measure(){
     const mid=window.scrollY+window.innerHeight/2, centers=[];
@@ -1913,10 +1927,22 @@ function resetForm() {
     const ry=lerp(rotOf(a,t),rotOf(b,t),tt)+smx*0.4;
     const rx=-0.2+smy*0.28+Math.sin(t*0.2)*0.04;
     const sY=Math.sin(ry),cY=Math.cos(ry),sX=Math.sin(rx),cX=Math.cos(rx);
-    const S=Math.min(W,H)*(isMobile?0.125:0.19)*lerp(SCALE[a],SCALE[b],tt);
+    let S=Math.min(W,H)*(isMobile?0.14:0.19)*lerp(SCALE[a],SCALE[b],tt);
     const dimF=lerp(DIM[a],DIM[b],tt);
     const cx=W*0.5+lerp(OFFX[a],OFFX[b],tt)*(W<=1020?0:W);
-    const cy=H*((isMobile?0.78:0.5)+lerp(OFFY[a],OFFY[b],tt)*(isMobile?0.25:1));
+    let cy=H*(0.5+lerp(OFFY[a],OFFY[b],tt));
+    if(isMobile){
+      // center the sculpture in the free band below the readings card,
+      // scaled to fit with even breathing room
+      const dom=chapterEls[Math.max(0,Math.min(CH-1,Math.round(smoothP)))];
+      const sc0=dom&&dom.querySelector(".scard");
+      if(sc0){const rb=sc0.getBoundingClientRect().bottom;
+        if(rb>H*0.25&&rb<H*0.92){if(!bandS)bandS=rb;bandS+=(rb-bandS)*0.15;}}
+      if(!bandS)bandS=H*0.62;
+      const band=H-bandS;
+      cy=bandS+band*0.52;
+      S=Math.min(S,band*0.135);
+    }
     const persp=4.1;
     const mobT=isMobile?Math.max(0,1-Math.sin(Math.PI*tt)*1.15):1;
     const spiralAng=(1-tt)*2.3, burstK=1+Math.sin(Math.PI*tt)*(isMobile?0.3:1.05), depthZ=(1-tt)*6;
