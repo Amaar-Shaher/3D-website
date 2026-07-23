@@ -443,9 +443,10 @@
     section{padding:68px 0}
     .xheroic{width:88px;height:88px}
     .cform .frow{grid-template-columns:1fr}
-    .stage{height:480px}
-    .fcard-a{width:78%}
-    .fcard-b{width:74%}
+    .stage{height:auto;perspective:none;max-width:100%}
+    .stage-inner{position:static;transform:none !important}
+    .fcard{position:static;transform:none !important;animation:none;margin-bottom:14px;width:100% !important;backdrop-filter:none}
+    .fcard-c{display:inline-flex;margin-bottom:0}
     nav{height:68px}
     .brand svg{width:38px;height:38px}
     .brand-name{font-size:16px}

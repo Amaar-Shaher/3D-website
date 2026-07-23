@@ -443,9 +443,10 @@
     section{padding:68px 0}
     .xheroic{width:88px;height:88px}
     .cform .frow{grid-template-columns:1fr}
-    .stage{height:480px}
-    .fcard-a{width:78%}
-    .fcard-b{width:74%}
+    .stage{height:auto;perspective:none;max-width:100%}
+    .stage-inner{position:static;transform:none !important}
+    .fcard{position:static;transform:none !important;animation:none;margin-bottom:14px;width:100% !important;backdrop-filter:none}
+    .fcard-c{display:inline-flex;margin-bottom:0}
     nav{height:68px}
     .brand svg{width:38px;height:38px}
     .brand-name{font-size:16px}
@@ -1942,7 +1943,7 @@ function resetForm() {
     const S=Math.min(W,H)*(isMobile?0.16:0.19)*lerp(SCALE[a],SCALE[b],tt);
     const dimF=lerp(DIM[a],DIM[b],tt);
     const cx=W*0.5+lerp(OFFX[a],OFFX[b],tt)*(isMobile?0:W);
-    const cy=H*(0.5+lerp(OFFY[a],OFFY[b],tt)*(isMobile?0.4:1));
+    const cy=H*((isMobile?0.72:0.5)+lerp(OFFY[a],OFFY[b],tt)*(isMobile?0.4:1));
     const persp=4.1;
     const spiralAng=(1-tt)*2.3, burstK=1+Math.sin(Math.PI*tt)*1.05, depthZ=(1-tt)*6;
     const cosA=Math.cos(spiralAng),sinA=Math.sin(spiralAng);
